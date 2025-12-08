@@ -37,6 +37,10 @@ GSS supports plenty of the fundamental CSS selector operators and CSS properties
 ## Rendering GSS
 
 ```go
+package main
+
+import "go.ufukty.com/gss/pkg/render"
+
 content := struct{
   Author string
   ImgSrc string
@@ -46,7 +50,7 @@ content := struct{
   ImgSrc: "../lorem.png"
   Title:  "Lorem ipsum dolor sit amet."
 }
-err := gss.Render(writer, "elements.html", "styles.css", "#main", content)
+err := render.Gss(writer, "elements.html", "styles.css", "#main", content)
 ```
 
 ##
