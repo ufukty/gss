@@ -25,15 +25,11 @@ selector {
 }
 ```
 
-**Outside**
-
 GSS supports both the `inline` and `block` display modes. Defaults are `block` for `div` and `inline` for `img` and `span`. Subsequent inline elements share a line. Block elements sits alone in their lines.
 
-When there are elements with both of the outside positioning values as in the siblings `inline`, `inline`, `inline`, `block`, `inline` GSS renders them in 3 lines by putting the first 3 at the same line. If the container element of those has an inside positioning value other than the `flow` (which is the default) those values will be ignored.
+When there are elements with both of the outside positioning values as in the siblings `inline`, `inline`, `inline`, `block`, `inline` GSS renders them in 3 lines by putting the first 3 at the same line.
 
-**Inside**
-
-Please note that when container has been set to either of `grid` and `flex` children's own choices between `block` and `inline` is ignored.
+Please note that when an element has been set to other than `flow` for inside positioning (eg. `grid`, `flex`) outside positioning option of children (eg. `block`, `inline`) will be ignored.
 
 ### Dimensions
 
