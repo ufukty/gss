@@ -17,7 +17,7 @@ ancestor successor
 
 ### Display
 
-Display property accepts two values each for outside and inside positioning behavior. The outside is for the behavior of element inside its parent which is considered as outside . The inside is for laying its children.
+Display property accepts two values each for outside and inside positioning behavior. The outside is for the behavior of element inside its parent. The inside is for laying its children.
 
 ```css
 selector {
