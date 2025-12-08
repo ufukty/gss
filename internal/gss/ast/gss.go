@@ -16,3 +16,12 @@ type Styles struct {
 	Color           tokens.Color           `gss:"color"`
 	BackgroundColor tokens.BackgroundColor `gss:"background-color"`
 }
+
+type Rule struct {
+	Selector string
+	Styles   Styles
+}
+
+type Gss struct {
+	Rules []Rule
+}
