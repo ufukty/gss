@@ -17,7 +17,7 @@ ancestor successor
 
 ### Display
 
-**Element positioning**
+**Outside**
 
 GSS supports both the `inline` and `block` display modes. Defaults are `block` for `div` and `inline` for `img` and `span`.
 
