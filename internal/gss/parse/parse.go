@@ -6,14 +6,12 @@ import (
 	"go.ufukty.com/gss/internal/gss/ast"
 )
 
-func Gss(r io.Reader) (*ast.Element, error) {
-	root := &ast.Element{
-		Parent:   &ast.Element{},
-		Children: []*ast.Element{},
-		Tag:      "",
-		Id:       "",
-		Classes:  []string{},
-		Styles:   ast.Styles{},
+func rule(src io.Reader) (*ast.Rule, error)
+
+func Gss(r io.Reader) (*ast.Gss, error) {
+	g := &ast.Gss{
+		Rules: []*ast.Rule{},
 	}
-	return nil, nil
+
+	return g, nil
 }
