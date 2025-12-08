@@ -6,11 +6,17 @@ GSS supports `div`, `span` and `img` tags.
 
 ## Selectors
 
-GSS supports the direct and indirect parenting relations in selectors:
+GSS supports selecting set of elements based on the tag name, id, class name and direct or indirect container.
 
-```css
-parent > child
-ancestor successor
+```
+*
+#an-id
+.a-class
+img
+div
+span
+#main > .title
+#main .preheading
 ```
 
 ## Layout
