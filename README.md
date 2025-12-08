@@ -8,9 +8,9 @@ User provide two files. One is for the hierarchy of elements:
 
 ```html
 <div id="main">
-  <div id="title">{{.Title}}</div>
-  <img src="{{.ImgSrc}}" />
-  <div id="author">{{.Author}}</div>
+  <div id="title">Do we really need to span a browser to render some HTML and CSS?</div>
+  <img srcset="bugs@2x.png 2x, bugs@3x 3x" />
+  <div id="author">Bugs Bunny</div>
 </div>
 ```
 
@@ -41,16 +41,12 @@ package main
 
 import "go.ufukty.com/gss/pkg/render"
 
-content := struct{
-  Author string
-  ImgSrc string
-  Title  string
-}{
-  Author: "Adipscing Elit"
-  ImgSrc: "../lorem.png"
-  Title:  "Lorem ipsum dolor sit amet."
+viewport = render.ViewportOptions{
+  Width:   "400px",
+  Height:  "300px",
+  Density: "2x",
 }
-err := render.Gss(writer, "elements.html", "styles.css", "#main", content)
+err := render.Gss(writer, "elements.html", "styles.css", "#main", viewport)
 ```
 
 ##
