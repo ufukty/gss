@@ -11,3 +11,7 @@ type Element struct {
 	Id      string
 	Classes []string
 }
+
+type HTML struct {
+	Root *Element
+}
