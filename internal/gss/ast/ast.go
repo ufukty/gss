@@ -25,6 +25,4 @@ type Element struct {
 
 	Id      string
 	Classes []string
-
-	Styles Styles
 }
