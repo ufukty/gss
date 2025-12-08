@@ -27,7 +27,7 @@ selector {
 }
 ```
 
-**Children positioning**
+**Inside**
 
 ```css
 selector {
