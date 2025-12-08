@@ -5,6 +5,12 @@ import (
 	"go.ufukty.com/gss/internal/gss/tokens"
 )
 
+var Defaults = map[string]ast.Styles{
+	"Div":  Div,
+	"Img":  Img,
+	"Span": Span,
+}
+
 var Div = ast.Styles{
 	Display:         tokens.Display_Block,
 	Width:           tokens.Width_Auto,
@@ -15,7 +21,7 @@ var Div = ast.Styles{
 	BackgroundColor: tokens.BackgroundColor_Inherit,
 }
 
-var Span = ast.Styles{
+var Img = ast.Styles{
 	Display:         tokens.Display_Inline,
 	Width:           tokens.Width_Auto,
 	Height:          tokens.Height_Auto,
@@ -25,7 +31,7 @@ var Span = ast.Styles{
 	BackgroundColor: tokens.BackgroundColor_Inherit,
 }
 
-var Img = ast.Styles{
+var Span = ast.Styles{
 	Display:         tokens.Display_Inline,
 	Width:           tokens.Width_Auto,
 	Height:          tokens.Height_Auto,
