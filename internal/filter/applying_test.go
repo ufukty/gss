@@ -42,27 +42,27 @@ func Test_Applying(t *testing.T) {
 
 	gss := &ast.Gss{
 		Rules: []*ast.Rule{
-			&ast.Rule{"main", a},
-			&ast.Rule{".title", b},
-			&ast.Rule{"div.title", c},
-			&ast.Rule{"img", d},
-			&ast.Rule{"main .author", e},
-			&ast.Rule{"main > .author", f},
+			{"main", a},
+			{".title", b},
+			{"div.title", c},
+			{"img", d},
+			{"main .author", e},
+			{"main > .author", f},
 		},
 	}
 
 	tcs := map[*ast.Element][]*ast.Styles{
-		main:   []*ast.Styles{a},
-		title:  []*ast.Styles{b, c},
-		img:    []*ast.Styles{d},
-		author: []*ast.Styles{e, f},
+		main:   {a},
+		title:  {b, c},
+		img:    {d},
+		author: {e, f},
 	}
 
 	for target, expected := range tcs {
 		t.Run(reflect.ValueOf(target).String(), func(t *testing.T) {
 			got := Applying(target, gss.Rules)
 			if len(expected) != len(got) {
-				t.Error("expected %v got %v", expected, got)
+				t.Errorf("expected %v got %v", expected, got)
 			}
 		})
 	}
