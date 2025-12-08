@@ -16,13 +16,3 @@ type Styles struct {
 	Color           tokens.Color           `gss:"color"`
 	BackgroundColor tokens.BackgroundColor `gss:"background-color"`
 }
-
-type Element struct {
-	Parent   *Element
-	Children []*Element
-
-	Tag tokens.Tag
-
-	Id      string
-	Classes []string
-}
