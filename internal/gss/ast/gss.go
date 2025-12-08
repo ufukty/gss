@@ -23,5 +23,5 @@ type Rule struct {
 }
 
 type Gss struct {
-	Rules []Rule
+	Rules []*Rule
 }
