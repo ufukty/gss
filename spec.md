@@ -45,6 +45,8 @@ Although when an element has calculated under inherited dimensional constrained 
 
 ### Background
 
+GSS accepts both the long and short form of 3-channel and 4-channel HEX based color values. Such as `#FF0000` for red and `#FFF8` for half-transperent white.
+
 ```css
 selector {
   background: [ #RRGGBB | #RGB | #RRGGBBAA | #RGBA];
