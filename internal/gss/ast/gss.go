@@ -19,7 +19,7 @@ type Styles struct {
 
 type Rule struct {
 	Selector string
-	Styles   Styles
+	Styles   *Styles
 }
 
 type Gss struct {
