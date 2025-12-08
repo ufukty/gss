@@ -12,6 +12,6 @@ type Element struct {
 	Classes []string
 }
 
-type HTML struct {
+type Html struct {
 	Root *Element
 }
