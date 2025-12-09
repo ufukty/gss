@@ -26,11 +26,6 @@ type dimensional struct {
 
 var leaves = []tokens.Tag{tokens.Tag_Img}
 
-func has[K comparable, V any](m map[K]V, k K) bool {
-	_, ok := m[k]
-	return ok
-}
-
 // TODO: account cascading
 // TODO: composite pattern?
 func intrinsicSizes(elem *ast.Element, applying []*ast.Rule, opts *opts) (min, max size, err error) {
