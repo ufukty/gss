@@ -6,28 +6,34 @@ type Element interface {
 	elem()
 }
 
-type element struct {
-	Tag        tokens.Tag
-	Id         string
-	Classes    []string
-	Attributes map[string]string
-	Parent     Element
-	Children   []Element
-}
-
 type (
 	Div struct {
-		element
+		Tag      tokens.Tag
+		Id       string
+		Classes  []string
+		Parent   Element
+		Children []Element
+
 		TextContent string
 	}
 
 	Span struct {
-		element
+		Tag      tokens.Tag
+		Id       string
+		Classes  []string
+		Parent   Element
+		Children []Element
+
 		TextContent string
 	}
 
 	Img struct {
-		element
+		Tag      tokens.Tag
+		Id       string
+		Classes  []string
+		Parent   Element
+		Children []Element
+
 		Src    string
 		SrcSet map[float64]string
 	}
