@@ -5,30 +5,14 @@ import (
 	"testing"
 
 	"go.ufukty.com/gss/internal/gss/ast"
-	"go.ufukty.com/gss/internal/gss/tokens"
 )
 
 func Test_Applying(t *testing.T) {
 	var (
-		title = &ast.Element{
-			Tag:     tokens.Tag_Div,
-			Classes: []string{"title"},
-		}
-		img = &ast.Element{
-			Tag: tokens.Tag_Img,
-			Attributes: map[string]string{
-				"src": "./profile.png",
-			},
-		}
-		author = &ast.Element{
-			Tag:     tokens.Tag_Div,
-			Classes: []string{"author"},
-		}
-		main = &ast.Element{
-			Tag:      tokens.Tag_Div,
-			Id:       "main",
-			Children: []*ast.Element{title, img, author},
-		}
+		title  = &ast.Div{Classes: []string{"title"}}
+		img    = &ast.Img{}
+		author = &ast.Div{Classes: []string{"author"}}
+		main   = &ast.Div{Id: "main", Children: []ast.Element{title, img, author}}
 	)
 
 	var ( // addressable to compare
@@ -51,7 +35,7 @@ func Test_Applying(t *testing.T) {
 		},
 	}
 
-	tcs := map[*ast.Element][]*ast.Styles{
+	tcs := map[ast.Element][]*ast.Styles{
 		main:   {a},
 		title:  {b, c},
 		img:    {d},
