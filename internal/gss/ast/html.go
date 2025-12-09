@@ -1,7 +1,5 @@
 package ast
 
-import "go.ufukty.com/gss/internal/gss/tokens"
-
 type Element interface {
 	elem()
 }
