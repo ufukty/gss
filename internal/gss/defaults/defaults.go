@@ -5,12 +5,6 @@ import (
 	"go.ufukty.com/gss/internal/gss/tokens"
 )
 
-var Defaults = map[tokens.Tag]ast.Styles{
-	tokens.Tag_Div:  Div,
-	tokens.Tag_Img:  Img,
-	tokens.Tag_Span: Span,
-}
-
 var Div = ast.Styles{
 	Display:         tokens.Display_Block,
 	Width:           tokens.Width_Auto,

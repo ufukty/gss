@@ -1,13 +1,5 @@
 package tokens
 
-type Tag string
-
-const (
-	Tag_Div  Tag = "div"
-	Tag_Span Tag = "span"
-	Tag_Img  Tag = "img"
-)
-
 type Width string
 
 const (
