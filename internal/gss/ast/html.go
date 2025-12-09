@@ -8,7 +8,6 @@ type Element interface {
 
 type (
 	Div struct {
-		Tag      tokens.Tag
 		Id       string
 		Classes  []string
 		Parent   Element
@@ -18,7 +17,6 @@ type (
 	}
 
 	Span struct {
-		Tag      tokens.Tag
 		Id       string
 		Classes  []string
 		Parent   Element
@@ -28,7 +26,6 @@ type (
 	}
 
 	Img struct {
-		Tag      tokens.Tag
 		Id       string
 		Classes  []string
 		Parent   Element
