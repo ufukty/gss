@@ -1,38 +1,21 @@
 package layout
 
 import (
+	"cmp"
 	"fmt"
 	"image"
 	_ "image/jpeg"
 	_ "image/png"
 	"os"
-	"strconv"
-	"strings"
 
 	"go.ufukty.com/gss/internal/gss/ast"
 )
 
-func imgPath(img ast.Img, opts *opts) (string, error) {
-	if has(img.Attributes, "srcset") {
-		set, err := parseSrcSet(img.Attributes["srcset"])
-		if err != nil {
-			return "", fmt.Errorf("parsing srcset: %w", err)
-		}
-		if has(set, opts.Density) {
-			return set[opts.Density], nil
-		}
-	}
-	if has(img.Attributes, "src") {
-		return img.Attributes["src"], nil
-	}
-	return "", fmt.Errorf("no src or suitable srcset item")
-}
-
 // TODO: per tag type
-func imgSize(img ast.Img, opts *opts) (*size, error) {
-	p, err := imgPath(img, opts)
-	if err != nil {
-		return nil, fmt.Errorf("picking src value: %w", err)
+func imgSize(img *ast.Img, opts *opts) (*size, error) {
+	p := cmp.Or(img.SrcSet[opts.Density], img.Src)
+	if p == "" {
+		return nil, fmt.Errorf("deciding correct src: no src or suitable srcset item")
 	}
 
 	f, err := os.Open(p)
