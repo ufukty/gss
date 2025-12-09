@@ -13,6 +13,10 @@ type (
 		Children []Element
 	}
 
+	Html struct {
+		Children []Element
+	}
+
 	Img struct {
 		Id      string
 		Classes []string
@@ -34,13 +38,10 @@ type (
 )
 
 func (*Div) element()  {}
+func (*Html) element() {}
 func (*Img) element()  {}
 func (*Span) element() {}
 func (*Text) element() {}
-
-type Html struct {
-	Root Element
-}
 
 func Visit(e Element, visitor func(Element) bool) {
 	c := visitor(e)
@@ -51,6 +52,10 @@ func Visit(e Element, visitor func(Element) bool) {
 
 	switch root := e.(type) {
 	case *Div:
+		for _, child := range root.Children {
+			Visit(child, visitor)
+		}
+	case *Html:
 		for _, child := range root.Children {
 			Visit(child, visitor)
 		}
