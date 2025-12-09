@@ -12,24 +12,7 @@ import (
 	"go.ufukty.com/gss/internal/gss/ast"
 )
 
-func parseSrcSet(s string) (map[float64]string, error) {
-	set := map[float64]string{}
-	ss := strings.Split(s, ",")
-	for _, s := range ss {
-		s = strings.TrimSpace(s)
-		ps := strings.Split(s, " ")
-		if len(ps) == 2 {
-			d, err := strconv.ParseFloat(ps[1], 64)
-			if err != nil {
-				return nil, fmt.Errorf("parsing density number: %w", err)
-			}
-			set[d] = strings.TrimSpace(ps[0])
-		}
-	}
-	return set, nil
-}
-
-func imgPath(img *ast.Element, opts *opts) (string, error) {
+func imgPath(img ast.Img, opts *opts) (string, error) {
 	if has(img.Attributes, "srcset") {
 		set, err := parseSrcSet(img.Attributes["srcset"])
 		if err != nil {
@@ -46,7 +29,7 @@ func imgPath(img *ast.Element, opts *opts) (string, error) {
 }
 
 // TODO: per tag type
-func imgSize(img *ast.Element, opts *opts) (*size, error) {
+func imgSize(img ast.Img, opts *opts) (*size, error) {
 	p, err := imgPath(img, opts)
 	if err != nil {
 		return nil, fmt.Errorf("picking src value: %w", err)
