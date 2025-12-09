@@ -43,6 +43,12 @@ func (*Img) element()  {}
 func (*Span) element() {}
 func (*Text) element() {}
 
+func visit(children []Element, visitor func(Element) bool) {
+	for _, child := range children {
+		Visit(child, visitor)
+	}
+}
+
 func Visit(e Element, visitor func(Element) bool) {
 	c := visitor(e)
 	if !c {
@@ -50,18 +56,12 @@ func Visit(e Element, visitor func(Element) bool) {
 	}
 	defer visitor(nil)
 
-	switch root := e.(type) {
+	switch e := e.(type) {
 	case *Div:
-		for _, child := range root.Children {
-			Visit(child, visitor)
-		}
+		visit(e.Children, visitor)
 	case *Html:
-		for _, child := range root.Children {
-			Visit(child, visitor)
-		}
+		visit(e.Children, visitor)
 	case *Span:
-		for _, child := range root.Children {
-			Visit(child, visitor)
-		}
+		visit(e.Children, visitor)
 	}
 }
