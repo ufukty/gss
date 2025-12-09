@@ -1,17 +1,24 @@
 package ast
 
 type Element interface {
-	elem()
+	element()
 }
 
+// Element
 type (
 	Div struct {
 		Id       string
 		Classes  []string
 		Parent   Element
 		Children []Element
+	}
 
-		TextContent string
+	Img struct {
+		Id      string
+		Classes []string
+		Parent  Element
+		Src     string
+		SrcSet  map[float64]string
 	}
 
 	Span struct {
@@ -19,24 +26,17 @@ type (
 		Classes  []string
 		Parent   Element
 		Children []Element
-
-		TextContent string
 	}
 
-	Img struct {
-		Id       string
-		Classes  []string
-		Parent   Element
-		Children []Element
-
-		Src    string
-		SrcSet map[float64]string
+	Text struct {
+		Content string
 	}
 )
 
-func (*Div) elem()  {}
-func (*Span) elem() {}
-func (*Img) elem()  {}
+func (*Div) element()  {}
+func (*Img) element()  {}
+func (*Span) element() {}
+func (*Text) element() {}
 
 type Html struct {
 	Root Element
