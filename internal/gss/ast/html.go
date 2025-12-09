@@ -34,9 +34,9 @@ type (
 	}
 )
 
-func (Div) elem()  {}
-func (Span) elem() {}
-func (Img) elem()  {}
+func (*Div) elem()  {}
+func (*Span) elem() {}
+func (*Img) elem()  {}
 
 type Html struct {
 	Root Element
