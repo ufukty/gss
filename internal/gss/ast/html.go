@@ -43,10 +43,12 @@ func (*Img) element()  {}
 func (*Span) element() {}
 func (*Text) element() {}
 
-func visit(children []Element, visitor func(Element) bool) {
-	for _, child := range children {
-		Visit(child, visitor)
-	}
+func (d Div) GetChildren() []Element  { return d.Children }
+func (h Html) GetChildren() []Element { return h.Children }
+func (s Span) GetChildren() []Element { return s.Children }
+
+type Adopter interface {
+	GetChildren() []Element
 }
 
 func Visit(e Element, visitor func(Element) bool) {
@@ -56,12 +58,9 @@ func Visit(e Element, visitor func(Element) bool) {
 	}
 	defer visitor(nil)
 
-	switch e := e.(type) {
-	case *Div:
-		visit(e.Children, visitor)
-	case *Html:
-		visit(e.Children, visitor)
-	case *Span:
-		visit(e.Children, visitor)
+	if a, ok := e.(Adopter); ok {
+		for _, child := range a.GetChildren() {
+			Visit(child, visitor)
+		}
 	}
 }
