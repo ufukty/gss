@@ -1,10 +1,5 @@
 package ast
 
-type Element interface {
-	element()
-}
-
-// Element
 type (
 	Div struct {
 		Id       string
@@ -37,30 +32,20 @@ type (
 	}
 )
 
+type Element interface {
+	element()
+}
+
 func (*Div) element()  {}
 func (*Html) element() {}
 func (*Img) element()  {}
 func (*Span) element() {}
 func (*Text) element() {}
 
-func (d Div) GetChildren() []Element  { return d.Children }
-func (h Html) GetChildren() []Element { return h.Children }
-func (s Span) GetChildren() []Element { return s.Children }
-
-type Adopter interface {
+type Parent interface {
 	GetChildren() []Element
 }
 
-func Visit(e Element, visitor func(Element) bool) {
-	c := visitor(e)
-	if !c {
-		return
-	}
-	defer visitor(nil)
-
-	if a, ok := e.(Adopter); ok {
-		for _, child := range a.GetChildren() {
-			Visit(child, visitor)
-		}
-	}
-}
+func (d Div) GetChildren() []Element  { return d.Children }
+func (h Html) GetChildren() []Element { return h.Children }
+func (s Span) GetChildren() []Element { return s.Children }
