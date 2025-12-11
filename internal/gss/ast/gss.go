@@ -7,8 +7,13 @@ type FontSize struct {
 	Unit   tokens.Unit
 }
 
+type Display struct {
+	Outside tokens.DisplayOutside
+	Inside  tokens.DisplayInside
+}
+
 type Styles struct {
-	Display         tokens.Display         `gss:"display"`
+	Display         Display                `gss:"display"`
 	Width           tokens.Width           `gss:"width"`
 	Height          tokens.Height          `gss:"height"`
 	FontFamily      []tokens.FontFamily    `gss:"font-family"`

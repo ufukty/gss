@@ -16,14 +16,19 @@ const (
 	Height_MaxContent Height = "max-content"
 )
 
-type Display string
+type DisplayOutside string
 
 const (
-	Display_Auto   Display = "auto"
-	Display_Block  Display = "block"
-	Display_Inline Display = "inline"
-	Display_Grid   Display = "grid"
-	Display_Flex   Display = "flex"
+	DisplayOutside_Block  DisplayOutside = "block"
+	DisplayOutside_Inline DisplayOutside = "inline"
+)
+
+type DisplayInside string
+
+const (
+	DisplayInside_Flex DisplayInside = "flex"
+	DisplayInside_Flow DisplayInside = "flow"
+	DisplayInside_Grid DisplayInside = "grid"
 )
 
 type Unit string
