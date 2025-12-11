@@ -1,11 +1,13 @@
 package dom
 
+import "go.ufukty.com/gss/internal/gss/ast"
+
 type Element interface {
-	element()
+	GetAst() ast.Element
 }
 
-func (*Div) element()  {}
-func (*Html) element() {}
-func (*Img) element()  {}
-func (*Span) element() {}
-func (*Text) element() {}
+func (d Div) GetAst() ast.Element  { return d.Ast }
+func (d Html) GetAst() ast.Element { return d.Ast }
+func (d Img) GetAst() ast.Element  { return d.Ast }
+func (d Span) GetAst() ast.Element { return d.Ast }
+func (d Text) GetAst() ast.Element { return d.Ast }
