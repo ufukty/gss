@@ -25,7 +25,7 @@ func ExampleWrap() {
 	// ╰─ div#main
 	//    ├─ div.title
 	//    │  ╰─ text "Lorem ipsum"
-	//    ├─ img "./profile.png"
+	//    ├─ img "./profile.png" 2x=>"./profile@2x.png"
 	//    ╰─ div.author
 	//       ╰─ text "Ufuktan Yıldırım"
 }
