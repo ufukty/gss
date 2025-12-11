@@ -16,7 +16,6 @@ type (
 
 	Html struct {
 		Ast      *ast.Html
-		Parent   Element
 		Children []Element
 		Min, Max Size
 	}
