@@ -2,75 +2,39 @@ package layout
 
 import (
 	"fmt"
-	"slices"
 
 	"go.ufukty.com/gss/internal/filter"
 	"go.ufukty.com/gss/internal/gss/ast"
-	"go.ufukty.com/gss/internal/gss/tokens"
+	"go.ufukty.com/gss/internal/layout/dom"
 )
 
-type opts struct {
-	Width, Height, Density float64
-}
-
-type size struct {
-	width, height float64
-}
-
-type dimensional struct {
-	element  *ast.Element
-	min, max size
-	parent   *dimensional
-	children []*dimensional
-}
-
-var leaves = []tokens.Tag{tokens.Tag_Img}
-
 // TODO: account cascading
-// TODO: composite pattern?
-func intrinsicSizes(elem *ast.Element, applying []*ast.Rule, opts *opts) (min, max size, err error) {
-	if !slices.Contains(leaves, elem.Tag) {
-		return
-	}
+func Once(a ast.Element, rules []*ast.Rule, opts *dom.Options) error {
+	d := dom.Wrap(a)
 
-	if elem.Tag == tokens.Tag_Img {
-		s, err := imgSize(elem, opts)
-		if err != nil {
-			return min, max, fmt.Errorf("sizing image: %w", err)
-		}
-		return *s, *s, nil
-	}
-
-	return
-}
-
-func sizeUpRec(elem *ast.Element, rules []*ast.Rule, opts *opts) (*dimensional, error) {
-	appl := filter.Applying(elem, rules)
-	min, max, err := intrinsicSizes(elem, appl, opts)
+	appl := filter.Applying(a, rules)
+	min, max, err := intrinsicSizes(a, appl, opts)
 	if err != nil {
 		return nil, fmt.Errorf("sizing element: %w", err)
 	}
 
 	d := &dimensional{
-		element:  elem,
-		min:      min,
-		max:      max,
-		parent:   &dimensional{},
-		children: []*dimensional{},
+		element: a,
+		min:     min,
+		max:     max,
 	}
 
-	for _, child := range elem.Children {
-		c, err := sizeUpRec(child, rules, opts)
-		if err != nil {
-			return nil, fmt.Errorf("re: %w", err)
+	if s, ok := a.(Occupier); ok {
+		if err := s.SizeUp(opts); err != nil {
+			return nil, fmt.Errorf("size up: %w", err)
 		}
-		c.parent = d
-		d.children = append(d.children, c)
 	}
 
-	return d, nil
-}
+	if a, ok := a.(ast.Adopter); ok {
+		for _, child := range a.GetChildren() {
+			Once(child, rules, opts)
+		}
+	}
 
-func sizeUp(html *ast.Html, gss *ast.Gss, opts *opts) (*dimensional, error) {
-	return sizeUpRec(html.Root, gss.Rules, opts)
+	return d
 }
