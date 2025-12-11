@@ -10,7 +10,7 @@ func ExampleWrap() {
 	var (
 		title           = &ast.Text{Content: "Lorem ipsum"}
 		titleContainer  = &ast.Div{Classes: []string{"title"}, Children: []ast.Element{title}}
-		img             = &ast.Img{Src: "./profile.png"}
+		img             = &ast.Img{Src: "./profile.png", SrcSet: map[float64]string{2.0: "./profile@2x.png"}}
 		author          = &ast.Text{Content: "Ufuktan Yıldırım"}
 		authorContainer = &ast.Div{Classes: []string{"author"}, Children: []ast.Element{author}}
 		main            = &ast.Div{Id: "main", Children: []ast.Element{titleContainer, img, authorContainer}}

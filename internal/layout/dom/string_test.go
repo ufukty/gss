@@ -42,7 +42,7 @@ func (e Img) String() string {
 		s = fmt.Sprintf("%s %q", s, e.Ast.Src)
 	}
 	for den, src := range e.Ast.SrcSet {
-		s = fmt.Sprintf("%s %0fx=>%q", s, den, src)
+		s = fmt.Sprintf("%s %.0fx=>%q", s, den, src)
 	}
 	return s
 }
