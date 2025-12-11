@@ -13,11 +13,11 @@ type Options struct {
 	Width, Height, Density float64
 }
 
-type Occupier interface {
-	SizeUp(opts *Options) error
+type Sizer interface {
+	Size(opts *Options) error
 }
 
-func (i *Img) SizeUp(opts *Options) error {
+func (i *Img) Size(opts *Options) error {
 	p := cmp.Or(i.Ast.SrcSet[opts.Density], i.Ast.Src)
 	if p == "" {
 		return fmt.Errorf("deciding correct src: no src or suitable srcset item")

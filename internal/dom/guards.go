@@ -14,9 +14,9 @@ var (
 )
 
 var (
-	_ Occupier = (*Div)(nil)
-	_ Occupier = (*Html)(nil)
-	_ Occupier = (*Img)(nil)
-	_ Occupier = (*Span)(nil)
-	_ Occupier = (*Text)(nil)
+	_ Sizer = (*Div)(nil)
+	_ Sizer = (*Html)(nil)
+	_ Sizer = (*Img)(nil)
+	_ Sizer = (*Span)(nil)
+	_ Sizer = (*Text)(nil)
 )
