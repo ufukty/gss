@@ -1,6 +1,8 @@
 package dom
 
-import "go.ufukty.com/gss/internal/gss/ast"
+import (
+	"go.ufukty.com/gss/internal/gss/ast"
+)
 
 func wrap(e ast.Element) Element {
 	switch e := e.(type) {
@@ -18,14 +20,23 @@ func wrap(e ast.Element) Element {
 	return nil
 }
 
-func Wrap(e ast.Element) Element {
-	w := wrap(e)
-	if p, ok := e.(ast.Adopter); ok {
-		if pw, ok := w.(Adopter); ok {
-			for _, child := range p.GetChildren() {
-				pw.AppendChild(wrap(child))
-			}
+// DOM for AST
+func Wrap(a ast.Element) Element {
+	// _a ast
+	// _d dom
+	// p_ parent
+	// c_ child
+	d := wrap(a)
+
+	pa, pa_ok := a.(ast.Parent)
+	pd, pd_ok := d.(Parent)
+	if pa_ok && pd_ok {
+		for _, ca := range pa.GetChildren() {
+			cd := Wrap(ca).(Child)
+			pd.AppendChild(cd)
+			cd.SetParent(pd)
 		}
 	}
-	return nil
+
+	return d
 }

@@ -9,33 +9,33 @@ type Size struct {
 type (
 	Div struct {
 		Ast      *ast.Div
-		Parent   Element
-		Children []Element
+		Parent   Parent
+		Children []Child
 		Min, Max Size
 	}
 
 	Html struct {
 		Ast      *ast.Html
-		Children []Element
+		Children []Child
 		Min, Max Size
 	}
 
 	Img struct {
 		Ast      *ast.Img
-		Parent   Element
+		Parent   Parent
 		Min, Max Size
 	}
 
 	Span struct {
 		Ast      *ast.Span
-		Parent   Element
-		Children []Element
+		Parent   Parent
+		Children []Child
 		Min, Max Size
 	}
 
 	Text struct {
 		Ast      *ast.Text
-		Parent   Element
+		Parent   Parent
 		Min, Max Size
 	}
 )

@@ -17,8 +17,8 @@ type Occupier interface {
 	SizeUp(opts *Options) error
 }
 
-func (img *Img) SizeUp(opts *Options) error {
-	p := cmp.Or(img.Ast.SrcSet[opts.Density], img.Ast.Src)
+func (i *Img) SizeUp(opts *Options) error {
+	p := cmp.Or(i.Ast.SrcSet[opts.Density], i.Ast.Src)
 	if p == "" {
 		return fmt.Errorf("deciding correct src: no src or suitable srcset item")
 	}
@@ -29,18 +29,18 @@ func (img *Img) SizeUp(opts *Options) error {
 	}
 	defer f.Close()
 
-	i, _, err := image.Decode(f)
+	i2, _, err := image.Decode(f)
 	if err != nil {
 		return fmt.Errorf("decoding image: %w", err)
 	}
 
 	s := Size{
-		Width:  float64(i.Bounds().Dx()),
-		Height: float64(i.Bounds().Dy()),
+		Width:  float64(i2.Bounds().Dx()),
+		Height: float64(i2.Bounds().Dy()),
 	}
 
-	img.Min = s
-	img.Max = s
+	i.Min = s
+	i.Max = s
 
 	return nil
 }
