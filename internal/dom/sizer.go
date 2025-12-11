@@ -17,6 +17,10 @@ type Sizer interface {
 	Size(opts *Options) error
 }
 
+func (d *Div) Size(opts *Options) error
+
+func (h *Html) Size(opts *Options) error
+
 func (i *Img) Size(opts *Options) error {
 	p := cmp.Or(i.Ast.SrcSet[opts.Density], i.Ast.Src)
 	if p == "" {
@@ -44,3 +48,7 @@ func (i *Img) Size(opts *Options) error {
 
 	return nil
 }
+
+func (s *Span) Size(opts *Options) error
+
+func (t *Text) Size(opts *Options) error
