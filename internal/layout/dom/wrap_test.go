@@ -24,8 +24,8 @@ func ExampleWrap() {
 	// html
 	// ╰─ div#main
 	//    ├─ div.title
-	//    │  ╰─ text
-	//    ├─ img
+	//    │  ╰─ text "Lorem ipsum"
+	//    ├─ img "./profile.png"
 	//    ╰─ div.author
-	//       ╰─ text
+	//       ╰─ text "Ufuktan Yıldırım"
 }

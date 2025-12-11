@@ -37,7 +37,14 @@ func (e Html) String() string {
 }
 
 func (e Img) String() string {
-	return selector("img", e.Ast.Id, e.Ast.Classes)
+	s := selector("img", e.Ast.Id, e.Ast.Classes)
+	if e.Ast.Src != "" {
+		s = fmt.Sprintf("%s %q", s, e.Ast.Src)
+	}
+	for den, src := range e.Ast.SrcSet {
+		s = fmt.Sprintf("%s %0fx=>%q", s, den, src)
+	}
+	return s
 }
 
 func (e Span) String() string {
@@ -45,5 +52,5 @@ func (e Span) String() string {
 }
 
 func (e Text) String() string {
-	return "text"
+	return fmt.Sprintf("text %q", e.Ast.Content)
 }
