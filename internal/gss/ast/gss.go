@@ -1,11 +1,9 @@
 package ast
 
-import "go.ufukty.com/gss/internal/gss/tokens"
-
-type Size struct {
-	Number float64
-	Unit   tokens.Unit
-}
+import (
+	"go.ufukty.com/gss/internal/gss/tokens"
+	"go.ufukty.com/gss/internal/gsse/gsse"
+)
 
 type Display struct {
 	Outside tokens.DisplayOutside
@@ -17,7 +15,7 @@ type Styles struct {
 	Width           tokens.Width           `gss:"width"`
 	Height          tokens.Height          `gss:"height"`
 	FontFamily      []tokens.FontFamily    `gss:"font-family"`
-	FontSize        Size                   `gss:"font-size"`
+	FontSize        gsse.Size              `gss:"font-size"`
 	Color           tokens.Color           `gss:"color"`
 	BackgroundColor tokens.BackgroundColor `gss:"background-color"`
 }

@@ -3,6 +3,7 @@ package defaults
 import (
 	"go.ufukty.com/gss/internal/gss/ast"
 	"go.ufukty.com/gss/internal/gss/tokens"
+	"go.ufukty.com/gss/internal/gsse/gsse"
 	html "go.ufukty.com/gss/internal/html/ast"
 )
 
@@ -11,7 +12,7 @@ var Div = ast.Styles{
 	Width:           tokens.Width_Auto,
 	Height:          tokens.Height_Auto,
 	FontFamily:      []tokens.FontFamily{tokens.FontFamily_Inherit},
-	FontSize:        ast.Size{1.0, tokens.Unit_Em},
+	FontSize:        gsse.Size{1.0, tokens.Unit_Em},
 	Color:           tokens.Color_Inherit,
 	BackgroundColor: tokens.BackgroundColor_Inherit,
 }
@@ -21,7 +22,7 @@ var Html = ast.Styles{
 	Width:           tokens.Width_Auto,
 	Height:          tokens.Height_Auto,
 	FontFamily:      []tokens.FontFamily{tokens.FontFamily_SansSerif},
-	FontSize:        ast.Size{12.0, tokens.Unit_Px},
+	FontSize:        gsse.Size{12.0, tokens.Unit_Px},
 	Color:           "#000",
 	BackgroundColor: "#fff",
 }
@@ -31,7 +32,7 @@ var Img = ast.Styles{
 	Width:           tokens.Width_Auto,
 	Height:          tokens.Height_Auto,
 	FontFamily:      []tokens.FontFamily{tokens.FontFamily_Inherit},
-	FontSize:        ast.Size{1.0, tokens.Unit_Em},
+	FontSize:        gsse.Size{1.0, tokens.Unit_Em},
 	Color:           tokens.Color_Inherit,
 	BackgroundColor: tokens.BackgroundColor_Inherit,
 }
@@ -41,7 +42,7 @@ var Span = ast.Styles{
 	Width:           tokens.Width_Auto,
 	Height:          tokens.Height_Auto,
 	FontFamily:      []tokens.FontFamily{tokens.FontFamily_Inherit},
-	FontSize:        ast.Size{1.0, tokens.Unit_Em},
+	FontSize:        gsse.Size{1.0, tokens.Unit_Em},
 	Color:           tokens.Color_Inherit,
 	BackgroundColor: tokens.BackgroundColor_Inherit,
 }
@@ -51,7 +52,7 @@ var Text = ast.Styles{
 	Width:           tokens.Width_Auto,
 	Height:          tokens.Height_Auto,
 	FontFamily:      []tokens.FontFamily{tokens.FontFamily_Inherit},
-	FontSize:        ast.Size{1.0, tokens.Unit_Em},
+	FontSize:        gsse.Size{1.0, tokens.Unit_Em},
 	Color:           tokens.Color_Inherit,
 	BackgroundColor: tokens.BackgroundColor_Inherit,
 }
