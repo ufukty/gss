@@ -2,7 +2,7 @@ package ast
 
 import (
 	"go.ufukty.com/gss/internal/gss/tokens"
-	"go.ufukty.com/gss/internal/gsse/gsse"
+	gsse "go.ufukty.com/gss/internal/gsse/ast"
 )
 
 type Display struct {
