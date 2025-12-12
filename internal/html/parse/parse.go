@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"go.ufukty.com/gss/internal/gss/ast"
+	"go.ufukty.com/gss/internal/html/ast"
 )
 
 func parseSrcSet(s string) (map[float64]string, error) {

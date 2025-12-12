@@ -3,6 +3,7 @@ package defaults
 import (
 	"go.ufukty.com/gss/internal/gss/ast"
 	"go.ufukty.com/gss/internal/gss/tokens"
+	html "go.ufukty.com/gss/internal/html/ast"
 )
 
 var Div = ast.Styles{
@@ -55,17 +56,17 @@ var Text = ast.Styles{
 	BackgroundColor: tokens.BackgroundColor_Inherit,
 }
 
-func For(e ast.Element) *ast.Styles {
+func For(e html.Element) *ast.Styles {
 	switch e.(type) {
-	case *ast.Div:
+	case *html.Div:
 		return &Div
-	case *ast.Html:
+	case *html.Html:
 		return &Html
-	case *ast.Img:
+	case *html.Img:
 		return &Img
-	case *ast.Span:
+	case *html.Span:
 		return &Span
-	case *ast.Text:
+	case *html.Text:
 		return &Text
 	}
 	return nil
