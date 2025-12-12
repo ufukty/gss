@@ -1,14 +1,14 @@
 package defaults
 
 import (
-	"go.ufukty.com/gss/internal/gss/ast"
+	gss "go.ufukty.com/gss/internal/gss/ast"
 	"go.ufukty.com/gss/internal/gss/tokens"
-	"go.ufukty.com/gss/internal/gsse/gsse"
+	gsse "go.ufukty.com/gss/internal/gsse/ast"
 	html "go.ufukty.com/gss/internal/html/ast"
 )
 
-var Div = ast.Styles{
-	Display:         ast.Display{tokens.DisplayOutside_Block, tokens.DisplayInside_Flow},
+var Div = gss.Styles{
+	Display:         gss.Display{tokens.DisplayOutside_Block, tokens.DisplayInside_Flow},
 	Width:           tokens.Width_Auto,
 	Height:          tokens.Height_Auto,
 	FontFamily:      []tokens.FontFamily{tokens.FontFamily_Inherit},
@@ -17,8 +17,8 @@ var Div = ast.Styles{
 	BackgroundColor: tokens.BackgroundColor_Inherit,
 }
 
-var Html = ast.Styles{
-	Display:         ast.Display{tokens.DisplayOutside_Block, tokens.DisplayInside_Flow},
+var Html = gss.Styles{
+	Display:         gss.Display{tokens.DisplayOutside_Block, tokens.DisplayInside_Flow},
 	Width:           tokens.Width_Auto,
 	Height:          tokens.Height_Auto,
 	FontFamily:      []tokens.FontFamily{tokens.FontFamily_SansSerif},
@@ -27,8 +27,8 @@ var Html = ast.Styles{
 	BackgroundColor: "#fff",
 }
 
-var Img = ast.Styles{
-	Display:         ast.Display{tokens.DisplayOutside_Inline, tokens.DisplayInside_Flow},
+var Img = gss.Styles{
+	Display:         gss.Display{tokens.DisplayOutside_Inline, tokens.DisplayInside_Flow},
 	Width:           tokens.Width_Auto,
 	Height:          tokens.Height_Auto,
 	FontFamily:      []tokens.FontFamily{tokens.FontFamily_Inherit},
@@ -37,8 +37,8 @@ var Img = ast.Styles{
 	BackgroundColor: tokens.BackgroundColor_Inherit,
 }
 
-var Span = ast.Styles{
-	Display:         ast.Display{tokens.DisplayOutside_Inline, tokens.DisplayInside_Flow},
+var Span = gss.Styles{
+	Display:         gss.Display{tokens.DisplayOutside_Inline, tokens.DisplayInside_Flow},
 	Width:           tokens.Width_Auto,
 	Height:          tokens.Height_Auto,
 	FontFamily:      []tokens.FontFamily{tokens.FontFamily_Inherit},
@@ -47,8 +47,8 @@ var Span = ast.Styles{
 	BackgroundColor: tokens.BackgroundColor_Inherit,
 }
 
-var Text = ast.Styles{
-	Display:         ast.Display{tokens.DisplayOutside_Inline, tokens.DisplayInside_Flow},
+var Text = gss.Styles{
+	Display:         gss.Display{tokens.DisplayOutside_Inline, tokens.DisplayInside_Flow},
 	Width:           tokens.Width_Auto,
 	Height:          tokens.Height_Auto,
 	FontFamily:      []tokens.FontFamily{tokens.FontFamily_Inherit},
@@ -57,7 +57,7 @@ var Text = ast.Styles{
 	BackgroundColor: tokens.BackgroundColor_Inherit,
 }
 
-func For(e html.Element) *ast.Styles {
+func For(e html.Element) *gss.Styles {
 	switch e.(type) {
 	case *html.Div:
 		return &Div
