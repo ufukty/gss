@@ -4,28 +4,29 @@ import (
 	"reflect"
 	"testing"
 
-	"go.ufukty.com/gss/internal/gss/ast"
+	gss "go.ufukty.com/gss/internal/gss/ast"
+	html "go.ufukty.com/gss/internal/html/ast"
 )
 
 func Test_Applying(t *testing.T) {
 	var (
-		title  = &ast.Div{Classes: []string{"title"}}
-		img    = &ast.Img{}
-		author = &ast.Div{Classes: []string{"author"}}
-		main   = &ast.Div{Id: "main", Children: []ast.Element{title, img, author}}
+		title  = &html.Div{Classes: []string{"title"}}
+		img    = &html.Img{}
+		author = &html.Div{Classes: []string{"author"}}
+		main   = &html.Div{Id: "main", Children: []html.Element{title, img, author}}
 	)
 
 	var ( // addressable to compare
-		a = &ast.Styles{}
-		b = &ast.Styles{}
-		c = &ast.Styles{}
-		d = &ast.Styles{}
-		e = &ast.Styles{}
-		f = &ast.Styles{}
+		a = &gss.Styles{}
+		b = &gss.Styles{}
+		c = &gss.Styles{}
+		d = &gss.Styles{}
+		e = &gss.Styles{}
+		f = &gss.Styles{}
 	)
 
-	gss := &ast.Gss{
-		Rules: []*ast.Rule{
+	g := &gss.Gss{
+		Rules: []*gss.Rule{
 			{"main", a},
 			{".title", b},
 			{"div.title", c},
@@ -35,7 +36,7 @@ func Test_Applying(t *testing.T) {
 		},
 	}
 
-	tcs := map[ast.Element][]*ast.Styles{
+	tcs := map[html.Element][]*gss.Styles{
 		main:   {a},
 		title:  {b, c},
 		img:    {d},
@@ -44,7 +45,7 @@ func Test_Applying(t *testing.T) {
 
 	for target, expected := range tcs {
 		t.Run(reflect.ValueOf(target).String(), func(t *testing.T) {
-			got := Applying(target, gss.Rules)
+			got := Applying(target, g.Rules)
 			if len(expected) != len(got) {
 				t.Errorf("expected %v got %v", expected, got)
 			}

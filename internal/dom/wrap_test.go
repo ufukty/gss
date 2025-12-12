@@ -3,7 +3,7 @@ package dom
 import (
 	"fmt"
 
-	"go.ufukty.com/gss/internal/gss/ast"
+	"go.ufukty.com/gss/internal/html/ast"
 )
 
 func ExampleWrap() {

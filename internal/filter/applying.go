@@ -1,14 +1,17 @@
 package filter
 
-import "go.ufukty.com/gss/internal/gss/ast"
+import (
+	gss "go.ufukty.com/gss/internal/gss/ast"
+	html "go.ufukty.com/gss/internal/html/ast"
+)
 
 // returns if target ∋ selector(root)
-func match(target ast.Element, selector string) bool {
+func match(target html.Element, selector string) bool {
 	return false
 }
 
-func Applying(target ast.Element, rules []*ast.Rule) []*ast.Rule {
-	as := []*ast.Rule{}
+func Applying(target html.Element, rules []*gss.Rule) []*gss.Rule {
+	as := []*gss.Rule{}
 	for _, rule := range rules {
 		if match(target, rule.Selector) {
 			as = append(as, rule)
