@@ -6,7 +6,7 @@ import (
 	"go.ufukty.com/gss/internal/gss/tokens"
 )
 
-func TestSize(t *testing.T) {
+func TestSize_Positive(t *testing.T) {
 	px := Units(tokens.Unit_Px)
 	a := Size{1, px}
 	b := Size{2, px}
@@ -19,5 +19,14 @@ func TestSize(t *testing.T) {
 	}
 	if !c.Unit.Compare(px) {
 		t.Errorf("assert, expected %q got %q", px, c.Unit)
+	}
+}
+
+func TestSize_Negative(t *testing.T) {
+	a := Size{1, Units(tokens.Unit_Px)}
+	b := Size{2, Units(tokens.Unit_Em)}
+	_, err := a.Add(b)
+	if err == nil {
+		t.Errorf("act: unexpected success")
 	}
 }
