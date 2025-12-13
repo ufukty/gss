@@ -63,7 +63,7 @@ func Styles(e Element, rules []*gss.Rule) *gss.Styles {
 		Color:           pick(def.Color, apl, func(s *gss.Styles) tokens.Color { return s.Color }),
 		Display:         pick(def.Display, apl, func(s *gss.Styles) gss.Display { return s.Display }),
 		FontFamily:      picks(def.FontFamily, apl, func(s *gss.Styles) []tokens.FontFamily { return s.FontFamily }),
-		FontSize:        pick(def.FontSize, apl, func(s *gss.Styles) gsse.Size { return s.FontSize }),
+		FontSize:        pick(def.FontSize, apl, func(s *gss.Styles) gsse.Expr[gsse.Size] { return s.FontSize }),
 		Height:          pick(def.Height, apl, func(s *gss.Styles) tokens.Height { return s.Height }),
 		Width:           pick(def.Width, apl, func(s *gss.Styles) tokens.Width { return s.Width }),
 	}

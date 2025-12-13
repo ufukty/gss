@@ -15,7 +15,7 @@ type Styles struct {
 	Width           tokens.Width           `gss:"width"`
 	Height          tokens.Height          `gss:"height"`
 	FontFamily      []tokens.FontFamily    `gss:"font-family"`
-	FontSize        gsse.Size              `gss:"font-size"`
+	FontSize        gsse.Expr[gsse.Size]   `gss:"font-size"`
 	Color           tokens.Color           `gss:"color"`
 	BackgroundColor tokens.BackgroundColor `gss:"background-color"`
 }

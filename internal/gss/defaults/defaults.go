@@ -12,7 +12,7 @@ var Div = gss.Styles{
 	Width:           tokens.Width_Auto,
 	Height:          tokens.Height_Auto,
 	FontFamily:      []tokens.FontFamily{tokens.FontFamily_Inherit},
-	FontSize:        gsse.Size{1.0, tokens.Unit_Em},
+	FontSize:        gsse.Size{1.0, gsse.Units(tokens.Unit_Em)},
 	Color:           tokens.Color_Inherit,
 	BackgroundColor: tokens.BackgroundColor_Inherit,
 }
@@ -22,7 +22,7 @@ var Html = gss.Styles{
 	Width:           tokens.Width_Auto,
 	Height:          tokens.Height_Auto,
 	FontFamily:      []tokens.FontFamily{tokens.FontFamily_SansSerif},
-	FontSize:        gsse.Size{12.0, tokens.Unit_Px},
+	FontSize:        gsse.Size{12.0, gsse.Units(tokens.Unit_Px)},
 	Color:           "#000",
 	BackgroundColor: "#fff",
 }
@@ -32,7 +32,7 @@ var Img = gss.Styles{
 	Width:           tokens.Width_Auto,
 	Height:          tokens.Height_Auto,
 	FontFamily:      []tokens.FontFamily{tokens.FontFamily_Inherit},
-	FontSize:        gsse.Size{1.0, tokens.Unit_Em},
+	FontSize:        gsse.Size{1.0, gsse.Units(tokens.Unit_Em)},
 	Color:           tokens.Color_Inherit,
 	BackgroundColor: tokens.BackgroundColor_Inherit,
 }
@@ -42,7 +42,7 @@ var Span = gss.Styles{
 	Width:           tokens.Width_Auto,
 	Height:          tokens.Height_Auto,
 	FontFamily:      []tokens.FontFamily{tokens.FontFamily_Inherit},
-	FontSize:        gsse.Size{1.0, tokens.Unit_Em},
+	FontSize:        gsse.Size{1.0, gsse.Units(tokens.Unit_Em)},
 	Color:           tokens.Color_Inherit,
 	BackgroundColor: tokens.BackgroundColor_Inherit,
 }
@@ -52,7 +52,7 @@ var Text = gss.Styles{
 	Width:           tokens.Width_Auto,
 	Height:          tokens.Height_Auto,
 	FontFamily:      []tokens.FontFamily{tokens.FontFamily_Inherit},
-	FontSize:        gsse.Size{1.0, tokens.Unit_Em},
+	FontSize:        gsse.Size{1.0, gsse.Units(tokens.Unit_Em)},
 	Color:           tokens.Color_Inherit,
 	BackgroundColor: tokens.BackgroundColor_Inherit,
 }

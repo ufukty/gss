@@ -34,10 +34,11 @@ const (
 type Unit string
 
 const (
-	Unit_Pt      Unit = "pt"
-	Unit_Px      Unit = "px"
 	Unit_Em      Unit = "em"
 	Unit_Inherit Unit = "inherit"
+	Unit_Pc      Unit = "%"
+	Unit_Pt      Unit = "pt"
+	Unit_Px      Unit = "px"
 )
 
 type FontFamily string
