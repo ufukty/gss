@@ -37,3 +37,16 @@ func TestSize_Negative2(t *testing.T) {
 		t.Errorf("act: unexpected success")
 	}
 }
+
+func TestMultiply(t *testing.T) {
+	a := Size{1, Units(tokens.Unit_Px)}
+	b := Size{2, Units(tokens.Unit_Em)}
+	expected := Size{2, Units(tokens.Unit_Px, tokens.Unit_Em)}
+	got, err := a.Mul(b)
+	if err != nil {
+		t.Errorf("act: %v", err)
+	}
+	if !expected.Compare(got) {
+		t.Errorf("assert, expected %q got %q", expected, got)
+	}
+}
