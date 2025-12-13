@@ -31,11 +31,20 @@ func (a Unit) Multiply(b Unit) Unit {
 	return c
 }
 
+func (a *Unit) clean() {
+	for u, p := range *a {
+		if p == 0 {
+			delete(*a, u)
+		}
+	}
+}
+
 func (a Unit) Divide(b Unit) Unit {
 	c := maps.Clone(a)
 	for u, p := range b {
 		c[u] -= p
 	}
+	c.clean()
 	return c
 }
 
