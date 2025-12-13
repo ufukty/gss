@@ -11,6 +11,10 @@ type Size struct {
 	Unit   Unit
 }
 
+func (s Size) Compare(t Size) bool {
+	return s.Number == t.Number && s.Unit.Compare(t.Unit)
+}
+
 func (s Size) String() string {
 	return fmt.Sprintf("%.0f%s", s.Number, s.Unit.String())
 }
