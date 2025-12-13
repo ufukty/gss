@@ -22,9 +22,18 @@ func TestSize_Positive(t *testing.T) {
 	}
 }
 
-func TestSize_Negative(t *testing.T) {
+func TestSize_Negative1(t *testing.T) {
 	a := Size{1, Units(tokens.Unit_Px)}
 	b := Size{2, Units(tokens.Unit_Em)}
+	_, err := a.Add(b)
+	if err == nil {
+		t.Errorf("act: unexpected success")
+	}
+}
+
+func TestSize_Negative2(t *testing.T) {
+	a := Size{1, Units(tokens.Unit_Px, tokens.Unit_Px)}
+	b := Size{2, Units(tokens.Unit_Px)}
 	_, err := a.Add(b)
 	if err == nil {
 		t.Errorf("act: unexpected success")
