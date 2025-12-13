@@ -39,9 +39,11 @@ func TestSize_Negative2(t *testing.T) {
 }
 
 func TestMultiply(t *testing.T) {
-	a := Size{1, Units(tokens.Unit_Px)}
-	b := Size{2, Units(tokens.Unit_Em)}
-	expected := Size{2, Units(tokens.Unit_Px, tokens.Unit_Em)}
+	var (
+		a        = Size{1, Units(tokens.Unit_Px)}
+		b        = Size{2, Units(tokens.Unit_Em)}
+		expected = Size{2, Units(tokens.Unit_Px, tokens.Unit_Em)}
+	)
 	got, err := a.Mul(b)
 	if err != nil {
 		t.Errorf("act: %v", err)
