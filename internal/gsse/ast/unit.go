@@ -20,7 +20,7 @@ func (a Unit) Compare(b Unit) bool {
 			return false
 		}
 	}
-	return false
+	return true
 }
 
 func (a Unit) Multiply(b Unit) Unit {
