@@ -52,3 +52,18 @@ func TestMultiply(t *testing.T) {
 		t.Errorf("assert, expected %q got %q", expected, got)
 	}
 }
+
+func TestDivide_StripUnit(t *testing.T) {
+	var (
+		a        = Size{10, Units(tokens.Unit_Px)}
+		b        = Size{2, Units(tokens.Unit_Px)}
+		expected = Size{5, Units()}
+	)
+	got, err := a.Div(b)
+	if err != nil {
+		t.Errorf("act: %v", err)
+	}
+	if !expected.Compare(got) {
+		t.Errorf("assert, expected %q got %q", expected, got)
+	}
+}
