@@ -1,9 +1,9 @@
-package ast
+package gsse
 
 import (
 	"fmt"
 
-	"go.ufukty.com/gss/internal/files/html/ast"
+	"go.ufukty.com/gss/internal/ast/html"
 )
 
 type Size struct {
@@ -44,6 +44,6 @@ func (a Size) Div(b Size) (Size, error) {
 	return Size{a.Number / b.Number, a.Unit.Divide(b.Unit)}, nil
 }
 
-func (s Size) Resolve(ctx Context, e ast.Element) (Size, error) {
+func (s Size) Resolve(ctx Context, e html.Element) (Size, error) {
 	return s, nil
 }

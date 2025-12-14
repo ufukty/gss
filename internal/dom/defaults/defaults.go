@@ -1,10 +1,10 @@
 package defaults
 
 import (
-	gss "go.ufukty.com/gss/internal/files/gss/ast"
+	gss "go.ufukty.com/gss/internal/ast/gss"
+	gsse "go.ufukty.com/gss/internal/ast/gsse"
+	html "go.ufukty.com/gss/internal/ast/html"
 	"go.ufukty.com/gss/internal/files/gss/tokens"
-	gsse "go.ufukty.com/gss/internal/files/gsse/ast"
-	html "go.ufukty.com/gss/internal/files/html/ast"
 )
 
 var Div = gss.Styles{

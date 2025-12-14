@@ -3,14 +3,14 @@ package gss
 import (
 	"io"
 
-	"go.ufukty.com/gss/internal/files/gss/ast"
+	"go.ufukty.com/gss/internal/ast/gss"
 )
 
-func rule(src io.Reader) (*ast.Rule, error)
+func rule(src io.Reader) (*gss.Rule, error)
 
-func Gss(r io.Reader) (*ast.Gss, error) {
-	g := &ast.Gss{
-		Rules: []*ast.Rule{},
+func Gss(r io.Reader) (*gss.Gss, error) {
+	g := &gss.Gss{
+		Rules: []*gss.Rule{},
 	}
 
 	return g, nil

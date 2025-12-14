@@ -1,6 +1,6 @@
 package dom
 
-import "go.ufukty.com/gss/internal/files/html/ast"
+import "go.ufukty.com/gss/internal/ast/html"
 
 type Size struct {
 	Width, Height float64
@@ -8,33 +8,33 @@ type Size struct {
 
 type (
 	Div struct {
-		Ast      *ast.Div
+		Ast      *html.Div
 		Parent   Parent
 		Children []Child
 		Min, Max Size
 	}
 
 	Html struct {
-		Ast      *ast.Html
+		Ast      *html.Html
 		Children []Child
 		Min, Max Size
 	}
 
 	Img struct {
-		Ast      *ast.Img
+		Ast      *html.Img
 		Parent   Parent
 		Min, Max Size
 	}
 
 	Span struct {
-		Ast      *ast.Span
+		Ast      *html.Span
 		Parent   Parent
 		Children []Child
 		Min, Max Size
 	}
 
 	Text struct {
-		Ast      *ast.Text
+		Ast      *html.Text
 		Parent   Parent
 		Min, Max Size
 	}

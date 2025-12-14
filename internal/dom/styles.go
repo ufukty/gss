@@ -1,11 +1,11 @@
 package dom
 
 import (
+	gss "go.ufukty.com/gss/internal/ast/gss"
+	gsse "go.ufukty.com/gss/internal/ast/gsse"
 	"go.ufukty.com/gss/internal/dom/defaults"
 	"go.ufukty.com/gss/internal/dom/filter"
-	gss "go.ufukty.com/gss/internal/files/gss/ast"
 	"go.ufukty.com/gss/internal/files/gss/tokens"
-	gsse "go.ufukty.com/gss/internal/files/gsse/ast"
 )
 
 // reverse [cmp.Or]

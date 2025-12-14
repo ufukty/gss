@@ -1,8 +1,8 @@
-package ast
+package gss
 
 import (
+	gsse "go.ufukty.com/gss/internal/ast/gsse"
 	"go.ufukty.com/gss/internal/files/gss/tokens"
-	gsse "go.ufukty.com/gss/internal/files/gsse/ast"
 )
 
 type Display struct {

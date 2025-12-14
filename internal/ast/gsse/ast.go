@@ -1,4 +1,4 @@
-package ast
+package gsse
 
 type (
 	LightDark[Final any] struct {

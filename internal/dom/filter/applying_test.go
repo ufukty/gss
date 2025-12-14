@@ -4,8 +4,8 @@ import (
 	"reflect"
 	"testing"
 
-	gss "go.ufukty.com/gss/internal/files/gss/ast"
-	html "go.ufukty.com/gss/internal/files/html/ast"
+	gss "go.ufukty.com/gss/internal/ast/gss"
+	html "go.ufukty.com/gss/internal/ast/html"
 )
 
 func Test_Applying(t *testing.T) {
