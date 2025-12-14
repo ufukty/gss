@@ -1,8 +1,8 @@
 package filter
 
 import (
-	gss "go.ufukty.com/gss/internal/gss/ast"
-	html "go.ufukty.com/gss/internal/html/ast"
+	gss "go.ufukty.com/gss/internal/ast/gss"
+	html "go.ufukty.com/gss/internal/ast/html"
 )
 
 // returns if target ∋ selector(root)

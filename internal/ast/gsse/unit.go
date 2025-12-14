@@ -1,4 +1,4 @@
-package ast
+package gsse
 
 import (
 	"fmt"
@@ -6,10 +6,10 @@ import (
 	"slices"
 	"strings"
 
-	"go.ufukty.com/gss/internal/gss/tokens"
+	"go.ufukty.com/gss/internal/tokens/gss"
 )
 
-type Unit map[tokens.Unit]int // eg. px^2/em
+type Unit map[gss.Unit]int // eg. px^2/em
 
 func (a Unit) Compare(b Unit) bool {
 	if len(a) != len(b) {
@@ -90,8 +90,8 @@ func (u Unit) String() string {
 	return strings.Join(us, "·")
 }
 
-func Units(us ...tokens.Unit) Unit {
-	m := map[tokens.Unit]int{}
+func Units(us ...gss.Unit) Unit {
+	m := map[gss.Unit]int{}
 	for _, u := range us {
 		m[u] += 1
 	}

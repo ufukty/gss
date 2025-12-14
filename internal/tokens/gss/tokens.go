@@ -1,4 +1,4 @@
-package tokens
+package gss
 
 type Width string
 

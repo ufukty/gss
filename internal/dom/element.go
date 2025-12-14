@@ -1,13 +1,13 @@
 package dom
 
-import "go.ufukty.com/gss/internal/html/ast"
+import "go.ufukty.com/gss/internal/ast/html"
 
 type Element interface {
-	GetAst() ast.Element
+	GetAst() html.Element
 }
 
-func (d Div) GetAst() ast.Element  { return d.Ast }
-func (d Html) GetAst() ast.Element { return d.Ast }
-func (d Img) GetAst() ast.Element  { return d.Ast }
-func (d Span) GetAst() ast.Element { return d.Ast }
-func (d Text) GetAst() ast.Element { return d.Ast }
+func (d Div) GetAst() html.Element  { return d.Ast }
+func (d Html) GetAst() html.Element { return d.Ast }
+func (d Img) GetAst() html.Element  { return d.Ast }
+func (d Span) GetAst() html.Element { return d.Ast }
+func (d Text) GetAst() html.Element { return d.Ast }

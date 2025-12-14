@@ -1,13 +1,13 @@
-package ast
+package gsse
 
 import (
 	"testing"
 
-	"go.ufukty.com/gss/internal/gss/tokens"
+	"go.ufukty.com/gss/internal/tokens/gss"
 )
 
 func TestSize_Positive(t *testing.T) {
-	px := Units(tokens.Unit_Px)
+	px := Units(gss.Unit_Px)
 	a := Size{1, px}
 	b := Size{2, px}
 	expected := Size{3, px}
@@ -21,8 +21,8 @@ func TestSize_Positive(t *testing.T) {
 }
 
 func TestSize_Negative1(t *testing.T) {
-	a := Size{1, Units(tokens.Unit_Px)}
-	b := Size{2, Units(tokens.Unit_Em)}
+	a := Size{1, Units(gss.Unit_Px)}
+	b := Size{2, Units(gss.Unit_Em)}
 	_, err := a.Add(b)
 	if err == nil {
 		t.Errorf("act: unexpected success")
@@ -30,8 +30,8 @@ func TestSize_Negative1(t *testing.T) {
 }
 
 func TestSize_Negative2(t *testing.T) {
-	a := Size{1, Units(tokens.Unit_Px, tokens.Unit_Px)}
-	b := Size{2, Units(tokens.Unit_Px)}
+	a := Size{1, Units(gss.Unit_Px, gss.Unit_Px)}
+	b := Size{2, Units(gss.Unit_Px)}
 	_, err := a.Add(b)
 	if err == nil {
 		t.Errorf("act: unexpected success")
@@ -40,9 +40,9 @@ func TestSize_Negative2(t *testing.T) {
 
 func TestMultiply(t *testing.T) {
 	var (
-		a        = Size{1, Units(tokens.Unit_Px)}
-		b        = Size{2, Units(tokens.Unit_Em)}
-		expected = Size{2, Units(tokens.Unit_Px, tokens.Unit_Em)}
+		a        = Size{1, Units(gss.Unit_Px)}
+		b        = Size{2, Units(gss.Unit_Em)}
+		expected = Size{2, Units(gss.Unit_Px, gss.Unit_Em)}
 	)
 	got, err := a.Mul(b)
 	if err != nil {
@@ -55,8 +55,8 @@ func TestMultiply(t *testing.T) {
 
 func TestDivide_StripUnit(t *testing.T) {
 	var (
-		a        = Size{10, Units(tokens.Unit_Px)}
-		b        = Size{2, Units(tokens.Unit_Px)}
+		a        = Size{10, Units(gss.Unit_Px)}
+		b        = Size{2, Units(gss.Unit_Px)}
 		expected = Size{5, Units()}
 	)
 	got, err := a.Div(b)

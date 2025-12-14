@@ -1,4 +1,4 @@
-package parse
+package html
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"go.ufukty.com/gss/internal/html/ast"
+	"go.ufukty.com/gss/internal/ast/html"
 )
 
 func parseSrcSet(s string) (map[float64]string, error) {
@@ -26,8 +26,8 @@ func parseSrcSet(s string) (map[float64]string, error) {
 	return set, nil
 }
 
-func Html(src io.Reader) *ast.Html {
-	h := &ast.Html{}
+func Html(src io.Reader) *html.Html {
+	h := &html.Html{}
 
 	return h
 }
