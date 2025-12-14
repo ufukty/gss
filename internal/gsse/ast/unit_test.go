@@ -6,7 +6,7 @@ import (
 	"go.ufukty.com/gss/internal/gss/tokens"
 )
 
-func TestUmap_String(t *testing.T) {
+func TestUnit_String(t *testing.T) {
 	type tc struct {
 		name     string
 		input    Unit
