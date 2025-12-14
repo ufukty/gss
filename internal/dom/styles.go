@@ -4,8 +4,8 @@ import (
 	"go.ufukty.com/gss/internal/dom/defaults"
 	gss "go.ufukty.com/gss/internal/files/gss/ast"
 	"go.ufukty.com/gss/internal/files/gss/tokens"
+	gsse "go.ufukty.com/gss/internal/files/gsse/ast"
 	"go.ufukty.com/gss/internal/filter"
-	gsse "go.ufukty.com/gss/internal/gsse/ast"
 )
 
 // reverse [cmp.Or]

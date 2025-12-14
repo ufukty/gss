@@ -3,8 +3,8 @@ package defaults
 import (
 	gss "go.ufukty.com/gss/internal/files/gss/ast"
 	"go.ufukty.com/gss/internal/files/gss/tokens"
+	gsse "go.ufukty.com/gss/internal/files/gsse/ast"
 	html "go.ufukty.com/gss/internal/files/html/ast"
-	gsse "go.ufukty.com/gss/internal/gsse/ast"
 )
 
 var Div = gss.Styles{
