@@ -4,26 +4,11 @@ import (
 	"fmt"
 
 	"go.ufukty.com/gss/internal/ast/html"
-	"go.ufukty.com/gss/internal/tokens/gss"
 )
 
-type (
-	Media struct {
-		PrefersColorScheme string
-	}
-	Context struct {
-		Media Media
-	}
-)
-
-// Expr of Final is a GSS expression that can be resolved to
-// the type Final when its Resolve method is called with the
-// rendering context.
 type Expr[Final any] interface {
 	Resolve(Context, html.Element) (Final, error)
 }
-
-var _ Expr[gss.Color] = (*LightDark[gss.Color])(nil)
 
 func (c LightDark[T]) Resolve(ctx Context, e html.Element) (T, error) {
 	if ctx.Media.PrefersColorScheme == "dark" {
