@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	gss "go.ufukty.com/gss/internal/gss/ast"
+	gss "go.ufukty.com/gss/internal/files/gss/ast"
 	html "go.ufukty.com/gss/internal/html/ast"
 )
 

@@ -1,7 +1,7 @@
 package ast
 
 import (
-	"go.ufukty.com/gss/internal/gss/tokens"
+	"go.ufukty.com/gss/internal/files/gss/tokens"
 	gsse "go.ufukty.com/gss/internal/gsse/ast"
 )
 

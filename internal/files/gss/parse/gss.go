@@ -3,7 +3,7 @@ package parse
 import (
 	"io"
 
-	"go.ufukty.com/gss/internal/gss/ast"
+	"go.ufukty.com/gss/internal/files/gss/ast"
 )
 
 func rule(src io.Reader) (*ast.Rule, error)

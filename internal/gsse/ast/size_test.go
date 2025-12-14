@@ -3,7 +3,7 @@ package ast
 import (
 	"testing"
 
-	"go.ufukty.com/gss/internal/gss/tokens"
+	"go.ufukty.com/gss/internal/files/gss/tokens"
 )
 
 func TestSize_Positive(t *testing.T) {

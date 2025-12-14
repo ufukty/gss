@@ -2,9 +2,9 @@ package dom
 
 import (
 	"go.ufukty.com/gss/internal/dom/defaults"
+	gss "go.ufukty.com/gss/internal/files/gss/ast"
+	"go.ufukty.com/gss/internal/files/gss/tokens"
 	"go.ufukty.com/gss/internal/filter"
-	gss "go.ufukty.com/gss/internal/gss/ast"
-	"go.ufukty.com/gss/internal/gss/tokens"
 	gsse "go.ufukty.com/gss/internal/gsse/ast"
 )
 

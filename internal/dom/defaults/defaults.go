@@ -1,8 +1,8 @@
 package defaults
 
 import (
-	gss "go.ufukty.com/gss/internal/gss/ast"
-	"go.ufukty.com/gss/internal/gss/tokens"
+	gss "go.ufukty.com/gss/internal/files/gss/ast"
+	"go.ufukty.com/gss/internal/files/gss/tokens"
 	gsse "go.ufukty.com/gss/internal/gsse/ast"
 	html "go.ufukty.com/gss/internal/html/ast"
 )

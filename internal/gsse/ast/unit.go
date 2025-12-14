@@ -6,7 +6,7 @@ import (
 	"slices"
 	"strings"
 
-	"go.ufukty.com/gss/internal/gss/tokens"
+	"go.ufukty.com/gss/internal/files/gss/tokens"
 )
 
 type Unit map[tokens.Unit]int // eg. px^2/em
