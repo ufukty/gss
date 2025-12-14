@@ -38,6 +38,9 @@ func (a Size) Mul(b Size) (Size, error) {
 }
 
 func (a Size) Div(b Size) (Size, error) {
+	if b.Number == 0 {
+		return Size{}, fmt.Errorf("dividing by zero is undefined")
+	}
 	return Size{a.Number / b.Number, a.Unit.Divide(b.Unit)}, nil
 }
 
