@@ -21,14 +21,14 @@ func (s Size) String() string {
 
 func (a Size) Add(b Size) (Size, error) {
 	if !a.Unit.Compare(b.Unit) {
-		return Size{}, fmt.Errorf("operands %s and %s have different units", a, b)
+		return Size{}, fmt.Errorf("%s + %s: %w", a, b, ErrIncompatibleUnits)
 	}
 	return Size{a.Number + b.Number, a.Unit}, nil
 }
 
 func (a Size) Sub(b Size) (Size, error) {
 	if !a.Unit.Compare(b.Unit) {
-		return Size{}, fmt.Errorf("operands %s and %s have different units", a, b)
+		return Size{}, fmt.Errorf("%s - %s: %w", a, b, ErrIncompatibleUnits)
 	}
 	return Size{a.Number - b.Number, a.Unit}, nil
 }
@@ -39,7 +39,7 @@ func (a Size) Mul(b Size) (Size, error) {
 
 func (a Size) Div(b Size) (Size, error) {
 	if b.Number == 0 {
-		return Size{}, fmt.Errorf("dividing by zero is undefined")
+		return Size{}, fmt.Errorf("%s / %s: %w", ErrDivisionByZero)
 	}
 	return Size{a.Number / b.Number, a.Unit.Divide(b.Unit)}, nil
 }
