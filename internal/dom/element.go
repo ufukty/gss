@@ -1,6 +1,6 @@
 package dom
 
-import "go.ufukty.com/gss/internal/html/ast"
+import "go.ufukty.com/gss/internal/files/html/ast"
 
 type Element interface {
 	GetAst() ast.Element

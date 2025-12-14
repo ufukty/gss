@@ -1,7 +1,7 @@
 package dom
 
 import (
-	"go.ufukty.com/gss/internal/html/ast"
+	"go.ufukty.com/gss/internal/files/html/ast"
 )
 
 func wrap(e ast.Element) Element {

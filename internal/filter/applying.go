@@ -2,7 +2,7 @@ package filter
 
 import (
 	gss "go.ufukty.com/gss/internal/files/gss/ast"
-	html "go.ufukty.com/gss/internal/html/ast"
+	html "go.ufukty.com/gss/internal/files/html/ast"
 )
 
 // returns if target ∋ selector(root)

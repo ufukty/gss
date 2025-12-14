@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"go.ufukty.com/gss/internal/files/gss/tokens"
-	"go.ufukty.com/gss/internal/html/ast"
+	"go.ufukty.com/gss/internal/files/html/ast"
 )
 
 type (
