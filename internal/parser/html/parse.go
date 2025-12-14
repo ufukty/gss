@@ -11,8 +11,7 @@ import (
 
 func parseSrcSet(s string) (map[float64]string, error) {
 	set := map[float64]string{}
-	ss := strings.Split(s, ",")
-	for _, s := range ss {
+	for s := range strings.SplitSeq(s, ",") {
 		s = strings.TrimSpace(s)
 		ps := strings.Split(s, " ")
 		if len(ps) == 2 {
