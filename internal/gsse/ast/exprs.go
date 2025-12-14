@@ -32,6 +32,9 @@ func (c LightDark[T]) Resolve(ctx Context, e ast.Element) (T, error) {
 	return c.Light.Resolve(ctx, e)
 }
 
+// FIXME: Fetch identity value from DOM not AST once it is available
+func (i Ident[Final]) Resolve(ctx Context, e ast.Element) (Final, error)
+
 func (a Addition) Resolve(ctx Context, e ast.Element) (Size, error) {
 	l, err := a.Lhs.Resolve(ctx, e)
 	if err != nil {
