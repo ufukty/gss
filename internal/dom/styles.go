@@ -5,7 +5,7 @@ import (
 	gsse "go.ufukty.com/gss/internal/ast/gsse"
 	"go.ufukty.com/gss/internal/dom/defaults"
 	"go.ufukty.com/gss/internal/dom/filter"
-	"go.ufukty.com/gss/internal/files/gss/tokens"
+	gss1 "go.ufukty.com/gss/internal/tokens/gss"
 )
 
 // reverse [cmp.Or]
@@ -59,12 +59,12 @@ func Styles(e Element, rules []*gss.Rule) *gss.Styles {
 	def := defaults.For(e.GetAst())
 
 	return &gss.Styles{
-		BackgroundColor: pick(def.BackgroundColor, apl, func(s *gss.Styles) tokens.BackgroundColor { return s.BackgroundColor }),
-		Color:           pick(def.Color, apl, func(s *gss.Styles) tokens.Color { return s.Color }),
+		BackgroundColor: pick(def.BackgroundColor, apl, func(s *gss.Styles) gss1.BackgroundColor { return s.BackgroundColor }),
+		Color:           pick(def.Color, apl, func(s *gss.Styles) gss1.Color { return s.Color }),
 		Display:         pick(def.Display, apl, func(s *gss.Styles) gss.Display { return s.Display }),
-		FontFamily:      picks(def.FontFamily, apl, func(s *gss.Styles) []tokens.FontFamily { return s.FontFamily }),
+		FontFamily:      picks(def.FontFamily, apl, func(s *gss.Styles) []gss1.FontFamily { return s.FontFamily }),
 		FontSize:        pick(def.FontSize, apl, func(s *gss.Styles) gsse.Expr[gsse.Size] { return s.FontSize }),
-		Height:          pick(def.Height, apl, func(s *gss.Styles) tokens.Height { return s.Height }),
-		Width:           pick(def.Width, apl, func(s *gss.Styles) tokens.Width { return s.Width }),
+		Height:          pick(def.Height, apl, func(s *gss.Styles) gss1.Height { return s.Height }),
+		Width:           pick(def.Width, apl, func(s *gss.Styles) gss1.Width { return s.Width }),
 	}
 }

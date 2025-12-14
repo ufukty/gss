@@ -3,7 +3,7 @@ package gsse
 import (
 	"testing"
 
-	"go.ufukty.com/gss/internal/files/gss/tokens"
+	"go.ufukty.com/gss/internal/tokens/gss"
 )
 
 func TestUnit_String(t *testing.T) {
@@ -13,12 +13,12 @@ func TestUnit_String(t *testing.T) {
 		expected string
 	}
 	tcs := []tc{
-		{"", Units(tokens.Unit_Em), "em"},
-		{"", Units(tokens.Unit_Pc), "%"},
-		{"", Units(tokens.Unit_Em, tokens.Unit_Em), "em²"},
-		{"", Units(tokens.Unit_Em, tokens.Unit_Em, tokens.Unit_Px), "em²·px"},
-		{"", Units(tokens.Unit_Em, tokens.Unit_Em, tokens.Unit_Px, tokens.Unit_Px), "em²·px²"},
-		{"", Units(tokens.Unit_Em, tokens.Unit_Pc, tokens.Unit_Px, tokens.Unit_Px), "%·em·px²"},
+		{"", Units(gss.Unit_Em), "em"},
+		{"", Units(gss.Unit_Pc), "%"},
+		{"", Units(gss.Unit_Em, gss.Unit_Em), "em²"},
+		{"", Units(gss.Unit_Em, gss.Unit_Em, gss.Unit_Px), "em²·px"},
+		{"", Units(gss.Unit_Em, gss.Unit_Em, gss.Unit_Px, gss.Unit_Px), "em²·px²"},
+		{"", Units(gss.Unit_Em, gss.Unit_Pc, gss.Unit_Px, gss.Unit_Px), "%·em·px²"},
 	}
 	for _, tc := range tcs {
 		t.Run(t.Name(), func(t *testing.T) {

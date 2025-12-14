@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"go.ufukty.com/gss/internal/ast/html"
-	"go.ufukty.com/gss/internal/files/gss/tokens"
+	"go.ufukty.com/gss/internal/tokens/gss"
 )
 
 type (
@@ -23,7 +23,7 @@ type Expr[Final any] interface {
 	Resolve(Context, html.Element) (Final, error)
 }
 
-var _ Expr[tokens.Color] = (*LightDark[tokens.Color])(nil)
+var _ Expr[gss.Color] = (*LightDark[gss.Color])(nil)
 
 func (c LightDark[T]) Resolve(ctx Context, e html.Element) (T, error) {
 	if ctx.Media.PrefersColorScheme == "dark" {

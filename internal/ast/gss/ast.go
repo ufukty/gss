@@ -2,22 +2,22 @@ package gss
 
 import (
 	gsse "go.ufukty.com/gss/internal/ast/gsse"
-	"go.ufukty.com/gss/internal/files/gss/tokens"
+	"go.ufukty.com/gss/internal/tokens/gss"
 )
 
 type Display struct {
-	Outside tokens.DisplayOutside
-	Inside  tokens.DisplayInside
+	Outside gss.DisplayOutside
+	Inside  gss.DisplayInside
 }
 
 type Styles struct {
-	Display         Display                `gss:"display"`
-	Width           tokens.Width           `gss:"width"`
-	Height          tokens.Height          `gss:"height"`
-	FontFamily      []tokens.FontFamily    `gss:"font-family"`
-	FontSize        gsse.Expr[gsse.Size]   `gss:"font-size"`
-	Color           tokens.Color           `gss:"color"`
-	BackgroundColor tokens.BackgroundColor `gss:"background-color"`
+	Display         Display              `gss:"display"`
+	Width           gss.Width            `gss:"width"`
+	Height          gss.Height           `gss:"height"`
+	FontFamily      []gss.FontFamily     `gss:"font-family"`
+	FontSize        gsse.Expr[gsse.Size] `gss:"font-size"`
+	Color           gss.Color            `gss:"color"`
+	BackgroundColor gss.BackgroundColor  `gss:"background-color"`
 }
 
 type Rule struct {
