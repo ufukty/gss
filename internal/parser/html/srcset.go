@@ -2,21 +2,23 @@ package html
 
 import (
 	"fmt"
+	"regexp"
 	"strconv"
 	"strings"
 )
 
+var regexSrcSetItem = regexp.MustCompile(`\s*([^ ]+)\s+([0-9]*)x\s*`)
+
 func parseSrcSet(s string) (map[float64]string, error) {
 	set := map[float64]string{}
 	for s := range strings.SplitSeq(s, ",") {
-		s = strings.TrimSpace(s)
-		ps := strings.Split(s, " ")
-		if len(ps) == 2 {
-			d, err := strconv.ParseFloat(ps[1], 64)
+		ms := regexSrcSetItem.FindStringSubmatch(s)
+		if len(ms) == 3 {
+			d, err := strconv.ParseFloat(ms[2], 64)
 			if err != nil {
 				return nil, fmt.Errorf("parsing density number: %w", err)
 			}
-			set[d] = strings.TrimSpace(ps[0])
+			set[d] = strings.TrimSpace(ms[1])
 		}
 	}
 	return set, nil
