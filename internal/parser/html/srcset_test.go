@@ -21,8 +21,10 @@ func TestParseSrcSet(t *testing.T) {
 		expected map[float64]string
 	}
 	tcs := []tc{
-		{"", "a.png 2x", map[float64]string{2: "a.png"}},
-		{"", "a.png 2x, b.png 3x", map[float64]string{2: "a.png", 3: "b.png"}},
+		{"single", "a.png 2x", map[float64]string{2: "a.png"}},
+		{"double", "a.png 2x, b.png 3x", map[float64]string{2: "a.png", 3: "b.png"}},
+		{"triple", "a.png 2x, b.png 3x,c.png 4x", map[float64]string{2: "a.png", 3: "b.png", 4: "c.png"}},
+		{"float", "a 1.1x", map[float64]string{1.1: "a"}},
 	}
 	for _, tc := range tcs {
 		t.Run(tc.name, func(t *testing.T) {

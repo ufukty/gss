@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-var regexSrcSetItem = regexp.MustCompile(`\s*([^ ]+)\s+([0-9]*)x\s*`)
+var regexSrcSetItem = regexp.MustCompile(`\s*([^ ]+)\s+((?:[0-9]+\.)?[0-9]*)x\s*`)
 
 func parseSrcSet(s string) (map[float64]string, error) {
 	set := map[float64]string{}
