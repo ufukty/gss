@@ -1,7 +1,7 @@
 package gss
 
 import (
-	gsse "go.ufukty.com/gss/internal/ast/gsse"
+	"go.ufukty.com/gss/internal/ast/gsse"
 	"go.ufukty.com/gss/internal/tokens/gss"
 )
 
