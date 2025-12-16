@@ -10,19 +10,18 @@ type Display struct {
 	Inside  gss.DisplayInside
 }
 
-type BorderEdge struct {
+type Border struct {
 	Color     gsse.Expr[gsse.Color]
 	Style     string
 	Thickness gsse.Expr[gsse.Pixels]
 }
 
-type BorderCorner struct {
-	Radius gsse.Expr[gsse.Pixels]
+type BorderRadiuses struct {
+	TopLeft, TopRight, BottomRight, BottomLeft gsse.Expr[gsse.Pixels]
 }
 
-type Border struct {
-	Top, Right, Bottom, Left                   BorderEdge
-	TopLeft, TopRight, BottomRight, BottomLeft BorderCorner
+type Borders struct {
+	Top, Right, Bottom, Left Border
 }
 
 type Margin struct {
@@ -34,9 +33,9 @@ type Padding struct {
 }
 
 type Font struct {
-	FontFamily []gss.FontFamily       `gss:"font-family"`
-	FontSize   gsse.Expr[gsse.Pixels] `gss:"font-size"`
-	FontWeight gsse.Expr[gsse.Pixels] `gss:"font-weight"`
+	Family []gss.FontFamily       `gss:"font-family"`
+	Size   gsse.Expr[gsse.Pixels] `gss:"font-size"`
+	Weight gsse.Expr[gsse.Pixels] `gss:"font-weight"`
 }
 
 type Text struct {
@@ -58,7 +57,8 @@ type Styles struct {
 	Display         Display `gss:"display"`
 	Text            Text
 	Font            Font
-	Border          Border               `gss:"border"`
+	Border          Borders              `gss:"border"`
+	BorderRadiuses  BorderRadiuses       `gss:"border-radius"`
 	BackgroundColor gsse.Expr[gss.Color] `gss:"background-color"`
 }
 
