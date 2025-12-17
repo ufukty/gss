@@ -14,7 +14,7 @@ func TestParseBorder(t *testing.T) {
 		thicknesses = []string{"", "0", "1px", "2pt", "3em", "4rem", "5vh", "6vw"}
 	)
 
-	for c1 := range sets.Combinations(colors, styles, thicknesses) {
+	for c1 := range sets.Product(colors, styles, thicknesses) {
 		t.Run(strings.Join(c1, " "), func(t *testing.T) {
 
 		})

@@ -4,8 +4,9 @@ import (
 	"iter"
 )
 
+// Cartesian product.
 // Excludes the <nil>
-func Combinations(sets ...[]string) iter.Seq[[]string] {
+func Product(sets ...[]string) iter.Seq[[]string] {
 	return func(yield func([]string) bool) {
 		idx := make([]int, len(sets))
 		cur := make([]string, len(sets))
