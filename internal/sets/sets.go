@@ -37,7 +37,7 @@ func Permutations(set []string) iter.Seq[[]string] {
 	// swapped as many times as its reverse index number since
 	// one of its lefthand items swapped.
 	// Repeation ends when each spot have as many swaps as its
-	// index.
+	// reverse index. eg. C = [5 4 3 2 1 0] s(set)=6
 	return func(yield func([]string) bool) {
 		p := slices.Clone(set)
 		if !yield(p) {
