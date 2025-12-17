@@ -6,6 +6,10 @@ import (
 	"go.ufukty.com/gss/internal/ast/gss"
 )
 
+func silent[T any](t T, _ error) T {
+	return t
+}
+
 func rule(src io.Reader) (*gss.Rule, error)
 
 func Gss(r io.Reader) (*gss.Gss, error) {
