@@ -33,20 +33,21 @@ func Product(sets ...[]string) iter.Seq[[]string] {
 //
 // Going left to right, swaps the first element that isn't
 // swapped as many times as its index number since one of
-// its righthand items gets swapped. 
+// its righthand items gets swapped.
 // Repeation ends when each spot have as many swaps as its
 // index.
 //
 // Chart for count array:
-// 0 0 0 0 0
-// 0 1 0 0 0 (after 0th and 1st swapped)
-// 0 0 1 0 0 (after 0th and 2nd swapped. 1st set 0 as passed)
-// 0 1 1 0 0 (after 0th and 1st swapped. 2nd is untouched)
-// 0 0 2 0 0 ...
-// ...
-// ...
-// ...
-// 0 1 2 3 4 
+//
+//	0 0 0 0 0
+//	0 1 0 0 0 (after 0th and 1st swapped)
+//	0 0 1 0 0 (after 0th and 2nd swapped. 1st set 0 as passed)
+//	0 1 1 0 0 (after 0th and 1st swapped. 2nd is untouched)
+//	0 0 2 0 0 ...
+//	...
+//	...
+//	...
+//	0 1 2 3 4
 func Permutations(set []string) iter.Seq[[]string] {
 	// It is normal the [i] moves in both directions. It gets
 	// resetted after each swap.
