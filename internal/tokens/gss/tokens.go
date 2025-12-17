@@ -60,3 +60,12 @@ type BackgroundColor string
 const (
 	BackgroundColor_Inherit BackgroundColor = "inherit"
 )
+
+type TextAlignment string
+
+const (
+	TextAlignment_Inherit TextAlignment = "inherit"
+	TextAlignment_Left    TextAlignment = "left"
+	TextAlignment_Center  TextAlignment = "center"
+	TextAlignment_Right   TextAlignment = "right"
+)
