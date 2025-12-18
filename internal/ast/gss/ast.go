@@ -1,23 +1,21 @@
+// Strings are used for quantitive values as they can have multiple
+// units or even defined by complex expressions (GSSE) that is not
+// handled in this step.
 package gss
 
-import (
-	"go.ufukty.com/gss/internal/ast/gsse"
-	"go.ufukty.com/gss/internal/tokens/gss"
-)
-
 type Display struct {
-	Outside gss.DisplayOutside
-	Inside  gss.DisplayInside
+	Outside string
+	Inside  string
 }
 
 type Border struct {
-	Color     gsse.Expr[gsse.Color]
+	Color     string
 	Style     string
-	Thickness gsse.Expr[gsse.Pixels]
+	Thickness string
 }
 
 type BorderRadiuses struct {
-	TopLeft, TopRight, BottomRight, BottomLeft gsse.Expr[gsse.Pixels]
+	TopLeft, TopRight, BottomRight, BottomLeft string
 }
 
 type Borders struct {
@@ -25,28 +23,28 @@ type Borders struct {
 }
 
 type Margin struct {
-	Top, Right, Bottom, Left gsse.Expr[gsse.Pixels]
+	Top, Right, Bottom, Left string
 }
 
 type Padding struct {
-	Top, Right, Bottom, Left gsse.Expr[gsse.Pixels]
+	Top, Right, Bottom, Left string
 }
 
 type Font struct {
-	Family []gss.FontFamily       `gss:"font-family"`
-	Size   gsse.Expr[gsse.Pixels] `gss:"font-size"`
-	Weight gsse.Expr[gsse.Pixels] `gss:"font-weight"`
+	Family string `gss:"font-family"`
+	Size   string `gss:"font-size"`
+	Weight string `gss:"font-weight"`
 }
 
 type Text struct {
-	Color         gsse.Expr[gss.Color]   `gss:"color"`
-	LineHeight    gsse.Expr[gsse.Pixels] `gss:"line-height"`
-	TextAlignment gss.TextAlignment      `gss:"text-alignment"`
+	Color         string `gss:"color"`
+	LineHeight    string `gss:"line-height"`
+	TextAlignment string `gss:"text-alignment"`
 }
 
 type Dimensions struct {
-	Height gss.Height `gss:"height"`
-	Width  gss.Width  `gss:"width"`
+	Height string `gss:"height"`
+	Width  string `gss:"width"`
 }
 
 // TODO: handle shorthand syntaxes during parsing
@@ -57,9 +55,9 @@ type Styles struct {
 	Display         Display `gss:"display"`
 	Text            Text
 	Font            Font
-	Border          Borders              `gss:"border"`
-	BorderRadiuses  BorderRadiuses       `gss:"border-radius"`
-	BackgroundColor gsse.Expr[gss.Color] `gss:"background-color"`
+	Border          Borders        `gss:"border"`
+	BorderRadiuses  BorderRadiuses `gss:"border-radius"`
+	BackgroundColor string         `gss:"background-color"`
 }
 
 type Rule struct {
