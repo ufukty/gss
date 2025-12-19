@@ -2,10 +2,9 @@ package dom
 
 import (
 	"fmt"
-	"maps"
-	"slices"
-	"strings"
+	"image/color"
 
+	"go.ufukty.com/gss/internal/dom/unit"
 	"go.ufukty.com/gss/internal/tokens/gss"
 )
 
@@ -14,14 +13,13 @@ var (
 	ErrIncompatibleUnits = fmt.Errorf("operands have incompetable units")
 )
 
-type PixelArea struct {
-	Width, Height float64
-}
-
 // Context
 type (
 	Media struct {
 		PrefersColorScheme string
+	}
+	PixelArea struct {
+		Width, Height float64
 	}
 	Context struct {
 		Media     Media
@@ -30,81 +28,104 @@ type (
 	}
 )
 
-// Nodes
-
+// GSSE compliant primitive value types
+//
+// Values of those types can be assigned to a variable of Expr[T] as leaf node
 type (
-	Display struct {
-		Outside gss.DisplayOutside
-		Inside  gss.DisplayInside
+	Dimension struct {
+		Number float64
+		Unit   unit.Unit
 	}
+)
 
-	Border struct {
-		Color     Expr[Color]
-		Style     string
-		Thickness Expr[Pixels]
+func (d Dimension) Color(ctx Context, e Element) (float64, error) {
+	if !d.Unit.Compare(Units("px")) {
+		panic("implement conversion using context")
 	}
+	return d.Number, nil
+}
 
-	BorderRadiuses struct {
-		TopLeft, TopRight, BottomRight, BottomLeft Expr[Pixels]
+func (d Dimension) Compare(t Dimension) bool {
+	return d.Number == t.Number && d.Unit.Compare(t.Unit)
+}
+
+func (d Dimension) String() string {
+	return fmt.Sprintf("%.0f%s", d.Number, d.Unit.String())
+}
+
+func (d Dimension) Add(b Dimension) (Dimension, error) {
+	if !d.Unit.Compare(b.Unit) {
+		return Dimension{}, fmt.Errorf("%s + %s: %w", d, b, ErrIncompatibleUnits)
 	}
+	return Dimension{d.Number + b.Number, d.Unit}, nil
+}
 
-	Borders struct {
-		Top, Right, Bottom, Left Border
+func (d Dimension) Sub(b Dimension) (Dimension, error) {
+	if !d.Unit.Compare(b.Unit) {
+		return Dimension{}, fmt.Errorf("%s - %s: %w", d, b, ErrIncompatibleUnits)
 	}
+	return Dimension{d.Number - b.Number, d.Unit}, nil
+}
 
-	Margin struct {
-		Top, Right, Bottom, Left Expr[Pixels]
+func (d Dimension) Mul(b Dimension) (Dimension, error) {
+	return Dimension{d.Number * b.Number, d.Unit.Multiply(b.Unit)}, nil
+}
+
+func (d Dimension) Div(b Dimension) (Dimension, error) {
+	if b.Number == 0 {
+		return Dimension{}, fmt.Errorf("%s / %s: %w", d, b, ErrDivisionByZero)
 	}
+	return Dimension{d.Number / b.Number, d.Unit.Divide(b.Unit)}, nil
+}
 
-	Padding struct {
-		Top, Right, Bottom, Left Expr[Pixels]
+func (d Dimension) Resolve(ctx Context, e Element) (Dimension, error) {
+	return d, nil
+}
+
+// Value types are to be used in instantiating [Expr] types.
+type (
+	Color        color.RGBA // eg. #FF0000
+	Pixels       float64    // eg. 10px
+	Angle        float64    // eg. 360deg
+	Milliseconds int        // eg. 1000ms
+	Image        string     // eg. url()
+	FontSet      []string   // eg. "Helvetica", "Helvetica Neue", sans-serif
+)
+
+type Expr[Resolving any] interface {
+	Resolve(ctx Context, e Element) (Resolving, error)
+}
+
+// GSSE functions
+type (
+	LightDark struct {
+		Light, Dark Expr[Color]
 	}
-
-	Font struct {
-		Family []gss.FontFamily `gss:"font-family"`
-		Dimension   Expr[Pixels]     `gss:"font-size"`
-		Weight Expr[Pixels]     `gss:"font-weight"`
+	Ident[Resolving any] struct {
+		Name string
 	}
-
-	Text struct {
-		Color         Expr[gss.Color]   `gss:"color"`
-		LineHeight    Expr[Pixels]      `gss:"line-height"`
-		TextAlignment gss.TextAlignment `gss:"text-alignment"`
+	Addition struct {
+		Lhs, Rhs Expr[Dimension]
 	}
-
-	Dimensions struct {
-		Height gss.Height `gss:"height"`
-		Width  gss.Width  `gss:"width"`
+	Subtraction struct {
+		Lhs, Rhs Expr[Dimension]
 	}
-
-	// TODO: handle shorthand syntaxes during parsing
-	Styles struct {
-		Dimensions      Dimensions
-		Margin          Margin  `gss:"margin"`
-		Padding         Padding `gss:"padding"`
-		Display         Display `gss:"display"`
-		Text            Text
-		Font            Font
-		Border          Borders         `gss:"border"`
-		BorderRadiuses  BorderRadiuses  `gss:"border-radius"`
-		BackgroundColor Expr[gss.Color] `gss:"background-color"`
+	Multiplication struct {
+		Lhs, Rhs Expr[Dimension]
 	}
-
-	Rule struct {
-		Selector string
-		Styles   *Styles
-	}
-
-	Gss struct {
-		Rules []*Rule
+	Division struct {
+		Dividend, Divisor Expr[Dimension]
 	}
 )
 
 var (
-	_ Expr[gss.Color] = (*LightDark[gss.Color])(nil)
+	_ Expr[Dimension] = (*Addition)(nil)
+	_ Expr[Dimension] = (*Subtraction)(nil)
+	_ Expr[Dimension] = (*Multiplication)(nil)
+	_ Expr[Dimension] = (*Division)(nil)
 )
 
-func (c LightDark[T]) Resolve(ctx Context, e Element) (T, error) {
+func (c LightDark) Resolve(ctx Context, e Element) (Color, error) {
 	if ctx.Media.PrefersColorScheme == "dark" {
 		return c.Dark.Resolve(ctx, e)
 	}
@@ -112,10 +133,10 @@ func (c LightDark[T]) Resolve(ctx Context, e Element) (T, error) {
 }
 
 // FIXME: Fetch identity value from DOM not AST once it is available
-func (i Ident[Final]) Resolve(ctx Context, e Element) (Final, error)
+func (i Ident[Resolving]) Resolve(ctx Context, e Element) (Resolving, error)
 
 func (a Addition) Resolve(ctx Context, e Element) (Dimension, error) {
-	l, err := a.Operands.Resolve(ctx, e)
+	l, err := a.Lhs.Resolve(ctx, e)
 	if err != nil {
 		return Dimension{}, fmt.Errorf("lhs: %w", err)
 	}
@@ -126,7 +147,7 @@ func (a Addition) Resolve(ctx Context, e Element) (Dimension, error) {
 	return l.Add(r)
 }
 
-func (a Neglect) Resolve(ctx Context, e Element) (Dimension, error) {
+func (a Subtraction) Resolve(ctx Context, e Element) (Dimension, error) {
 	l, err := a.Lhs.Resolve(ctx, e)
 	if err != nil {
 		return Dimension{}, fmt.Errorf("lhs: %w", err)
@@ -162,148 +183,71 @@ func (a Division) Resolve(ctx Context, e Element) (Dimension, error) {
 	return l.Div(r)
 }
 
-type Dimension struct {
-	Number float64
-	Unit   Unit
-}
-
-func (s Dimension) Pixels(ctx Context, e Element) (float64, error) {
-	return -1, nil
-}
-
-type Pixeler interface {
-	Pixels(ctx Context, e Element) (float64, error)
-}
-
-type Durationer interface {
-	Duration(ctx Context, e Element) (float64, error)
-}
-type Angler interface {
-	Angle(ctx Context, e Element) (float64, error)
-}
-
-func (s Dimension) Compare(t Dimension) bool {
-	return s.Number == t.Number && s.Unit.Compare(t.Unit)
-}
-
-func (s Dimension) String() string {
-	return fmt.Sprintf("%.0f%s", s.Number, s.Unit.String())
-}
-
-func (a Dimension) Add(b Dimension) (Dimension, error) {
-	if !a.Unit.Compare(b.Unit) {
-		return Dimension{}, fmt.Errorf("%s + %s: %w", a, b, ErrIncompatibleUnits)
+// Nodes
+type (
+	Display struct {
+		Outside gss.DisplayOutside
+		Inside  gss.DisplayInside
 	}
-	return Dimension{a.Number + b.Number, a.Unit}, nil
-}
 
-func (a Dimension) Sub(b Dimension) (Dimension, error) {
-	if !a.Unit.Compare(b.Unit) {
-		return Dimension{}, fmt.Errorf("%s - %s: %w", a, b, ErrIncompatibleUnits)
+	Border struct {
+		Color     Expr[Color]
+		Style     string
+		Thickness Expr[Color]
 	}
-	return Dimension{a.Number - b.Number, a.Unit}, nil
-}
 
-func (a Dimension) Mul(b Dimension) (Dimension, error) {
-	return Dimension{a.Number * b.Number, a.Unit.Multiply(b.Unit)}, nil
-}
-
-func (a Dimension) Div(b Dimension) (Dimension, error) {
-	if b.Number == 0 {
-		return Dimension{}, fmt.Errorf("%s / %s: %w", a, b, ErrDivisionByZero)
+	BorderRadiuses struct {
+		TopLeft, TopRight, BottomRight, BottomLeft Expr[Color]
 	}
-	return Dimension{a.Number / b.Number, a.Unit.Divide(b.Unit)}, nil
-}
 
-func (s Dimension) Resolve(ctx Context, e Element) (Pixels, error) {
-	return s, nil
-}
+	Borders struct {
+		Top, Right, Bottom, Left Border
+	}
 
-type Unit map[gss.Unit]int // eg. px^2/em
+	Margin struct {
+		Top, Right, Bottom, Left Expr[Color]
+	}
 
-func (a Unit) Compare(b Unit) bool {
-	if len(a) != len(b) {
-		return false
+	Padding struct {
+		Top, Right, Bottom, Left Expr[Color]
 	}
-	for unit := range a {
-		if a[unit] != b[unit] {
-			return false
-		}
-	}
-	return true
-}
 
-func (a Unit) Multiply(b Unit) Unit {
-	c := maps.Clone(a)
-	for u, p := range b {
-		c[u] += p
+	Font struct {
+		Family    []gss.FontFamily `gss:"font-family"`
+		Dimension Expr[Color]      `gss:"font-size"`
+		Weight    Expr[Color]      `gss:"font-weight"`
 	}
-	return c
-}
 
-func (a *Unit) clean() {
-	for u, p := range *a {
-		if p == 0 {
-			delete(*a, u)
-		}
+	Text struct {
+		Color         Expr[gss.Color]   `gss:"color"`
+		LineHeight    Expr[Color]       `gss:"line-height"`
+		TextAlignment gss.TextAlignment `gss:"text-alignment"`
 	}
-}
 
-func (a Unit) Divide(b Unit) Unit {
-	c := maps.Clone(a)
-	for u, p := range b {
-		c[u] -= p
+	Dimensions struct {
+		Height gss.Height `gss:"height"`
+		Width  gss.Width  `gss:"width"`
 	}
-	c.clean()
-	return c
-}
 
-var superscript = []string{"⁰", "¹", "²", "³", "⁴", "⁵", "⁶", "⁷", "⁸", "⁹"}
+	// TODO: handle shorthand syntaxes during parsing
+	Declarations struct {
+		Dimensions      Dimensions
+		Margin          Margin  `gss:"margin"`
+		Padding         Padding `gss:"padding"`
+		Display         Display `gss:"display"`
+		Text            Text
+		Font            Font
+		Border          Borders         `gss:"border"`
+		BorderRadiuses  BorderRadiuses  `gss:"border-radius"`
+		BackgroundColor Expr[gss.Color] `gss:"background-color"`
+	}
 
-func positiveDigits(i int) []int {
-	if i == 0 {
-		return []int{0}
+	QualifiedRule struct {
+		Component    string
+		Declarations *Declarations
 	}
-	ds := []int{}
-	for ; i > 0; i /= 10 {
-		ds = append(ds, i%10)
-	}
-	slices.Reverse(ds)
-	return ds
-}
 
-func super(i int) string {
-	s := []string{}
-	if i < 0 {
-		i *= -1
-		s = append(s, "⁻")
+	Stylesheet struct {
+		Rules []*QualifiedRule
 	}
-	for _, d := range positiveDigits(i) {
-		s = append(s, superscript[d])
-	}
-	return strings.Join(s, "")
-}
-
-// power in superscript unless ^1
-func power(p int) string {
-	if p == 1 {
-		return ""
-	}
-	return super(p)
-}
-
-func (u Unit) String() string {
-	us := []string{}
-	for _, c := range slices.Sorted(maps.Keys(u)) {
-		us = append(us, fmt.Sprintf("%s%s", c, power(u[c])))
-	}
-	return strings.Join(us, "·")
-}
-
-func Units(us ...gss.Unit) Unit {
-	m := map[gss.Unit]int{}
-	for _, u := range us {
-		m[u] += 1
-	}
-	return m
-}
+)
