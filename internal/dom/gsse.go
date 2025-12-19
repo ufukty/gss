@@ -219,7 +219,7 @@ type (
 	}
 
 	Text struct {
-		Color         Expr[gss.Color]   `gss:"color"`
+		Color         Expr[Color]       `gss:"color"`
 		LineHeight    Expr[Color]       `gss:"line-height"`
 		TextAlignment gss.TextAlignment `gss:"text-alignment"`
 	}
@@ -237,9 +237,9 @@ type (
 		Display         Display `gss:"display"`
 		Text            Text
 		Font            Font
-		Border          Borders         `gss:"border"`
-		BorderRadiuses  BorderRadiuses  `gss:"border-radius"`
-		BackgroundColor Expr[gss.Color] `gss:"background-color"`
+		Border          Borders        `gss:"border"`
+		BorderRadiuses  BorderRadiuses `gss:"border-radius"`
+		BackgroundColor Expr[Color]    `gss:"background-color"`
 	}
 
 	QualifiedRule struct {
