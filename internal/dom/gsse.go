@@ -39,7 +39,7 @@ type (
 )
 
 func (d Dimension) Color(ctx Context, e Element) (float64, error) {
-	if !d.Unit.Compare(units.Units("px")) {
+	if !d.Unit.Compare(units.Parse("px")) {
 		panic("implement conversion using context")
 	}
 	return d.Number, nil
