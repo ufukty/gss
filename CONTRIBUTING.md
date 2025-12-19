@@ -1,4 +1,4 @@
-# Contributors
+# Contributing
 
 I hope this article will make you understand the design decisions made on internals quicker.
 
