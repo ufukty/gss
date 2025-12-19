@@ -2,21 +2,21 @@ package gsse
 
 type (
 	LightDark[Final any] struct {
-		Light, Dark Expr[Final]
+		Light, Dark string
 	}
 	Ident[Final any] struct {
 		Name string
 	}
 	Addition struct {
-		Lhs, Rhs Expr[Size]
+		Lhs, Rhs string
 	}
 	Subtraction struct {
-		Lhs, Rhs Expr[Size]
+		Lhs, Rhs string
 	}
 	Multiplication struct {
-		Lhs, Rhs Expr[Size]
+		Lhs, Rhs string
 	}
 	Division struct {
-		Dividend, Divisor Expr[Size]
+		Dividend, Divisor string
 	}
 )
