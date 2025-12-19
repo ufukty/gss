@@ -213,33 +213,33 @@ type (
 	}
 
 	Font struct {
-		Family    []gss.FontFamily `gss:"font-family"`
-		Dimension Expr[Color]      `gss:"font-size"`
-		Weight    Expr[Color]      `gss:"font-weight"`
+		Family    []gss.FontFamily
+		Dimension Expr[Color]
+		Weight    Expr[Color]
 	}
 
 	Text struct {
-		Color         Expr[Color]       `gss:"color"`
-		LineHeight    Expr[Color]       `gss:"line-height"`
-		TextAlignment gss.TextAlignment `gss:"text-alignment"`
+		Color         Expr[Color]
+		LineHeight    Expr[Color]
+		TextAlignment gss.TextAlignment
 	}
 
 	Dimensions struct {
-		Height gss.Height `gss:"height"`
-		Width  gss.Width  `gss:"width"`
+		Height gss.Height
+		Width  gss.Width
 	}
 
 	// TODO: handle shorthand syntaxes during parsing
 	Declarations struct {
 		Dimensions      Dimensions
-		Margin          Margin  `gss:"margin"`
-		Padding         Padding `gss:"padding"`
-		Display         Display `gss:"display"`
+		Margin          Margin
+		Padding         Padding
+		Display         Display
 		Text            Text
 		Font            Font
-		Border          Borders        `gss:"border"`
-		BorderRadiuses  BorderRadiuses `gss:"border-radius"`
-		BackgroundColor Expr[Color]    `gss:"background-color"`
+		Border          Borders
+		BorderRadiuses  BorderRadiuses
+		BackgroundColor Expr[Color]
 	}
 
 	QualifiedRule struct {
