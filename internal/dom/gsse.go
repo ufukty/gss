@@ -62,7 +62,7 @@ type (
 
 	Font struct {
 		Family []gss.FontFamily `gss:"font-family"`
-		Size   Expr[Pixels]     `gss:"font-size"`
+		Dimension   Expr[Pixels]     `gss:"font-size"`
 		Weight Expr[Pixels]     `gss:"font-weight"`
 	}
 
@@ -114,60 +114,60 @@ func (c LightDark[T]) Resolve(ctx Context, e Element) (T, error) {
 // FIXME: Fetch identity value from DOM not AST once it is available
 func (i Ident[Final]) Resolve(ctx Context, e Element) (Final, error)
 
-func (a Addition) Resolve(ctx Context, e Element) (Size, error) {
+func (a Addition) Resolve(ctx Context, e Element) (Dimension, error) {
 	l, err := a.Operands.Resolve(ctx, e)
 	if err != nil {
-		return Size{}, fmt.Errorf("lhs: %w", err)
+		return Dimension{}, fmt.Errorf("lhs: %w", err)
 	}
 	r, err := a.Rhs.Resolve(ctx, e)
 	if err != nil {
-		return Size{}, fmt.Errorf("rhs: %w", err)
+		return Dimension{}, fmt.Errorf("rhs: %w", err)
 	}
 	return l.Add(r)
 }
 
-func (a Neglect) Resolve(ctx Context, e Element) (Size, error) {
+func (a Neglect) Resolve(ctx Context, e Element) (Dimension, error) {
 	l, err := a.Lhs.Resolve(ctx, e)
 	if err != nil {
-		return Size{}, fmt.Errorf("lhs: %w", err)
+		return Dimension{}, fmt.Errorf("lhs: %w", err)
 	}
 	r, err := a.Rhs.Resolve(ctx, e)
 	if err != nil {
-		return Size{}, fmt.Errorf("rhs: %w", err)
+		return Dimension{}, fmt.Errorf("rhs: %w", err)
 	}
 	return l.Sub(r)
 }
 
-func (a Multiplication) Resolve(ctx Context, e Element) (Size, error) {
+func (a Multiplication) Resolve(ctx Context, e Element) (Dimension, error) {
 	l, err := a.Lhs.Resolve(ctx, e)
 	if err != nil {
-		return Size{}, fmt.Errorf("lhs: %w", err)
+		return Dimension{}, fmt.Errorf("lhs: %w", err)
 	}
 	r, err := a.Rhs.Resolve(ctx, e)
 	if err != nil {
-		return Size{}, fmt.Errorf("rhs: %w", err)
+		return Dimension{}, fmt.Errorf("rhs: %w", err)
 	}
 	return l.Mul(r)
 }
 
-func (a Division) Resolve(ctx Context, e Element) (Size, error) {
+func (a Division) Resolve(ctx Context, e Element) (Dimension, error) {
 	l, err := a.Dividend.Resolve(ctx, e)
 	if err != nil {
-		return Size{}, fmt.Errorf("lhs: %w", err)
+		return Dimension{}, fmt.Errorf("lhs: %w", err)
 	}
 	r, err := a.Divisor.Resolve(ctx, e)
 	if err != nil {
-		return Size{}, fmt.Errorf("rhs: %w", err)
+		return Dimension{}, fmt.Errorf("rhs: %w", err)
 	}
 	return l.Div(r)
 }
 
-type Size struct {
+type Dimension struct {
 	Number float64
 	Unit   Unit
 }
 
-func (s Size) Pixels(ctx Context, e Element) (float64, error) {
+func (s Dimension) Pixels(ctx Context, e Element) (float64, error) {
 	return -1, nil
 }
 
@@ -182,40 +182,40 @@ type Angler interface {
 	Angle(ctx Context, e Element) (float64, error)
 }
 
-func (s Size) Compare(t Size) bool {
+func (s Dimension) Compare(t Dimension) bool {
 	return s.Number == t.Number && s.Unit.Compare(t.Unit)
 }
 
-func (s Size) String() string {
+func (s Dimension) String() string {
 	return fmt.Sprintf("%.0f%s", s.Number, s.Unit.String())
 }
 
-func (a Size) Add(b Size) (Size, error) {
+func (a Dimension) Add(b Dimension) (Dimension, error) {
 	if !a.Unit.Compare(b.Unit) {
-		return Size{}, fmt.Errorf("%s + %s: %w", a, b, ErrIncompatibleUnits)
+		return Dimension{}, fmt.Errorf("%s + %s: %w", a, b, ErrIncompatibleUnits)
 	}
-	return Size{a.Number + b.Number, a.Unit}, nil
+	return Dimension{a.Number + b.Number, a.Unit}, nil
 }
 
-func (a Size) Sub(b Size) (Size, error) {
+func (a Dimension) Sub(b Dimension) (Dimension, error) {
 	if !a.Unit.Compare(b.Unit) {
-		return Size{}, fmt.Errorf("%s - %s: %w", a, b, ErrIncompatibleUnits)
+		return Dimension{}, fmt.Errorf("%s - %s: %w", a, b, ErrIncompatibleUnits)
 	}
-	return Size{a.Number - b.Number, a.Unit}, nil
+	return Dimension{a.Number - b.Number, a.Unit}, nil
 }
 
-func (a Size) Mul(b Size) (Size, error) {
-	return Size{a.Number * b.Number, a.Unit.Multiply(b.Unit)}, nil
+func (a Dimension) Mul(b Dimension) (Dimension, error) {
+	return Dimension{a.Number * b.Number, a.Unit.Multiply(b.Unit)}, nil
 }
 
-func (a Size) Div(b Size) (Size, error) {
+func (a Dimension) Div(b Dimension) (Dimension, error) {
 	if b.Number == 0 {
-		return Size{}, fmt.Errorf("%s / %s: %w", a, b, ErrDivisionByZero)
+		return Dimension{}, fmt.Errorf("%s / %s: %w", a, b, ErrDivisionByZero)
 	}
-	return Size{a.Number / b.Number, a.Unit.Divide(b.Unit)}, nil
+	return Dimension{a.Number / b.Number, a.Unit.Divide(b.Unit)}, nil
 }
 
-func (s Size) Resolve(ctx Context, e Element) (Pixels, error) {
+func (s Dimension) Resolve(ctx Context, e Element) (Pixels, error) {
 	return s, nil
 }
 
