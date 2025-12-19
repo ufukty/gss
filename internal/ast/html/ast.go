@@ -27,7 +27,7 @@ type (
 		Children []Element
 	}
 
-	Text struct {
+	TextNode struct {
 		Content string
 	}
 )
