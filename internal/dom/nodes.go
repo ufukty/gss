@@ -33,7 +33,7 @@ type (
 		Min, Max Size
 	}
 
-	Text struct {
+	TextNode struct {
 		Ast      *html.TextNode
 		Parent   Parent
 		Min, Max Size
