@@ -14,7 +14,7 @@ func wrap(e html.Element) Element {
 		return &Img{Ast: e}
 	case *html.Span:
 		return &Span{Ast: e}
-	case *html.Text:
+	case *html.TextNode:
 		return &Text{Ast: e}
 	}
 	return nil

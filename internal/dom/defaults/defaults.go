@@ -67,7 +67,7 @@ func For(e html.Element) *gss.Styles {
 		return &Img
 	case *html.Span:
 		return &Span
-	case *html.Text:
+	case *html.TextNode:
 		return &Text
 	}
 	return nil

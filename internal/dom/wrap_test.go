@@ -8,7 +8,7 @@ import (
 
 func ExampleWrap() {
 	var (
-		title           = &html.Text{Content: "Lorem ipsum"}
+		title           = &html.TextNode{Content: "Lorem ipsum"}
 		titleContainer  = &html.Div{Classes: []string{"title"}, Children: []html.Element{title}}
 		img             = &html.Img{Src: "./profile.png", SrcSet: map[float64]string{2.0: "./profile@2x.png"}}
 		author          = &html.Text{Content: "Ufuktan Yıldırım"}
