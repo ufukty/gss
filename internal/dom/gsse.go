@@ -193,11 +193,11 @@ type (
 	Border struct {
 		Color     Expr[Color]
 		Style     string
-		Thickness Expr[Color]
+		Thickness Expr[Pixels]
 	}
 
 	BorderRadiuses struct {
-		TopLeft, TopRight, BottomRight, BottomLeft Expr[Color]
+		TopLeft, TopRight, BottomRight, BottomLeft Expr[Pixels]
 	}
 
 	Borders struct {
