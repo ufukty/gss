@@ -1,4 +1,4 @@
-package gsse
+package units
 
 import (
 	"fmt"
@@ -90,7 +90,7 @@ func (u Unit) String() string {
 	return strings.Join(us, "·")
 }
 
-func Units(us ...gss.Unit) Unit {
+func Parse(us ...gss.Unit) Unit {
 	m := map[gss.Unit]int{}
 	for _, u := range us {
 		m[u] += 1

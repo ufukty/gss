@@ -52,3 +52,11 @@ func (i *Img) Size(opts *Options) error {
 func (s *Span) Size(opts *Options) error
 
 func (t *Text) Size(opts *Options) error
+
+var (
+	_ Sizer = (*Div)(nil)
+	_ Sizer = (*Html)(nil)
+	_ Sizer = (*Img)(nil)
+	_ Sizer = (*Span)(nil)
+	_ Sizer = (*Text)(nil)
+)

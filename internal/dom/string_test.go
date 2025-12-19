@@ -51,6 +51,6 @@ func (e Span) String() string {
 	return tree.List(selector("span", e.Ast.Id, e.Ast.Classes), ss(e.Children))
 }
 
-func (e Text) String() string {
+func (e TextNode) String() string {
 	return fmt.Sprintf("text %q", e.Ast.Content)
 }

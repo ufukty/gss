@@ -27,7 +27,7 @@ type (
 		Children []Element
 	}
 
-	Text struct {
+	TextNode struct {
 		Content string
 	}
 )
@@ -40,7 +40,7 @@ func (*Div) element()  {}
 func (*Html) element() {}
 func (*Img) element()  {}
 func (*Span) element() {}
-func (*Text) element() {}
+func (*TextNode) element() {}
 
 type Parent interface {
 	GetChildren() []Element
