@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"image/color"
 
-	"go.ufukty.com/gss/internal/dom/unit"
+	"go.ufukty.com/gss/internal/dom/units"
 	"go.ufukty.com/gss/internal/tokens/gss"
 )
 
@@ -34,12 +34,12 @@ type (
 type (
 	Dimension struct {
 		Number float64
-		Unit   unit.Unit
+		Unit   units.Unit
 	}
 )
 
 func (d Dimension) Color(ctx Context, e Element) (float64, error) {
-	if !d.Unit.Compare(unit.Units("px")) {
+	if !d.Unit.Compare(units.Units("px")) {
 		panic("implement conversion using context")
 	}
 	return d.Number, nil
