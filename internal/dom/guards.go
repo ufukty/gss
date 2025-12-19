@@ -4,7 +4,7 @@ var (
 	_ Child = (*Div)(nil)
 	_ Child = (*Img)(nil)
 	_ Child = (*Span)(nil)
-	_ Child = (*Text)(nil)
+	_ Child = (*TextNode)(nil)
 )
 
 var (

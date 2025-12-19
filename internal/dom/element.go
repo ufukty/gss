@@ -10,4 +10,4 @@ func (d Div) GetAst() html.Element  { return d.Ast }
 func (d Html) GetAst() html.Element { return d.Ast }
 func (d Img) GetAst() html.Element  { return d.Ast }
 func (d Span) GetAst() html.Element { return d.Ast }
-func (d Text) GetAst() html.Element { return d.Ast }
+func (d TextNode) GetAst() html.Element { return d.Ast }

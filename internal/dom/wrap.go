@@ -15,7 +15,7 @@ func wrap(e html.Element) Element {
 	case *html.Span:
 		return &Span{Ast: e}
 	case *html.TextNode:
-		return &Text{Ast: e}
+		return &TextNode{Ast: e}
 	}
 	return nil
 }
