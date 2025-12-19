@@ -39,13 +39,13 @@ type (
 	}
 
 	Border struct {
-		Color     gsse.Expr[gsse.Color]
+		Color     Expr[Color]
 		Style     string
-		Thickness gsse.Expr[gsse.Pixels]
+		Thickness Expr[Pixels]
 	}
 
 	BorderRadiuses struct {
-		TopLeft, TopRight, BottomRight, BottomLeft gsse.Expr[gsse.Pixels]
+		TopLeft, TopRight, BottomRight, BottomLeft Expr[Pixels]
 	}
 
 	Borders struct {
@@ -53,23 +53,23 @@ type (
 	}
 
 	Margin struct {
-		Top, Right, Bottom, Left gsse.Expr[gsse.Pixels]
+		Top, Right, Bottom, Left Expr[Pixels]
 	}
 
 	Padding struct {
-		Top, Right, Bottom, Left gsse.Expr[gsse.Pixels]
+		Top, Right, Bottom, Left Expr[Pixels]
 	}
 
 	Font struct {
-		Family []gss.FontFamily       `gss:"font-family"`
-		Size   gsse.Expr[gsse.Pixels] `gss:"font-size"`
-		Weight gsse.Expr[gsse.Pixels] `gss:"font-weight"`
+		Family []gss.FontFamily `gss:"font-family"`
+		Size   Expr[Pixels]     `gss:"font-size"`
+		Weight Expr[Pixels]     `gss:"font-weight"`
 	}
 
 	Text struct {
-		Color         gsse.Expr[gss.Color]   `gss:"color"`
-		LineHeight    gsse.Expr[gsse.Pixels] `gss:"line-height"`
-		TextAlignment gss.TextAlignment      `gss:"text-alignment"`
+		Color         Expr[gss.Color]   `gss:"color"`
+		LineHeight    Expr[Pixels]      `gss:"line-height"`
+		TextAlignment gss.TextAlignment `gss:"text-alignment"`
 	}
 
 	Dimensions struct {
@@ -85,9 +85,9 @@ type (
 		Display         Display `gss:"display"`
 		Text            Text
 		Font            Font
-		Border          Borders              `gss:"border"`
-		BorderRadiuses  BorderRadiuses       `gss:"border-radius"`
-		BackgroundColor gsse.Expr[gss.Color] `gss:"background-color"`
+		Border          Borders         `gss:"border"`
+		BorderRadiuses  BorderRadiuses  `gss:"border-radius"`
+		BackgroundColor Expr[gss.Color] `gss:"background-color"`
 	}
 
 	Rule struct {
