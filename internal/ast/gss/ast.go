@@ -31,33 +31,33 @@ type Padding struct {
 }
 
 type Font struct {
-	Family string `gss:"font-family"`
-	Size   string `gss:"font-size"`
-	Weight string `gss:"font-weight"`
+	Family string
+	Size   string
+	Weight string
 }
 
 type Text struct {
-	Color         string `gss:"color"`
-	LineHeight    string `gss:"line-height"`
-	TextAlignment string `gss:"text-alignment"`
+	Color         string
+	LineHeight    string
+	TextAlignment string
 }
 
 type Dimensions struct {
-	Height string `gss:"height"`
-	Width  string `gss:"width"`
+	Height string
+	Width  string
 }
 
 // TODO: handle shorthand syntaxes during parsing
 type Styles struct {
 	Dimensions      Dimensions
-	Margin          Margin  `gss:"margin"`
-	Padding         Padding `gss:"padding"`
-	Display         Display `gss:"display"`
+	Margin          Margin
+	Padding         Padding
+	Display         Display
 	Text            Text
 	Font            Font
-	Border          Borders        `gss:"border"`
-	BorderRadiuses  BorderRadiuses `gss:"border-radius"`
-	BackgroundColor string         `gss:"background-color"`
+	Border          Borders
+	BorderRadiuses  BorderRadiuses
+	BackgroundColor string
 }
 
 type Rule struct {
