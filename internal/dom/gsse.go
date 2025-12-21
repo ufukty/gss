@@ -4,14 +4,9 @@ import (
 	"fmt"
 	"image/color"
 
-	"go.ufukty.com/gss/internal/dom/units"
 	"go.ufukty.com/gss/internal/tokens/gss"
 )
 
-var (
-	ErrDivisionByZero    = fmt.Errorf("division by zero is undefined")
-	ErrIncompatibleUnits = fmt.Errorf("operands have incompetable units")
-)
 
 // Context
 type (
@@ -27,35 +22,6 @@ type (
 		Viewport  PixelArea
 	}
 )
-
-// GSSE compliant primitive value types
-//
-// Values of those types can be assigned to a variable of Expr[T] as leaf node
-type (
-	Dimension struct {
-		Number float64
-		Unit   units.Unit
-	}
-)
-
-func (d Dimension) Color(ctx Context, e Element) (float64, error) {
-	if !d.Unit.Compare(units.Parse("px")) {
-		panic("implement conversion using context")
-	}
-	return d.Number, nil
-}
-
-func (d Dimension) Compare(t Dimension) bool {
-	return d.Number == t.Number && d.Unit.Compare(t.Unit)
-}
-
-func (d Dimension) String() string {
-	return fmt.Sprintf("%.0f%s", d.Number, d.Unit.String())
-}
-
-func (d Dimension) Resolve(ctx Context, e Element) (float64, error) {
-	return d.Number, nil
-}
 
 // Value types are to be used in instantiating [Expr] types.
 type (
@@ -120,7 +86,9 @@ func (c LightDark) Resolve(ctx Context, e Element) (Color, error) {
 }
 
 // FIXME: Fetch identity value from DOM not AST once it is available
-func (i Ident[Resolving]) Resolve(ctx Context, e Element) (Resolving, error)
+func (i Ident[Resolving]) Resolve(ctx Context, e Element) (Resolving, error) {
+	return *new(Resolving), nil
+}
 
 func (a Addition[F]) Resolve(ctx Context, e Element) (F, error) {
 	l, err := subtree[F](a.Lhs, ctx, e)

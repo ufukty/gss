@@ -9,6 +9,24 @@ import (
 	"go.ufukty.com/gss/internal/tokens/gss"
 )
 
+type U string
+
+const (
+	Px  U = "px"
+	Pt  U = "pt"
+	Em  U = "em"
+	Rem U = "rem"
+	Vh  U = "vh"
+)
+
+var canonicalize = map[U]U{
+	Px:  Px,
+	Pt:  Px,
+	Em:  Px,
+	Rem: Px,
+	Vh:  Px,
+}
+
 type Unit map[gss.Unit]int // eg. px^2/em
 
 func (a Unit) Compare(b Unit) bool {
