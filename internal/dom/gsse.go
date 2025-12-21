@@ -53,8 +53,8 @@ func (d Dimension) String() string {
 	return fmt.Sprintf("%.0f%s", d.Number, d.Unit.String())
 }
 
-func (d Dimension) Resolve(ctx Context, e Element) (Dimension, error) {
-	return d, nil
+func (d Dimension) Resolve(ctx Context, e Element) (float64, error) {
+	return d.Number, nil
 }
 
 // Value types are to be used in instantiating [Expr] types.
