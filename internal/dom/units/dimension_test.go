@@ -1,38 +1,27 @@
 package units
 
-import (
-	"testing"
-)
+import "testing"
 
-func TestSize_Positive(t *testing.T) {
-	px := Parse(Px)
-	got, err := Add(Dimension{1, px}, Dimension{2, px})
+func TestAdd_Positive(t *testing.T) {
+	got, err := Add(NewDimensional(1, Px), NewDimensional(2, Px))
 	if err != nil {
 		t.Fatalf("act: %v", err)
 	}
-	expected := 3.0
-	if expected != got {
-		t.Errorf("assert, expected %f got %f", expected, got)
+	expected := NewDimensional(3, Px)
+	if !expected.Compare(got) {
+		t.Errorf("assert, expected %s got %s", expected, got)
 	}
 }
 
-func TestSize_Negative1(t *testing.T) {
-	input := Addition[float64]{
-		Dimension{1, Parse(Px)},
-		Dimension{2, Parse(Em)},
-	}
-	_, err := input.Resolve(Context{}, nil)
+func TestAdd_Negative1(t *testing.T) {
+	_, err := Add(NewDimensional(1, Px), NewDimensional(2, Em))
 	if err == nil {
 		t.Errorf("act: unexpected success")
 	}
 }
 
-func TestSize_Negative2(t *testing.T) {
-	input := Addition[float64]{
-		Dimension{1, Parse(Px, Px)},
-		Dimension{2, Parse(Em)},
-	}
-	_, err := input.Resolve(Context{}, nil)
+func TestAdd_Negative2(t *testing.T) {
+	_, err := Add(NewDimensional(1, Px), NewDimensional(2, Px, Px))
 	if err == nil {
 		t.Errorf("act: unexpected success")
 	}
@@ -40,11 +29,11 @@ func TestSize_Negative2(t *testing.T) {
 
 func TestMultiply(t *testing.T) {
 	var (
-		a        = Dimension{1, Parse(gss.Unit_Px)}
-		b        = Dimension{2, Parse(gss.Unit_Em)}
-		expected = Dimension{2, Parse(Px, Em)}
+		a        = NewDimensional(1, Px)
+		b        = NewDimensional(2, Em)
+		expected = NewDimensional(2, Px, Em)
 	)
-	got, err := a.Mul(b)
+	got, err := Multiply(a, b)
 	if err != nil {
 		t.Errorf("act: %v", err)
 	}
@@ -55,11 +44,11 @@ func TestMultiply(t *testing.T) {
 
 func TestDivide_StripUnit(t *testing.T) {
 	var (
-		a        = Dimension{10, Parse(Px)}
-		b        = Dimension{2, Parse(Px)}
-		expected = Dimension{5, Parse()}
+		a        = NewDimensional(10, Px)
+		b        = NewDimensional(2, Px)
+		expected = NewDimensional(5)
 	)
-	got, err := a.Div(b)
+	got, err := Divide(a, b)
 	if err != nil {
 		t.Errorf("act: %v", err)
 	}
