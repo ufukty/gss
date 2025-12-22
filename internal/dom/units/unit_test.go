@@ -2,8 +2,6 @@ package units
 
 import (
 	"testing"
-
-	"go.ufukty.com/gss/internal/tokens/gss"
 )
 
 func TestUnit_String(t *testing.T) {
@@ -13,12 +11,12 @@ func TestUnit_String(t *testing.T) {
 		expected string
 	}
 	tcs := []tc{
-		{"", Parse(gss.Unit_Em), "em"},
-		{"", Parse(gss.Unit_Pc), "%"},
-		{"", Parse(gss.Unit_Em, gss.Unit_Em), "em²"},
-		{"", Parse(gss.Unit_Em, gss.Unit_Em, gss.Unit_Px), "em²·px"},
-		{"", Parse(gss.Unit_Em, gss.Unit_Em, gss.Unit_Px, gss.Unit_Px), "em²·px²"},
-		{"", Parse(gss.Unit_Em, gss.Unit_Pc, gss.Unit_Px, gss.Unit_Px), "%·em·px²"},
+		{"", Parse(Em), "em"},
+		{"", Parse(Pc), "%"},
+		{"", Parse(Em, Em), "em²"},
+		{"", Parse(Em, Em, Px), "em²·px"},
+		{"", Parse(Em, Em, Px, Px), "em²·px²"},
+		{"", Parse(Em, Pc, Px, Px), "%·em·px²"},
 	}
 	for _, tc := range tcs {
 		t.Run(t.Name(), func(t *testing.T) {

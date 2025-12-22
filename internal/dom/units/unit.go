@@ -5,8 +5,6 @@ import (
 	"maps"
 	"slices"
 	"strings"
-
-	"go.ufukty.com/gss/internal/tokens/gss"
 )
 
 type Complex map[Unit]int // eg. px^2/em
@@ -90,8 +88,8 @@ func (u Complex) String() string {
 	return strings.Join(us, "·")
 }
 
-func Parse(us ...gss.Unit) Complex {
-	m := map[gss.Unit]int{}
+func Parse(us ...Unit) Complex {
+	m := map[Unit]int{}
 	for _, u := range us {
 		m[u] += 1
 	}
