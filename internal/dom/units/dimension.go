@@ -57,9 +57,13 @@ func Multiply(a, b Dimension) (Dimension, error) {
 	return c, nil
 }
 
-func Divide(a,b Dimension) (Dimension, error){
+func Divide(a, b Dimension) (Dimension, error) {
 	if b.Value == 0 {
 		return a, ErrDivisionByZero
 	}
-	if 
+	c := Dimension{
+		Value: a.Value / b.Value,
+		Unit:  a.Unit.Divide(b.Unit),
+	}
+	return c, nil
 }
