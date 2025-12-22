@@ -9,9 +9,9 @@ import (
 	"go.ufukty.com/gss/internal/tokens/gss"
 )
 
-type Unit map[gss.Unit]int // eg. px^2/em
+type Complex map[U]int // eg. px^2/em
 
-func (a Unit) Compare(b Unit) bool {
+func (a Complex) Compare(b Complex) bool {
 	if len(a) != len(b) {
 		return false
 	}
@@ -23,7 +23,7 @@ func (a Unit) Compare(b Unit) bool {
 	return true
 }
 
-func (a Unit) Multiply(b Unit) Unit {
+func (a Complex) Multiply(b Complex) Complex {
 	c := maps.Clone(a)
 	for u, p := range b {
 		c[u] += p
@@ -31,7 +31,7 @@ func (a Unit) Multiply(b Unit) Unit {
 	return c
 }
 
-func (a *Unit) clean() {
+func (a *Complex) clean() {
 	for u, p := range *a {
 		if p == 0 {
 			delete(*a, u)
@@ -39,7 +39,7 @@ func (a *Unit) clean() {
 	}
 }
 
-func (a Unit) Divide(b Unit) Unit {
+func (a Complex) Divide(b Complex) Complex {
 	c := maps.Clone(a)
 	for u, p := range b {
 		c[u] -= p
@@ -82,7 +82,7 @@ func power(p int) string {
 	return super(p)
 }
 
-func (u Unit) String() string {
+func (u Complex) String() string {
 	us := []string{}
 	for _, c := range slices.Sorted(maps.Keys(u)) {
 		us = append(us, fmt.Sprintf("%s%s", c, power(u[c])))
@@ -90,7 +90,7 @@ func (u Unit) String() string {
 	return strings.Join(us, "·")
 }
 
-func Parse(us ...gss.Unit) Unit {
+func Parse(us ...gss.Unit) Complex {
 	m := map[gss.Unit]int{}
 	for _, u := range us {
 		m[u] += 1

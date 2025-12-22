@@ -9,7 +9,7 @@ import (
 func TestUnit_String(t *testing.T) {
 	type tc struct {
 		name     string
-		input    Unit
+		input    Complex
 		expected string
 	}
 	tcs := []tc{
