@@ -9,7 +9,7 @@ import (
 	"go.ufukty.com/gss/internal/tokens/gss"
 )
 
-type Complex map[U]int // eg. px^2/em
+type Complex map[Unit]int // eg. px^2/em
 
 func (a Complex) Compare(b Complex) bool {
 	if len(a) != len(b) {

@@ -1,51 +1,51 @@
 package units
 
-type U string
+type Unit string
 
 const (
-	Percent U = "percent"
+	Percent Unit = "percent"
 )
 
 // Length
 const (
-	Cm  U = "cm"
-	Em  U = "em"
-	In  U = "in"
-	Mm  U = "mm"
-	Pc  U = "pc"
-	Pt  U = "pt"
-	Px  U = "px"
-	Q   U = "q"
-	Rem U = "rem"
-	Vh  U = "vh"
-	Vw  U = "vw"
+	Cm  Unit = "cm"
+	Em  Unit = "em"
+	In  Unit = "in" // 96px
+	Mm  Unit = "mm"
+	Pc  Unit = "pc"
+	Pt  Unit = "pt"
+	Px  Unit = "px"
+	Q   Unit = "q" // 0.25mm
+	Rem Unit = "rem"
+	Vh  Unit = "vh"
+	Vw  Unit = "vw"
 )
 
 // Angle
 const (
-	Deg  U = "deg"
-	Grad U = "grad"
-	Rad  U = "rad"
-	Turn U = "turn"
+	Deg  Unit = "deg"
+	Grad Unit = "grad"
+	Rad  Unit = "rad"
+	Turn Unit = "turn"
 )
 
 // Duration
 const (
-	Ms U = "ms"
-	S  U = "s"
+	Ms Unit = "ms"
+	S  Unit = "s"
 )
 
 const (
-	Hz  U = "hz"
-	KHz U = "khz"
+	Hz  Unit = "hz"
+	KHz Unit = "khz"
 )
 
 const (
-	Dpcm U = "dpcm"
-	Dpi  U = "dpi"
-	Dppx U = "dppx"
+	Dpcm Unit = "dpcm"
+	Dpi  Unit = "dpi"
+	Dppx Unit = "dppx"
 )
 
 const (
-	Fr U = "fr"
+	Fr Unit = "fr"
 )
