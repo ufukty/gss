@@ -18,6 +18,7 @@ const (
 	Q   U = "q"
 	Rem U = "rem"
 	Vh  U = "vh"
+	Vw  U = "vw"
 )
 
 // Angle
