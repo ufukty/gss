@@ -12,11 +12,11 @@ func TestCompound_String(t *testing.T) {
 	}
 	tcs := []tc{
 		{"", Parse(Em), "em"},
-		{"", Parse(Pc), "%"},
+		{"", Parse(Pc), "pc"},
 		{"", Parse(Em, Em), "em²"},
 		{"", Parse(Em, Em, Px), "em²·px"},
 		{"", Parse(Em, Em, Px, Px), "em²·px²"},
-		{"", Parse(Em, Pc, Px, Px), "%·em·px²"},
+		{"", Parse(Em, Pc, Px, Px), "em·pc·px²"},
 	}
 	for _, tc := range tcs {
 		t.Run(t.Name(), func(t *testing.T) {
