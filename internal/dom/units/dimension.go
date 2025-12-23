@@ -24,7 +24,11 @@ func (d Dimension) Compare(t Dimension) bool {
 }
 
 func (d Dimension) String() string {
-	return fmt.Sprintf("%.0f%s", d.Value, d.Unit.String())
+	est := ""
+	if float64(int(d.Value)) != d.Value {
+		est = "~"
+	}
+	return fmt.Sprintf("%s%.0f%s", est, d.Value, d.Unit.String())
 }
 
 func Add(a, b Dimension) (Dimension, error) {
