@@ -19,7 +19,7 @@ var (
 type (
 	Dimension struct {
 		Value float64
-		Unit  Complex
+		Unit  Compound
 	}
 )
 

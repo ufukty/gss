@@ -7,9 +7,9 @@ import (
 	"strings"
 )
 
-type Complex map[Unit]int // eg. px^2/em
+type Compound map[Unit]int // eg. px^2/em
 
-func (a Complex) Compare(b Complex) bool {
+func (a Compound) Compare(b Compound) bool {
 	if len(a) != len(b) {
 		return false
 	}
@@ -21,7 +21,7 @@ func (a Complex) Compare(b Complex) bool {
 	return true
 }
 
-func (a Complex) Multiply(b Complex) Complex {
+func (a Compound) Multiply(b Compound) Compound {
 	c := maps.Clone(a)
 	for u, p := range b {
 		c[u] += p
@@ -29,7 +29,7 @@ func (a Complex) Multiply(b Complex) Complex {
 	return c
 }
 
-func (a *Complex) clean() {
+func (a *Compound) clean() {
 	for u, p := range *a {
 		if p == 0 {
 			delete(*a, u)
@@ -37,7 +37,7 @@ func (a *Complex) clean() {
 	}
 }
 
-func (a Complex) Divide(b Complex) Complex {
+func (a Compound) Divide(b Compound) Compound {
 	c := maps.Clone(a)
 	for u, p := range b {
 		c[u] -= p
@@ -80,7 +80,7 @@ func power(p int) string {
 	return super(p)
 }
 
-func (u Complex) String() string {
+func (u Compound) String() string {
 	us := []string{}
 	for _, c := range slices.Sorted(maps.Keys(u)) {
 		us = append(us, fmt.Sprintf("%s%s", c, power(u[c])))
@@ -88,7 +88,7 @@ func (u Complex) String() string {
 	return strings.Join(us, "·")
 }
 
-func Parse(us ...Unit) Complex {
+func Parse(us ...Unit) Compound {
 	m := map[Unit]int{}
 	for _, u := range us {
 		m[u] += 1

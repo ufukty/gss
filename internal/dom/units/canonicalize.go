@@ -88,7 +88,7 @@ var toCore = map[Unit]Unit{
 }
 
 func Canonicalize(d Dimension) (Dimension, error) {
-	n := Dimension{Value: d.Value, Unit: make(Complex)}
+	n := Dimension{Value: d.Value, Unit: make(Compound)}
 	for u, p := range d.Unit {
 		if p == 0 {
 			continue
