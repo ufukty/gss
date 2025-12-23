@@ -8,14 +8,18 @@ const (
 
 // Length
 const (
-	Cm  Unit = "cm"
+	Cm Unit = "cm"
+	In Unit = "in" // 96px, 72pt
+	Mm Unit = "mm"
+	Pc Unit = "pc" // picas
+	Pt Unit = "pt"
+	Px Unit = "px"
+	Q  Unit = "q" // quarter millimeter
+)
+
+// Length (relative)
+const (
 	Em  Unit = "em"
-	In  Unit = "in" // 96px
-	Mm  Unit = "mm"
-	Pc  Unit = "pc"
-	Pt  Unit = "pt"
-	Px  Unit = "px"
-	Q   Unit = "q" // 0.25mm
 	Rem Unit = "rem"
 	Vh  Unit = "vh"
 	Vw  Unit = "vw"
@@ -41,9 +45,9 @@ const (
 )
 
 const (
-	Dpcm Unit = "dpcm"
-	Dpi  Unit = "dpi"
-	Dppx Unit = "dppx"
+	Dpcm Unit = "dpcm" // dots per centimeter
+	Dpi  Unit = "dpi"  // dots per inch
+	Dppx Unit = "dppx" // dots per pixel
 )
 
 const (
