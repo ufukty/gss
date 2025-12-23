@@ -1,6 +1,52 @@
 package units
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
+
+func TestDimension_unitless(t *testing.T) {
+	tcs := map[float64]string{
+		-0.00001: "~-0",
+		-0.00009: "~-0",
+		-0.0001:  "~-0",
+		-0.0009:  "~-0",
+		-0.001:   "~-0",
+		-0.009:   "~-0.01",
+		-0.01:    "-0.01",
+		-0.09:    "-0.09",
+		-0.1:     "-0.1",
+		-0.9:     "-0.9",
+		-1.0:     "-1",
+		-10.0:    "-10",
+		-9.0:     "-9",
+		-90.0:    "-90",
+		0:        "0",
+		0.00001:  "~0",
+		0.00009:  "~0",
+		0.0001:   "~0",
+		0.0009:   "~0",
+		0.001:    "~0",
+		0.009:    "~0.01",
+		0.01:     "0.01",
+		0.09:     "0.09",
+		0.1:      "0.1",
+		0.9:      "0.9",
+		1.0:      "1",
+		10.0:     "10",
+		9.0:      "9",
+		90.0:     "90",
+	}
+
+	for i, expected := range tcs {
+		t.Run(fmt.Sprintf("%f", i), func(t *testing.T) {
+			got := Dimension{Value: i}.unitless()
+			if expected != got {
+				t.Errorf("assert, expected %s, got %s", expected, got)
+			}
+		})
+	}
+}
 
 func TestAdd_Positive(t *testing.T) {
 	got, err := Add(NewDimensional(1, Px), NewDimensional(2, Px))
