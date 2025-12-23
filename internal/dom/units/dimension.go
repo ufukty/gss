@@ -7,8 +7,10 @@ import (
 )
 
 var (
-	ErrDivisionByZero    = fmt.Errorf("division by zero is undefined")
-	ErrIncompatibleUnits = fmt.Errorf("operands have incompetable units")
+	ErrUnknownUnit                   = fmt.Errorf("unknown unit")
+	ErrCannonicalizingContextualUnit = fmt.Errorf("cannonicalizing contextual unit")
+	ErrDivisionByZero                = fmt.Errorf("division by zero is undefined")
+	ErrIncompatibleUnits             = fmt.Errorf("operands have incompetable units")
 )
 
 // GSSE compliant primitive value types
