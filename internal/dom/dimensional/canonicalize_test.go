@@ -11,31 +11,31 @@ func TestCanonicalize_Basic(t *testing.T) {
 		expected Dimension
 	}
 	tcs := map[string]tc{
-		"cm>px": {NewDimensional(2.54, Cm), NewDimensional(96, Px)},
-		"in>px": {NewDimensional(1, In), NewDimensional(96, Px)},
-		"mm>px": {NewDimensional(25.4, Mm), NewDimensional(96, Px)},
-		"pc>px": {NewDimensional(1, Pc), NewDimensional(16.0, Px)},
-		"pt>px": {NewDimensional(72, Pt), NewDimensional(96, Px)},
-		"px>px": {NewDimensional(1, Px), NewDimensional(1, Px)},
-		"q>px":  {NewDimensional(40*2.54, Q), NewDimensional(96, Px)},
+		"cm>px": {New(2.54, Cm), New(96, Px)},
+		"in>px": {New(1, In), New(96, Px)},
+		"mm>px": {New(25.4, Mm), New(96, Px)},
+		"pc>px": {New(1, Pc), New(16.0, Px)},
+		"pt>px": {New(72, Pt), New(96, Px)},
+		"px>px": {New(1, Px), New(1, Px)},
+		"q>px":  {New(40*2.54, Q), New(96, Px)},
 
-		"deg>deg":  {NewDimensional(45, Deg), NewDimensional(45.0, Deg)},
-		"grad>deg": {NewDimensional(200, Grad), NewDimensional(180, Deg)},
-		"rad>deg":  {NewDimensional(2*math.Pi, Rad), NewDimensional(360, Deg)},
-		"turn>deg": {NewDimensional(0.5, Turn), NewDimensional(180.0, Deg)},
+		"deg>deg":  {New(45, Deg), New(45.0, Deg)},
+		"grad>deg": {New(200, Grad), New(180, Deg)},
+		"rad>deg":  {New(2*math.Pi, Rad), New(360, Deg)},
+		"turn>deg": {New(0.5, Turn), New(180.0, Deg)},
 
-		"dppx>dppx": {NewDimensional(1, Dppx), NewDimensional(1, Dppx)},
-		"dpcm>dppx": {NewDimensional(96, Dpcm), NewDimensional(2.54, Dppx)},
-		"dpi>dppx":  {NewDimensional(96, Dpi), NewDimensional(1.0, Dppx)},
+		"dppx>dppx": {New(1, Dppx), New(1, Dppx)},
+		"dpcm>dppx": {New(96, Dpcm), New(2.54, Dppx)},
+		"dpi>dppx":  {New(96, Dpi), New(1.0, Dppx)},
 
-		"hz>hz":  {NewDimensional(500, Hz), NewDimensional(500, Hz)},
-		"khz>hz": {NewDimensional(2.4, KHz), NewDimensional(2400, Hz)},
+		"hz>hz":  {New(500, Hz), New(500, Hz)},
+		"khz>hz": {New(2.4, KHz), New(2400, Hz)},
 
-		"s>s":  {NewDimensional(1.5, S), NewDimensional(1.5, S)},
-		"ms>s": {NewDimensional(1500, Ms), NewDimensional(1.5, S)},
+		"s>s":  {New(1.5, S), New(1.5, S)},
+		"ms>s": {New(1500, Ms), New(1.5, S)},
 
-		"zero value":     {NewDimensional(0, In), NewDimensional(0.0, Px)},
-		"negative value": {NewDimensional(-1, In), NewDimensional(-PxPerIn, Px)},
+		"zero value":     {New(0, In), New(0.0, Px)},
+		"negative value": {New(-1, In), New(-PxPerIn, Px)},
 	}
 
 	for tn, tc := range tcs {
@@ -58,9 +58,9 @@ func TestCanonicalize_Complex(t *testing.T) {
 	}
 
 	tcs := map[string]tc{
-		"px square>px square":   {NewDimensional(1, Px, Px), NewDimensional(1, Px, Px)},
-		"cm sqaure>px square":   {NewDimensional(2.54*2.54, Cm, Cm), NewDimensional(96.0*96.0, Px, Px)},
-		"deg square>deg square": {NewDimensional(10, Pt, Pt), NewDimensional(10*(PxPerIn/PtPerIn)*(PxPerIn/PtPerIn), Px, Px)},
+		"px square>px square":   {New(1, Px, Px), New(1, Px, Px)},
+		"cm sqaure>px square":   {New(2.54*2.54, Cm, Cm), New(96.0*96.0, Px, Px)},
+		"deg square>deg square": {New(10, Pt, Pt), New(10*(PxPerIn/PtPerIn)*(PxPerIn/PtPerIn), Px, Px)},
 	}
 
 	for tn, tc := range tcs {

@@ -101,7 +101,7 @@ func Divide(a, b Dimension) (Dimension, error) {
 	return c, nil
 }
 
-func NewDimensional(v float64, units ...Unit) Dimension {
+func New(v float64, units ...Unit) Dimension {
 	return Dimension{
 		Value: v,
 		Unit:  Parse(units...),
