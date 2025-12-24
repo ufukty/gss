@@ -35,7 +35,7 @@ func TestCanonicalize_Basic(t *testing.T) {
 		"ms>s": {New(1500, Ms), New(1.5, S)},
 
 		"zero value":     {New(0, In), New(0.0, Px)},
-		"negative value": {New(-1, In), New(-PxPerIn, Px)},
+		"negative value": {New(-1, In), New(-pxPerIn, Px)},
 	}
 
 	for tn, tc := range tcs {
@@ -60,7 +60,7 @@ func TestCanonicalize_Complex(t *testing.T) {
 	tcs := map[string]tc{
 		"px square>px square":   {New(1, Px, Px), New(1, Px, Px)},
 		"cm sqaure>px square":   {New(2.54*2.54, Cm, Cm), New(96.0*96.0, Px, Px)},
-		"deg square>deg square": {New(10, Pt, Pt), New(10*(PxPerIn/PtPerIn)*(PxPerIn/PtPerIn), Px, Px)},
+		"deg square>deg square": {New(10, Pt, Pt), New(10*(pxPerIn/ptPerIn)*(pxPerIn/ptPerIn), Px, Px)},
 	}
 
 	for tn, tc := range tcs {

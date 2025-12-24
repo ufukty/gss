@@ -104,6 +104,6 @@ func Divide(a, b Dimension) (Dimension, error) {
 func New(v float64, units ...Unit) Dimension {
 	return Dimension{
 		Value: v,
-		Unit:  Parse(units...),
+		Unit:  parse(units...),
 	}
 }

@@ -88,7 +88,7 @@ func (u Compound) String() string {
 	return strings.Join(us, "·")
 }
 
-func Parse(us ...Unit) Compound {
+func parse(us ...Unit) Compound {
 	m := map[Unit]int{}
 	for _, u := range us {
 		m[u] += 1

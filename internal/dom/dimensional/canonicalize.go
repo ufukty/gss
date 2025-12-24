@@ -6,22 +6,22 @@ import (
 )
 
 const (
-	PtPerIn = 72.0
-	PxPerIn = 96.0
-	CmPerIn = 2.54
-	PxPerCm = PxPerIn / CmPerIn
-	PxPerPt = PxPerIn / PtPerIn
+	ptPerIn = 72.0
+	pxPerIn = 96.0
+	cmPerIn = 2.54
+	pxPerCm = pxPerIn / cmPerIn
+	pxPerPt = pxPerIn / ptPerIn
 )
 
 var factors = map[Unit]float64{
 	// to Pixels
 	Px: 1.0,
-	In: PxPerIn,
-	Cm: PxPerCm,
-	Mm: PxPerCm / 10.0,
-	Q:  PxPerCm / 40.0,
-	Pt: PxPerPt,
-	Pc: PxPerPt * 12.0,
+	In: pxPerIn,
+	Cm: pxPerCm,
+	Mm: pxPerCm / 10.0,
+	Q:  pxPerCm / 40.0,
+	Pt: pxPerPt,
+	Pc: pxPerPt * 12.0,
 
 	// to Degrees
 	Deg:  1.0,
@@ -39,8 +39,8 @@ var factors = map[Unit]float64{
 
 	// to Dppx
 	Dppx: 1.0,
-	Dpi:  1.0 / PxPerIn,
-	Dpcm: 1.0 / PxPerCm,
+	Dpi:  1.0 / pxPerIn,
+	Dpcm: 1.0 / pxPerCm,
 }
 
 var contextual = map[Unit]any{
