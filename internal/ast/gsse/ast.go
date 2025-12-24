@@ -1,22 +1,21 @@
 package gsse
 
+type Expr interface {
+	expr()
+}
+
 type (
-	LightDark[Final any] struct {
-		Light, Dark string
-	}
-	Ident[Final any] struct {
-		Name string
-	}
-	Addition struct {
-		Lhs, Rhs string
-	}
-	Subtraction struct {
-		Lhs, Rhs string
-	}
-	Multiplication struct {
-		Lhs, Rhs string
-	}
-	Division struct {
-		Dividend, Divisor string
-	}
+	LightDark      struct{ Light, Dark Expr }
+	Ident          struct{ Name Expr }
+	Addition       struct{ Left, Right Expr }
+	Subtraction    struct{ Left, Right Expr }
+	Multiplication struct{ Left, Right Expr }
+	Division       struct{ Dividend, Divisor Expr }
 )
+
+func (LightDark) expr()      {}
+func (Ident) expr()          {}
+func (Addition) expr()       {}
+func (Subtraction) expr()    {}
+func (Multiplication) expr() {}
+func (Division) expr()       {}

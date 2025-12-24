@@ -1,12 +1,11 @@
 package dom
 
 import (
-	"fmt"
 	"image/color"
 
+	"go.ufukty.com/gss/internal/ast/gsse"
 	"go.ufukty.com/gss/internal/tokens/gss"
 )
-
 
 // Context
 type (
@@ -23,7 +22,7 @@ type (
 	}
 )
 
-// Value types are to be used in instantiating [Expr] types.
+// Value types are to be used in instantiating [gsse.Expr] types.
 type (
 	Color        color.RGBA // eg. #FF0000
 	Pixels       float64    // eg. 10px
@@ -33,113 +32,80 @@ type (
 	FontSet      []string   // eg. "Helvetica", "Helvetica Neue", sans-serif
 )
 
-type Expr[Resolving any] interface {
-	Resolve(ctx Context, e Element) (Resolving, error)
-}
+// func subtree[T any](a any, ctx Context, e Element) (T, error) {
+// 	switch a := a.(type) {
+// 	case gsse.Expr[T]:
+// 		return a.Resolve(ctx, e)
+// 	case T:
+// 		return a, nil
+// 	default:
+// 		var t T
+// 		return t, fmt.Errorf("value of unknown type: %T", a)
+// 	}
+// }
 
-// GSSE functions
-type (
-	LightDark struct {
-		Light, Dark Expr[Color]
-	}
-	Ident[Resolving any] struct {
-		Name string
-	}
-	Addition[Resolving ~float64] struct {
-		Lhs, Rhs any
-	}
-	Subtraction[Resolving ~float64] struct {
-		Lhs, Rhs any
-	}
-	Multiplication[Resolving ~float64] struct {
-		Lhs, Rhs any
-	}
-	Division[Resolving ~float64] struct {
-		Dividend, Divisor any
-	}
-)
+// func (c LightDark) Resolve(ctx Context, e Element) (Color, error) {
+// 	if ctx.Media.PrefersColorScheme == "dark" {
+// 		return subtree[Color](c.Dark, ctx, e)
+// 	}
+// 	return subtree[Color](c.Light, ctx, e)
+// }
 
-var (
-	_ Expr[Pixels] = (*Addition[Pixels])(nil)
-	_ Expr[Pixels] = (*Subtraction[Pixels])(nil)
-	_ Expr[Pixels] = (*Multiplication[Pixels])(nil)
-	_ Expr[Pixels] = (*Division[Pixels])(nil)
-)
+// // FIXME: Fetch identity value from DOM not AST once it is available
+// func (i Ident[Resolving]) Resolve(ctx Context, e Element) (Resolving, error) {
+// 	return *new(Resolving), nil
+// }
 
-func subtree[T any](a any, ctx Context, e Element) (T, error) {
-	switch a := a.(type) {
-	case Expr[T]:
-		return a.Resolve(ctx, e)
-	case T:
-		return a, nil
-	default:
-		var t T
-		return t, fmt.Errorf("value of unknown type: %T", a)
-	}
-}
+// func (a Addition[F]) Resolve(ctx Context, e Element) (F, error) {
+// 	l, err := subtree[F](a.Lhs, ctx, e)
+// 	if err != nil {
+// 		return l, fmt.Errorf("left operand: %w", err)
+// 	}
+// 	r, err := subtree[F](a.Rhs, ctx, e)
+// 	if err != nil {
+// 		return r, fmt.Errorf("right operand: %w", err)
+// 	}
+// 	return l + r, nil
+// }
 
-func (c LightDark) Resolve(ctx Context, e Element) (Color, error) {
-	if ctx.Media.PrefersColorScheme == "dark" {
-		return subtree[Color](c.Dark, ctx, e)
-	}
-	return subtree[Color](c.Light, ctx, e)
-}
+// func (a Subtraction[F]) Resolve(ctx Context, e Element) (F, error) {
+// 	l, err := subtree[F](a.Lhs, ctx, e)
+// 	if err != nil {
+// 		return l, fmt.Errorf("left operand: %w", err)
+// 	}
+// 	r, err := subtree[F](a.Rhs, ctx, e)
+// 	if err != nil {
+// 		return r, fmt.Errorf("right operand: %w", err)
+// 	}
+// 	return l - r, nil
+// }
 
-// FIXME: Fetch identity value from DOM not AST once it is available
-func (i Ident[Resolving]) Resolve(ctx Context, e Element) (Resolving, error) {
-	return *new(Resolving), nil
-}
+// func (a Multiplication[F]) Resolve(ctx Context, e Element) (F, error) {
+// 	l, err := subtree[F](a.Lhs, ctx, e)
+// 	if err != nil {
+// 		return l, fmt.Errorf("left operand: %w", err)
+// 	}
+// 	r, err := subtree[F](a.Rhs, ctx, e)
+// 	if err != nil {
+// 		return r, fmt.Errorf("right operand: %w", err)
+// 	}
+// 	return l * r, nil
+// }
 
-func (a Addition[F]) Resolve(ctx Context, e Element) (F, error) {
-	l, err := subtree[F](a.Lhs, ctx, e)
-	if err != nil {
-		return l, fmt.Errorf("left operand: %w", err)
-	}
-	r, err := subtree[F](a.Rhs, ctx, e)
-	if err != nil {
-		return r, fmt.Errorf("right operand: %w", err)
-	}
-	return l + r, nil
-}
-
-func (a Subtraction[F]) Resolve(ctx Context, e Element) (F, error) {
-	l, err := subtree[F](a.Lhs, ctx, e)
-	if err != nil {
-		return l, fmt.Errorf("left operand: %w", err)
-	}
-	r, err := subtree[F](a.Rhs, ctx, e)
-	if err != nil {
-		return r, fmt.Errorf("right operand: %w", err)
-	}
-	return l - r, nil
-}
-
-func (a Multiplication[F]) Resolve(ctx Context, e Element) (F, error) {
-	l, err := subtree[F](a.Lhs, ctx, e)
-	if err != nil {
-		return l, fmt.Errorf("left operand: %w", err)
-	}
-	r, err := subtree[F](a.Rhs, ctx, e)
-	if err != nil {
-		return r, fmt.Errorf("right operand: %w", err)
-	}
-	return l * r, nil
-}
-
-func (a Division[F]) Resolve(ctx Context, e Element) (F, error) {
-	l, err := subtree[F](a.Dividend, ctx, e)
-	if err != nil {
-		return l, fmt.Errorf("left operand: %w", err)
-	}
-	r, err := subtree[F](a.Divisor, ctx, e)
-	if err != nil {
-		return r, fmt.Errorf("right operand: %w", err)
-	}
-	if r == 0 {
-		return r, ErrDivisionByZero
-	}
-	return l / r, nil
-}
+// func (a Division[F]) Resolve(ctx Context, e Element) (F, error) {
+// 	l, err := subtree[F](a.Dividend, ctx, e)
+// 	if err != nil {
+// 		return l, fmt.Errorf("left operand: %w", err)
+// 	}
+// 	r, err := subtree[F](a.Divisor, ctx, e)
+// 	if err != nil {
+// 		return r, fmt.Errorf("right operand: %w", err)
+// 	}
+// 	if r == 0 {
+// 		return r, ErrDivisionByZero
+// 	}
+// 	return l / r, nil
+// }
 
 // Nodes
 type (
@@ -149,13 +115,13 @@ type (
 	}
 
 	Border struct {
-		Color     Expr[Color]
+		Color     gsse.Expr[Color]
 		Style     string
-		Thickness Expr[Pixels]
+		Thickness gsse.Expr[Pixels]
 	}
 
 	BorderRadiuses struct {
-		TopLeft, TopRight, BottomRight, BottomLeft Expr[Pixels]
+		TopLeft, TopRight, BottomRight, BottomLeft gsse.Expr[Pixels]
 	}
 
 	Borders struct {
@@ -163,22 +129,22 @@ type (
 	}
 
 	Margin struct {
-		Top, Right, Bottom, Left Expr[Color]
+		Top, Right, Bottom, Left gsse.Expr[Color]
 	}
 
 	Padding struct {
-		Top, Right, Bottom, Left Expr[Color]
+		Top, Right, Bottom, Left gsse.Expr[Color]
 	}
 
 	Font struct {
 		Family    []gss.FontFamily
-		Dimension Expr[Color]
-		Weight    Expr[Color]
+		Dimension gsse.Expr[Color]
+		Weight    gsse.Expr[Color]
 	}
 
 	Text struct {
-		Color         Expr[Color]
-		LineHeight    Expr[Color]
+		Color         gsse.Expr[Color]
+		LineHeight    gsse.Expr[Color]
 		TextAlignment gss.TextAlignment
 	}
 
@@ -197,7 +163,7 @@ type (
 		Font            Font
 		Border          Borders
 		BorderRadiuses  BorderRadiuses
-		BackgroundColor Expr[Color]
+		BackgroundColor gsse.Expr[Color]
 	}
 
 	QualifiedRule struct {
