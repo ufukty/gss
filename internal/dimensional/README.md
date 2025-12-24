@@ -1,6 +1,6 @@
 # Dimensional
 
-This package provides the type `Dimensional` which allows storing values of GSS units.
+This package provides the type `Dimension` which allows storing values of GSS units.
 
 ## Features
 
