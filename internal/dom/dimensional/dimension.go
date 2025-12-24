@@ -29,7 +29,7 @@ func round(f float64, preserveDecimals int) float64 {
 
 // returns the number of decimals just enough to represent
 // the whole precision or the most within the cap.
-func minDecimals(f float64, cap int) (int, bool) {
+func leastDecimals(f float64, cap int) (int, bool) {
 	lv, li := math.Inf(+1), -1
 	for i := 0; i <= cap; i++ {
 		cur := round(f, i)
@@ -44,7 +44,7 @@ func minDecimals(f float64, cap int) (int, bool) {
 }
 
 func (d Dimension) unitless() string {
-	md, tilde := minDecimals(d.Value, 2)
+	md, tilde := leastDecimals(d.Value, 2)
 	if tilde {
 		return "~" + strconv.FormatFloat(d.Value, 'f', md, 64)
 	}
