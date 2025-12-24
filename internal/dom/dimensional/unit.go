@@ -1,4 +1,4 @@
-package units
+package dimensional
 
 type Unit string
 
