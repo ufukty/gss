@@ -1,9 +1,6 @@
 package dom
 
 import (
-	"image/color"
-
-	"go.ufukty.com/gss/internal/ast/gsse"
 	"go.ufukty.com/gss/internal/tokens/gss"
 )
 
@@ -22,19 +19,9 @@ type (
 	}
 )
 
-// Value types are to be used in instantiating [gsse.Expr] types.
-type (
-	Color        color.RGBA // eg. #FF0000
-	Pixels       float64    // eg. 10px
-	Angle        float64    // eg. 360deg
-	Milliseconds int        // eg. 1000ms
-	Image        string     // eg. url()
-	FontSet      []string   // eg. "Helvetica", "Helvetica Neue", sans-serif
-)
-
 // func subtree[T any](a any, ctx Context, e Element) (T, error) {
 // 	switch a := a.(type) {
-// 	case gsse.Expr[T]:
+// 	case any // T
 // 		return a.Resolve(ctx, e)
 // 	case T:
 // 		return a, nil
@@ -115,13 +102,13 @@ type (
 	}
 
 	Border struct {
-		Color     gsse.Expr[Color]
+		Color     any // Color
 		Style     string
-		Thickness gsse.Expr[Pixels]
+		Thickness any // Pixels
 	}
 
 	BorderRadiuses struct {
-		TopLeft, TopRight, BottomRight, BottomLeft gsse.Expr[Pixels]
+		TopLeft, TopRight, BottomRight, BottomLeft any // Pixels
 	}
 
 	Borders struct {
@@ -129,22 +116,22 @@ type (
 	}
 
 	Margin struct {
-		Top, Right, Bottom, Left gsse.Expr[Color]
+		Top, Right, Bottom, Left any // Pixels
 	}
 
 	Padding struct {
-		Top, Right, Bottom, Left gsse.Expr[Color]
+		Top, Right, Bottom, Left any // Pixels
 	}
 
 	Font struct {
 		Family    []gss.FontFamily
-		Dimension gsse.Expr[Color]
-		Weight    gsse.Expr[Color]
+		Dimension any // Color
+		Weight    any // Color
 	}
 
 	Text struct {
-		Color         gsse.Expr[Color]
-		LineHeight    gsse.Expr[Color]
+		Color         any // Color
+		LineHeight    any // Color
 		TextAlignment gss.TextAlignment
 	}
 
@@ -163,7 +150,7 @@ type (
 		Font            Font
 		Border          Borders
 		BorderRadiuses  BorderRadiuses
-		BackgroundColor gsse.Expr[Color]
+		BackgroundColor any // Color
 	}
 
 	QualifiedRule struct {
