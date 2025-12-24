@@ -97,7 +97,7 @@ func Canonicalize(d Dimension) (Dimension, error) {
 		if !ok {
 			return n, fmt.Errorf("checking the core unit for %s: %w", u, ErrUnknownUnit)
 		}
-		n.Unit = n.Unit.Multiply(map[Unit]int{u2: p})
+		n.Unit = multiplyCompounds(n.Unit, map[Unit]int{u2: p})
 		f, err := factor(u)
 		if err != nil {
 			return n, fmt.Errorf("canonicalizing %s to core unit: %w", u, err)

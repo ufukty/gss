@@ -9,7 +9,7 @@ import (
 
 type Compound map[Unit]int // eg. px^2/em
 
-func (a Compound) Compare(b Compound) bool {
+func compareCompounds(a, b Compound) bool {
 	if len(a) != len(b) {
 		return false
 	}
@@ -21,7 +21,7 @@ func (a Compound) Compare(b Compound) bool {
 	return true
 }
 
-func (a Compound) Multiply(b Compound) Compound {
+func multiplyCompounds(a, b Compound) Compound {
 	c := maps.Clone(a)
 	for u, p := range b {
 		c[u] += p
@@ -37,7 +37,7 @@ func (a *Compound) clean() {
 	}
 }
 
-func (a Compound) Divide(b Compound) Compound {
+func divideCompound(a, b Compound) Compound {
 	c := maps.Clone(a)
 	for u, p := range b {
 		c[u] -= p

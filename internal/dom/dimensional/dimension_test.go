@@ -54,7 +54,7 @@ func TestAdd_Positive(t *testing.T) {
 		t.Fatalf("act: %v", err)
 	}
 	expected := New(3, Px)
-	if !expected.Compare(got) {
+	if !Compare(expected, got) {
 		t.Errorf("assert, expected %s got %s", expected, got)
 	}
 }
@@ -83,7 +83,7 @@ func TestMultiply(t *testing.T) {
 	if err != nil {
 		t.Errorf("act: %v", err)
 	}
-	if !expected.Compare(got) {
+	if !Compare(expected, got) {
 		t.Errorf("assert, expected %q got %q", expected, got)
 	}
 }
@@ -98,7 +98,7 @@ func TestDivide_StripUnit(t *testing.T) {
 	if err != nil {
 		t.Errorf("act: %v", err)
 	}
-	if !expected.Compare(got) {
+	if !Compare(expected, got) {
 		t.Errorf("assert, expected %q got %q", expected, got)
 	}
 }

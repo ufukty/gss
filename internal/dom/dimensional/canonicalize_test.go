@@ -44,7 +44,7 @@ func TestCanonicalize_Basic(t *testing.T) {
 			if err != nil {
 				t.Fatalf("act, unexpected error: %v", err)
 			}
-			if !tc.expected.Compare(got) {
+			if !Compare(tc.expected, got) {
 				t.Errorf("assert, expected %s, got %s", tc.expected, got)
 			}
 		})
@@ -69,7 +69,7 @@ func TestCanonicalize_Complex(t *testing.T) {
 			if err != nil {
 				t.Fatalf("act, unexpected error: %v", err)
 			}
-			if !tc.expected.Compare(got) {
+			if !Compare(tc.expected, got) {
 				t.Errorf("assert, expected %s, got %s", tc.expected, got)
 			}
 		})

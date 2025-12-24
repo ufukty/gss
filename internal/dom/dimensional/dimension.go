@@ -13,18 +13,13 @@ var (
 	ErrIncompatibleUnits             = fmt.Errorf("operands have incompetable units")
 )
 
-// GSSE compliant primitive value types
-//
-// Values of those types can be assigned to a variable of Expr[T] as leaf node
-type (
-	Dimension struct {
-		Value float64
-		Unit  Compound
-	}
-)
+type Dimension struct {
+	Value float64
+	Unit  Compound
+}
 
-func (d Dimension) Compare(t Dimension) bool {
-	return d.Value == t.Value && d.Unit.Compare(t.Unit)
+func Compare(a, b Dimension) bool {
+	return a.Value == b.Value && compareCompounds(a.Unit, b.Unit)
 }
 
 func round(f float64, preserveDecimals int) float64 {
@@ -61,7 +56,7 @@ func (d Dimension) String() string {
 }
 
 func Add(a, b Dimension) (Dimension, error) {
-	if !a.Unit.Compare(b.Unit) {
+	if !compareCompounds(a.Unit, b.Unit) {
 		return a, ErrIncompatibleUnits
 	}
 	c := Dimension{
@@ -72,7 +67,7 @@ func Add(a, b Dimension) (Dimension, error) {
 }
 
 func Subtract(a, b Dimension) (Dimension, error) {
-	if !a.Unit.Compare(b.Unit) {
+	if !compareCompounds(a.Unit, b.Unit) {
 		return a, ErrIncompatibleUnits
 	}
 	c := Dimension{
@@ -85,7 +80,7 @@ func Subtract(a, b Dimension) (Dimension, error) {
 func Multiply(a, b Dimension) (Dimension, error) {
 	c := Dimension{
 		Value: a.Value * b.Value,
-		Unit:  a.Unit.Multiply(b.Unit),
+		Unit:  multiplyCompounds(a.Unit, b.Unit),
 	}
 	return c, nil
 }
@@ -96,7 +91,7 @@ func Divide(a, b Dimension) (Dimension, error) {
 	}
 	c := Dimension{
 		Value: a.Value / b.Value,
-		Unit:  a.Unit.Divide(b.Unit),
+		Unit:  divideCompound(a.Unit, b.Unit),
 	}
 	return c, nil
 }
