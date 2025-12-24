@@ -1,21 +1,11 @@
 package gsse
 
-type Expr interface {
-	expr()
-}
-
+// Children are either another expression or a value of core types
 type (
-	LightDark      struct{ Light, Dark Expr }
-	Ident          struct{ Name Expr }
-	Addition       struct{ Left, Right Expr }
-	Subtraction    struct{ Left, Right Expr }
-	Multiplication struct{ Left, Right Expr }
-	Division       struct{ Dividend, Divisor Expr }
+	LightDark      struct{ Light, Dark any }
+	Ident          struct{ Name any }
+	Addition       struct{ Left, Right any }
+	Subtraction    struct{ Left, Right any }
+	Multiplication struct{ Left, Right any }
+	Division       struct{ Dividend, Divisor any }
 )
-
-func (LightDark) expr()      {}
-func (Ident) expr()          {}
-func (Addition) expr()       {}
-func (Subtraction) expr()    {}
-func (Multiplication) expr() {}
-func (Division) expr()       {}
