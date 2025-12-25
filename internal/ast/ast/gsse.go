@@ -1,4 +1,4 @@
-package gsse
+package ast
 
 // Children are either another expression or a value of core types
 type (
