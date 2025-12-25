@@ -1,7 +1,7 @@
 package defaults
 
 import (
-	"go.ufukty.com/gss/internal/ast/ast"
+	"go.ufukty.com/gss/internal/ast"
 )
 
 var (

@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"go.ufukty.com/gss/internal/ast/ast"
+	"go.ufukty.com/gss/internal/ast"
 	"go.ufukty.com/gss/internal/dimensional"
 )
 

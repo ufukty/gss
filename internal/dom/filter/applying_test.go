@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"go.ufukty.com/gss/internal/ast/ast"
+	"go.ufukty.com/gss/internal/ast"
 )
 
 func Test_Applying(t *testing.T) {

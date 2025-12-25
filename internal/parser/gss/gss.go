@@ -3,7 +3,7 @@ package gss
 import (
 	"io"
 
-	"go.ufukty.com/gss/internal/ast/ast"
+	"go.ufukty.com/gss/internal/ast"
 )
 
 func silent[T any](t T, _ error) T {

@@ -1,7 +1,7 @@
 package filter
 
 import (
-	"go.ufukty.com/gss/internal/ast/ast"
+	"go.ufukty.com/gss/internal/ast"
 )
 
 // returns if target ∋ selector(root)

@@ -1,6 +1,6 @@
 package dom
 
-import "go.ufukty.com/gss/internal/ast/ast"
+import "go.ufukty.com/gss/internal/ast"
 
 type Size struct {
 	Width, Height float64

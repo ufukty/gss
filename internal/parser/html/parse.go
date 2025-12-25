@@ -3,7 +3,7 @@ package html
 import (
 	"io"
 
-	"go.ufukty.com/gss/internal/ast/ast"
+	"go.ufukty.com/gss/internal/ast"
 )
 
 func Html(src io.Reader) *ast.Html {
