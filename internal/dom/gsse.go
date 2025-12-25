@@ -1,7 +1,7 @@
 package dom
 
 import (
-	"go.ufukty.com/gss/internal/tokens/tokens"
+	"go.ufukty.com/gss/internal/tokens"
 )
 
 // Context
