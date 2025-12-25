@@ -2,15 +2,14 @@ package gss
 
 import (
 	"fmt"
+	"image/color"
 	"strconv"
 	"strings"
-
-	"go.ufukty.com/gss/internal/ast/gsse"
 )
 
-func ParseColor(s string) (gsse.Color, error) {
+func ParseColor(s string) (any, error) {
 	if s[0] != '#' {
-		return gsse.Color{}, fmt.Errorf("expected leading # character")
+		return nil, fmt.Errorf("expected leading # character")
 	}
 	strings.ToLower(s)
 	switch len(s) {
@@ -23,13 +22,13 @@ func ParseColor(s string) (gsse.Color, error) {
 	case 8:
 		break
 	default:
-		return gsse.Color{}, fmt.Errorf("unexpected length")
+		return nil, fmt.Errorf("unexpected length")
 	}
 	u, err := strconv.ParseUint(s, 16, 32)
 	if err != nil {
-		return gsse.Color{}, err
+		return nil, err
 	}
-	return gsse.Color{
+	return color.NRGBA{
 		R: uint8(u >> 24),
 		G: uint8(u >> 16),
 		B: uint8(u >> 8),

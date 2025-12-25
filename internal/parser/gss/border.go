@@ -6,8 +6,7 @@ import (
 	"strings"
 
 	"go.ufukty.com/gss/internal/ast/gss"
-	"go.ufukty.com/gss/internal/ast/gsse"
-	tokens "go.ufukty.com/gss/internal/tokens/gss"
+	"go.ufukty.com/gss/internal/dimensional"
 )
 
 var (
@@ -18,16 +17,13 @@ var (
 
 func ParseBorder(s string) gss.Border {
 	b := gss.Border{
-		Color:     gsse.Color{255, 255, 255, 255},
+		Color:     "#000000",
 		Style:     "solid",
-		Thickness: gsse.Pixels(0),
+		Thickness: "none",
 	}
 	for seq := range strings.SplitSeq(s, " ") {
 		if ms := regexBorderThickness.FindStringSubmatch(seq); len(ms) > 0 {
-			b.Thickness = gsse.Size{
-				Number: silent(strconv.ParseFloat(ms[1], 64)),
-				Unit:   gsse.Units(tokens.Unit(ms[2])),
-			}
+			b.Thickness = dimensional.New(silent(strconv.ParseFloat(ms[1], 64)), dimensional.Unit(ms[2]))
 		}
 		if m := regexBorderColor.FindString(seq); m != "" {
 			b.Color = silent(ParseColor(m))
