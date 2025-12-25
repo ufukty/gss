@@ -1,6 +1,3 @@
-// Strings are used for quantitive values as they can have multiple
-// units or even defined by complex expressions (GSSE) that is not
-// handled in this step.
 package gss
 
 type Display struct {
@@ -9,13 +6,13 @@ type Display struct {
 }
 
 type Border struct {
-	Color     string
-	Style     string
-	Thickness string
+	Color     any // "inherit", "transparent", color.NRGBA
+	Style     any // "inherit", gss.BorderStyle
+	Thickness any // "none", dimensional.Dimension
 }
 
 type BorderRadiuses struct {
-	TopLeft, TopRight, BottomRight, BottomLeft string
+	TopLeft, TopRight, BottomRight, BottomLeft any // "none", "inherit", dimensional.Dimension
 }
 
 type Borders struct {
@@ -23,28 +20,28 @@ type Borders struct {
 }
 
 type Margin struct {
-	Top, Right, Bottom, Left string
+	Top, Right, Bottom, Left any // "inherit", dimensional.Dimension
 }
 
 type Padding struct {
-	Top, Right, Bottom, Left string
+	Top, Right, Bottom, Left any // "inherit", dimensional.Dimension
 }
 
 type Font struct {
-	Family string
-	Size   string
-	Weight string
+	Family any // "inherit", []string
+	Size   any // "inherit", dimensional.Dimension
+	Weight any // "inherit", int
 }
 
 type Text struct {
-	Color         string
-	LineHeight    string
-	TextAlignment string
+	Color         any // "inherit", "transparent", color.NRGBA
+	LineHeight    any // "inherit", dimension.Dimensional
+	TextAlignment any // "inherit", gss.TextAlignment
 }
 
 type Dimensions struct {
-	Height string
-	Width  string
+	Height any // "auto", "min-content", "max-content", dimensional.Dimension
+	Width  any // "auto", "min-content", "max-content", dimensional.Dimension
 }
 
 // TODO: handle shorthand syntaxes during parsing
@@ -57,7 +54,7 @@ type Styles struct {
 	Font            Font
 	Border          Borders
 	BorderRadiuses  BorderRadiuses
-	BackgroundColor string
+	BackgroundColor any // "inherit", "transparent", color.NRGBA
 }
 
 type Rule struct {
