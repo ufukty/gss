@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"go.ufukty.com/gss/internal/ast/gsse"
+	"go.ufukty.com/gss/internal/ast"
 	"go.ufukty.com/gss/internal/dimensional"
 )
 
@@ -26,9 +26,9 @@ func TestParse(t *testing.T) {
 	tcs := []tc{
 		{"direct", "1", dimensional.New(1.0)},
 		{"unit", "1em", dimensional.New(1.0, "em")},
-		{"calc", "calc(1em)", gsse.Calc{Expr: oneEm}},
-		{"addition", "calc(1em + 1em)", gsse.Calc{Expr: gsse.Addition{Left: oneEm, Right: oneEm}}},
-		{"nested", "calc(1em + min(1vw, 1vh))", gsse.Calc{Expr: gsse.Addition{Left: oneEm, Right: gsse.Min{Exprs: []any{oneVw, oneVh}}}}},
+		{"calc", "calc(1em)", ast.Calc{Expr: oneEm}},
+		{"addition", "calc(1em + 1em)", ast.Calc{Expr: ast.Addition{Left: oneEm, Right: oneEm}}},
+		{"nested", "calc(1em + min(1vw, 1vh))", ast.Calc{Expr: ast.Addition{Left: oneEm, Right: ast.Min{Exprs: []any{oneVw, oneVh}}}}},
 	}
 
 	for _, tc := range tcs {

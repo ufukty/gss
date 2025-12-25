@@ -1,7 +1,7 @@
 package dom
 
 import (
-	"go.ufukty.com/gss/internal/tokens/gss"
+	"go.ufukty.com/gss/internal/tokens"
 )
 
 // Context
@@ -97,8 +97,8 @@ type (
 // Nodes
 type (
 	Display struct {
-		Outside gss.DisplayOutside
-		Inside  gss.DisplayInside
+		Outside tokens.DisplayOutside
+		Inside  tokens.DisplayInside
 	}
 
 	Border struct {
@@ -124,7 +124,7 @@ type (
 	}
 
 	Font struct {
-		Family    []gss.FontFamily
+		Family    []tokens.FontFamily
 		Dimension any // Color
 		Weight    any // Color
 	}
@@ -132,12 +132,12 @@ type (
 	Text struct {
 		Color         any // Color
 		LineHeight    any // Color
-		TextAlignment gss.TextAlignment
+		TextAlignment tokens.TextAlignment
 	}
 
 	Dimensions struct {
-		Height gss.Height
-		Width  gss.Width
+		Height tokens.Height
+		Width  tokens.Width
 	}
 
 	// TODO: handle shorthand syntaxes during parsing

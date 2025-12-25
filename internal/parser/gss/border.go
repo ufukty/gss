@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"go.ufukty.com/gss/internal/ast/gss"
+	"go.ufukty.com/gss/internal/ast"
 	"go.ufukty.com/gss/internal/dimensional"
 )
 
@@ -15,8 +15,8 @@ var (
 	regexBorderStyle     = regexp.MustCompile(`(solid|dashed|dotted)`)
 )
 
-func ParseBorder(s string) gss.Border {
-	b := gss.Border{
+func ParseBorder(s string) ast.Border {
+	b := ast.Border{
 		Color:     "#000000",
 		Style:     "solid",
 		Thickness: "none",
@@ -35,7 +35,7 @@ func ParseBorder(s string) gss.Border {
 	return b
 }
 
-func ParseBorders(s string) gss.Borders {
+func ParseBorders(s string) ast.Borders {
 	left, right, top, bottom := "", "", "", ""
 	switch ss := strings.Split(s, ","); len(ss) {
 	case 1:
@@ -47,7 +47,7 @@ func ParseBorders(s string) gss.Borders {
 	case 4:
 		top, right, bottom, left = ss[0], ss[1], ss[2], ss[3]
 	}
-	return gss.Borders{
+	return ast.Borders{
 		Top:    ParseBorder(top),
 		Right:  ParseBorder(right),
 		Bottom: ParseBorder(bottom),

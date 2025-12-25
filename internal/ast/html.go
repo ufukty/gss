@@ -1,5 +1,6 @@
-package html
+package ast
 
+// Html
 type (
 	Div struct {
 		Id       string

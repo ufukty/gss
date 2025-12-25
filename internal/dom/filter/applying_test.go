@@ -4,29 +4,28 @@ import (
 	"reflect"
 	"testing"
 
-	"go.ufukty.com/gss/internal/ast/gss"
-	"go.ufukty.com/gss/internal/ast/html"
+	"go.ufukty.com/gss/internal/ast"
 )
 
 func Test_Applying(t *testing.T) {
 	var (
-		title  = &html.Div{Classes: []string{"title"}}
-		img    = &html.Img{}
-		author = &html.Div{Classes: []string{"author"}}
-		main   = &html.Div{Id: "main", Children: []html.Element{title, img, author}}
+		title  = &ast.Div{Classes: []string{"title"}}
+		img    = &ast.Img{}
+		author = &ast.Div{Classes: []string{"author"}}
+		main   = &ast.Div{Id: "main", Children: []ast.Element{title, img, author}}
 	)
 
 	var ( // addressable to compare
-		a = &gss.Styles{}
-		b = &gss.Styles{}
-		c = &gss.Styles{}
-		d = &gss.Styles{}
-		e = &gss.Styles{}
-		f = &gss.Styles{}
+		a = &ast.Styles{}
+		b = &ast.Styles{}
+		c = &ast.Styles{}
+		d = &ast.Styles{}
+		e = &ast.Styles{}
+		f = &ast.Styles{}
 	)
 
-	g := &gss.Gss{
-		Rules: []*gss.Rule{
+	g := &ast.Gss{
+		Rules: []*ast.Rule{
 			{"main", a},
 			{".title", b},
 			{"div.title", c},
@@ -36,7 +35,7 @@ func Test_Applying(t *testing.T) {
 		},
 	}
 
-	tcs := map[html.Element][]*gss.Styles{
+	tcs := map[ast.Element][]*ast.Styles{
 		main:   {a},
 		title:  {b, c},
 		img:    {d},
