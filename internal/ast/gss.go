@@ -1,5 +1,6 @@
 package ast
 
+// Gss
 type (
 	Display struct {
 		Outside string

@@ -1,6 +1,7 @@
 package ast
 
-// Children are either another expression or a value of core types
+// Gsse
+// Children are either is or resolves to a value of core units
 type (
 	LightDark      struct{ Light, Dark any }
 	Ident          struct{ Name any }
