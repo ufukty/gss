@@ -69,3 +69,13 @@ const (
 	TextAlignment_Center  TextAlignment = "center"
 	TextAlignment_Right   TextAlignment = "right"
 )
+
+type BorderStyle string
+
+const (
+	BorderStyleNone   BorderStyle = "none"
+	BorderStyleHidden BorderStyle = "hidden"
+	BorderStyleSolid  BorderStyle = "solid"
+	BorderStyleDashed BorderStyle = "dashed"
+	BorderStyleDotted BorderStyle = "dotted"
+)
