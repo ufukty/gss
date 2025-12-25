@@ -1,6 +1,6 @@
 package dom
 
-import "go.ufukty.com/gss/internal/ast/html"
+import "go.ufukty.com/gss/internal/ast/ast"
 
 type Size struct {
 	Width, Height float64
@@ -8,47 +8,47 @@ type Size struct {
 
 type (
 	Div struct {
-		Ast      *html.Div
+		Ast      *ast.Div
 		Parent   Parent
 		Children []Child
 		Min, Max Size
 	}
 
 	Html struct {
-		Ast      *html.Html
+		Ast      *ast.Html
 		Children []Child
 		Min, Max Size
 	}
 
 	Img struct {
-		Ast      *html.Img
+		Ast      *ast.Img
 		Parent   Parent
 		Min, Max Size
 	}
 
 	Span struct {
-		Ast      *html.Span
+		Ast      *ast.Span
 		Parent   Parent
 		Children []Child
 		Min, Max Size
 	}
 
 	TextNode struct {
-		Ast      *html.TextNode
+		Ast      *ast.TextNode
 		Parent   Parent
 		Min, Max Size
 	}
 )
 
 type Element interface {
-	GetAst() html.Element
+	GetAst() ast.Element
 }
 
-func (d Div) GetAst() html.Element      { return d.Ast }
-func (d Html) GetAst() html.Element     { return d.Ast }
-func (d Img) GetAst() html.Element      { return d.Ast }
-func (d Span) GetAst() html.Element     { return d.Ast }
-func (d TextNode) GetAst() html.Element { return d.Ast }
+func (d Div) GetAst() ast.Element      { return d.Ast }
+func (d Html) GetAst() ast.Element     { return d.Ast }
+func (d Img) GetAst() ast.Element      { return d.Ast }
+func (d Span) GetAst() ast.Element     { return d.Ast }
+func (d TextNode) GetAst() ast.Element { return d.Ast }
 
 // TODO: update when Go allows interface defining on common fields
 type Parent interface {

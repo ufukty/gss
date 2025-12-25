@@ -1,4 +1,4 @@
-package html
+package ast
 
 type (
 	Div struct {

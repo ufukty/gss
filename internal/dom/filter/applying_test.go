@@ -5,15 +5,14 @@ import (
 	"testing"
 
 	"go.ufukty.com/gss/internal/ast/ast"
-	"go.ufukty.com/gss/internal/ast/html"
 )
 
 func Test_Applying(t *testing.T) {
 	var (
-		title  = &html.Div{Classes: []string{"title"}}
-		img    = &html.Img{}
-		author = &html.Div{Classes: []string{"author"}}
-		main   = &html.Div{Id: "main", Children: []html.Element{title, img, author}}
+		title  = &ast.Div{Classes: []string{"title"}}
+		img    = &ast.Img{}
+		author = &ast.Div{Classes: []string{"author"}}
+		main   = &ast.Div{Id: "main", Children: []ast.Element{title, img, author}}
 	)
 
 	var ( // addressable to compare
@@ -36,7 +35,7 @@ func Test_Applying(t *testing.T) {
 		},
 	}
 
-	tcs := map[html.Element][]*ast.Styles{
+	tcs := map[ast.Element][]*ast.Styles{
 		main:   {a},
 		title:  {b, c},
 		img:    {d},

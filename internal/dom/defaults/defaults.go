@@ -2,8 +2,6 @@ package defaults
 
 import (
 	"go.ufukty.com/gss/internal/ast/ast"
-
-	"go.ufukty.com/gss/internal/ast/html"
 )
 
 var (
@@ -113,17 +111,17 @@ var (
 	}
 )
 
-func For(e html.Element) *ast.Styles {
+func For(e ast.Element) *ast.Styles {
 	switch e.(type) {
-	case *html.Div:
+	case *ast.Div:
 		return &Div
-	case *html.Html:
+	case *ast.Html:
 		return &Html
-	case *html.Img:
+	case *ast.Img:
 		return &Img
-	case *html.Span:
+	case *ast.Span:
 		return &Span
-	case *html.TextNode:
+	case *ast.TextNode:
 		return &TextNode
 	}
 	return nil

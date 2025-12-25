@@ -3,11 +3,11 @@ package html
 import (
 	"io"
 
-	"go.ufukty.com/gss/internal/ast/html"
+	"go.ufukty.com/gss/internal/ast/ast"
 )
 
-func Html(src io.Reader) *html.Html {
-	h := &html.Html{}
+func Html(src io.Reader) *ast.Html {
+	h := &ast.Html{}
 
 	return h
 }

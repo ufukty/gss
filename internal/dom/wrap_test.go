@@ -3,18 +3,18 @@ package dom
 import (
 	"fmt"
 
-	"go.ufukty.com/gss/internal/ast/html"
+	"go.ufukty.com/gss/internal/ast/ast"
 )
 
 func ExampleWrap() {
 	var (
-		title           = &html.TextNode{Content: "Lorem ipsum"}
-		titleContainer  = &html.Div{Classes: []string{"title"}, Children: []html.Element{title}}
-		img             = &html.Img{Src: "./profile.png", SrcSet: map[float64]string{2.0: "./profile@2x.png"}}
-		author          = &html.TextNode{Content: "Ufuktan Yıldırım"}
-		authorContainer = &html.Div{Classes: []string{"author"}, Children: []html.Element{author}}
-		main            = &html.Div{Id: "main", Children: []html.Element{titleContainer, img, authorContainer}}
-		html            = &html.Html{Children: []html.Element{main}}
+		title           = &ast.TextNode{Content: "Lorem ipsum"}
+		titleContainer  = &ast.Div{Classes: []string{"title"}, Children: []ast.Element{title}}
+		img             = &ast.Img{Src: "./profile.png", SrcSet: map[float64]string{2.0: "./profile@2x.png"}}
+		author          = &ast.TextNode{Content: "Ufuktan Yıldırım"}
+		authorContainer = &ast.Div{Classes: []string{"author"}, Children: []ast.Element{author}}
+		main            = &ast.Div{Id: "main", Children: []ast.Element{titleContainer, img, authorContainer}}
+		html            = &ast.Html{Children: []ast.Element{main}}
 	)
 
 	d := Wrap(html)

@@ -1,34 +1,34 @@
 package dom
 
 import (
-	"go.ufukty.com/gss/internal/ast/html"
+	"go.ufukty.com/gss/internal/ast/ast"
 )
 
-func wrap(e html.Element) Element {
+func wrap(e ast.Element) Element {
 	switch e := e.(type) {
-	case *html.Div:
+	case *ast.Div:
 		return &Div{Ast: e}
-	case *html.Html:
+	case *ast.Html:
 		return &Html{Ast: e}
-	case *html.Img:
+	case *ast.Img:
 		return &Img{Ast: e}
-	case *html.Span:
+	case *ast.Span:
 		return &Span{Ast: e}
-	case *html.TextNode:
+	case *ast.TextNode:
 		return &TextNode{Ast: e}
 	}
 	return nil
 }
 
 // DOM for AST
-func Wrap(a html.Element) Element {
+func Wrap(a ast.Element) Element {
 	// _a ast
 	// _d dom
 	// p_ parent
 	// c_ child
 	d := wrap(a)
 
-	pa, pa_ok := a.(html.Parent)
+	pa, pa_ok := a.(ast.Parent)
 	pd, pd_ok := d.(Parent)
 	if pa_ok && pd_ok {
 		for _, ca := range pa.GetChildren() {
