@@ -1,4 +1,4 @@
-# go.ufukty.com/gommons v0.1.0
+# go.ufukty.com/gommons v0.1.1
 ## explicit; go 1.25.1
 go.ufukty.com/gommons/pkg/tree
 # golang.org/x/net v0.48.0
