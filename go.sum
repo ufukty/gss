@@ -1,2 +1,4 @@
 go.ufukty.com/gommons v0.1.0 h1:pTRZDrD3WnbGvs03JDM8VHIE86DKTnghEOXuGzXal04=
 go.ufukty.com/gommons v0.1.0/go.mod h1:zPXCoL6hD/PafbysBo36yZVWuk8+Fbara6mpQmI9X7E=
+golang.org/x/net v0.48.0 h1:zyQRTTrjc33Lhh0fBgT/H3oZq9WuvRR5gPC70xpDiQU=
+golang.org/x/net v0.48.0/go.mod h1:+ndRgGjkh8FGtu1w1FGbEC31if4VrNVMuKTgcAAnQRY=
