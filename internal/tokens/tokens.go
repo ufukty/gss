@@ -34,40 +34,25 @@ const (
 type Unit string
 
 const (
-	Unit_Em      Unit = "em"
-	Unit_Inherit Unit = "inherit"
-	Unit_Pc      Unit = "%"
-	Unit_Pt      Unit = "pt"
-	Unit_Px      Unit = "px"
+	Unit_Em Unit = "em"
+	Unit_Pc Unit = "%"
+	Unit_Pt Unit = "pt"
+	Unit_Px Unit = "px"
 )
 
 type FontFamily string
 
 const (
-	FontFamily_Inherit   FontFamily = "inherit"
 	FontFamily_Serif     FontFamily = "serif"
 	FontFamily_SansSerif FontFamily = "sans-serif"
-)
-
-type Color string
-
-const (
-	Color_Inherit Color = "inherit"
-)
-
-type BackgroundColor string
-
-const (
-	BackgroundColor_Inherit BackgroundColor = "inherit"
 )
 
 type TextAlignment string
 
 const (
-	TextAlignment_Inherit TextAlignment = "inherit"
-	TextAlignment_Left    TextAlignment = "left"
-	TextAlignment_Center  TextAlignment = "center"
-	TextAlignment_Right   TextAlignment = "right"
+	TextAlignment_Left   TextAlignment = "left"
+	TextAlignment_Center TextAlignment = "center"
+	TextAlignment_Right  TextAlignment = "right"
 )
 
 type BorderStyle string
