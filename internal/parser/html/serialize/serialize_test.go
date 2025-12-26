@@ -20,6 +20,7 @@ func ExampleNode() {
 	fmt.Println(Node(z.FirstChild))
 	// Output:
 	// <html></html>
+	// ├─ <head></head>
 	// ╰─ <body></body>
 	//    ╰─ <main></main>
 	//       ├─ <div id="title"></div>
