@@ -10,7 +10,7 @@ import (
 )
 
 func TestParser(t *testing.T) {
-	f, err := os.Open("testdata/simple.css")
+	f, err := os.Open("testdata/styles.css")
 	if err != nil {
 		t.Fatalf("prep, open test file: %v", err)
 	}
@@ -20,7 +20,7 @@ func TestParser(t *testing.T) {
 		if g == css.DeclarationGrammar {
 			fmt.Println(g, "|", t, "|", string(b), "|", p.Values())
 		} else {
-			fmt.Println(g, "|", t, "|", string(b))
+			fmt.Println(g, "|", t, "|", string(b), "|", p.Values())
 		}
 	}
 }
