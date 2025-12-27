@@ -10,7 +10,9 @@ func silent[T any](t T, _ error) T {
 	return t
 }
 
-func rule(src io.Reader) (*ast.Rule, error)
+func rule(src io.Reader) (*ast.Rule, error) {
+	return nil, nil
+}
 
 func Gss(r io.Reader) (*ast.Gss, error) {
 	g := &ast.Gss{
