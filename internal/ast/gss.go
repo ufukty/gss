@@ -1,6 +1,9 @@
 package ast
 
 import (
+	"maps"
+	"slices"
+
 	"go.ufukty.com/gommons/pkg/tree"
 )
 
@@ -67,138 +70,114 @@ func isZero[T comparable](t T) bool {
 	return t == z
 }
 
-func appendString(ss []string, prop string, value any) []string {
-	if !isZero(value) {
-		switch s := value.(type) {
-		case string:
-			ss = append(ss, tree.List(prop, []string{s}))
-		case interface{ String() string }:
-			ss = append(ss, tree.List(prop, []string{s.String()}))
-		case interface{ Strings() []string }:
-			ss = append(ss, tree.List(prop, s.Strings()))
-		default:
-			ss = append(ss, tree.List(prop, []string{"value of unknown type"}))
+func collect(s map[string]any) []string {
+	ss := []string{}
+	for _, k := range slices.Sorted(maps.Keys(s)) {
+		if !isZero(s[k]) {
+			switch v := s[k].(type) {
+			case string:
+				ss = append(ss, tree.List(k, []string{v}))
+			case interface{ String() string }:
+				ss = append(ss, tree.List(k, []string{v.String()}))
+			case interface{ Strings() []string }:
+				ss = append(ss, tree.List(k, v.Strings()))
+			default:
+				ss = append(ss, tree.List(k, []string{"value of unknown type"}))
+			}
 		}
 	}
-	return ss
+	if len(ss) > 0 {
+		return ss
+	}
+	return nil
 }
 
 func (s Display) Strings() []string {
-	ss := []string{}
-	ss = appendString(ss, "Outside", s.Outside)
-	ss = appendString(ss, "Inside", s.Inside)
-	if len(ss) == 0 {
-		return nil
-	}
-	return ss
+	return collect(map[string]any{
+		"Outside": s.Outside,
+		"Inside":  s.Inside,
+	})
 }
 
 func (s Border) Strings() []string {
-	ss := []string{}
-	ss = appendString(ss, "Color", s.Color)
-	ss = appendString(ss, "Style", s.Style)
-	ss = appendString(ss, "Thickness", s.Thickness)
-	if len(ss) == 0 {
-		return nil
-	}
-	return ss
+	return collect(map[string]any{
+		"Color":     s.Color,
+		"Style":     s.Style,
+		"Thickness": s.Thickness,
+	})
 }
 
 func (s BorderRadiuses) Strings() []string {
-	ss := []string{}
-	ss = appendString(ss, "TopLeft", s.TopLeft)
-	ss = appendString(ss, "TopRight", s.TopRight)
-	ss = appendString(ss, "BottomRight", s.BottomRight)
-	ss = appendString(ss, "BottomLeft", s.BottomLeft)
-	if len(ss) == 0 {
-		return nil
-	}
-	return ss
+	return collect(map[string]any{
+		"TopLeft":     s.TopLeft,
+		"TopRight":    s.TopRight,
+		"BottomRight": s.BottomRight,
+		"BottomLeft":  s.BottomLeft,
+	})
 }
 
 func (s Borders) Strings() []string {
-	ss := []string{}
-	ss = appendString(ss, "Top", s.Top)
-	ss = appendString(ss, "Right", s.Right)
-	ss = appendString(ss, "Bottom", s.Bottom)
-	ss = appendString(ss, "Left", s.Left)
-	if len(ss) == 0 {
-		return nil
-	}
-	return ss
+	return collect(map[string]any{
+		"Top":    s.Top,
+		"Right":  s.Right,
+		"Bottom": s.Bottom,
+		"Left":   s.Left,
+	})
 }
 
 func (s Margin) Strings() []string {
-	ss := []string{}
-	ss = appendString(ss, "Top", s.Top)
-	ss = appendString(ss, "Right", s.Right)
-	ss = appendString(ss, "Bottom", s.Bottom)
-	ss = appendString(ss, "Left", s.Left)
-	if len(ss) == 0 {
-		return nil
-	}
-	return ss
+	return collect(map[string]any{
+		"Top":    s.Top,
+		"Right":  s.Right,
+		"Bottom": s.Bottom,
+		"Left":   s.Left,
+	})
 }
 
 func (s Padding) Strings() []string {
-	ss := []string{}
-	ss = appendString(ss, "Top", s.Top)
-	ss = appendString(ss, "Right", s.Right)
-	ss = appendString(ss, "Bottom", s.Bottom)
-	ss = appendString(ss, "Left", s.Left)
-	if len(ss) == 0 {
-		return nil
-	}
-	return ss
+	return collect(map[string]any{
+		"Top":    s.Top,
+		"Right":  s.Right,
+		"Bottom": s.Bottom,
+		"Left":   s.Left,
+	})
 }
 
 func (s Font) Strings() []string {
-	ss := []string{}
-	ss = appendString(ss, "Family", s.Family)
-	ss = appendString(ss, "Size", s.Size)
-	ss = appendString(ss, "Weight", s.Weight)
-	if len(ss) == 0 {
-		return nil
-	}
-	return ss
+	return collect(map[string]any{
+		"Family": s.Family,
+		"Size":   s.Size,
+		"Weight": s.Weight,
+	})
 }
 
 func (s Text) Strings() []string {
-	ss := []string{}
-	ss = appendString(ss, "Color", s.Color)
-	ss = appendString(ss, "LineHeight", s.LineHeight)
-	ss = appendString(ss, "TextAlignment", s.TextAlignment)
-	if len(ss) == 0 {
-		return nil
-	}
-	return ss
+	return collect(map[string]any{
+		"Color":         s.Color,
+		"LineHeight":    s.LineHeight,
+		"TextAlignment": s.TextAlignment,
+	})
 }
 
 func (s Dimensions) Strings() []string {
-	ss := []string{}
-	ss = appendString(ss, "Height", s.Height)
-	ss = appendString(ss, "Width", s.Width)
-	if len(ss) == 0 {
-		return nil
-	}
-	return ss
+	return collect(map[string]any{
+		"Height": s.Height,
+		"Width":  s.Width,
+	})
 }
 
 func (s Styles) Strings() []string {
-	ss := []string{}
-	ss = appendString(ss, "Dimensions", s.Dimensions)
-	ss = appendString(ss, "Margin", s.Margin)
-	ss = appendString(ss, "Padding", s.Padding)
-	ss = appendString(ss, "Display", s.Display)
-	ss = appendString(ss, "Text", s.Text)
-	ss = appendString(ss, "Font", s.Font)
-	ss = appendString(ss, "Border", s.Border)
-	ss = appendString(ss, "BorderRadiuses", s.BorderRadiuses)
-	ss = appendString(ss, "BackgroundColor", s.BackgroundColor)
-	if len(ss) == 0 {
-		return nil
-	}
-	return ss
+	return collect(map[string]any{
+		"Dimensions":      s.Dimensions,
+		"Margin":          s.Margin,
+		"Padding":         s.Padding,
+		"Display":         s.Display,
+		"Text":            s.Text,
+		"Font":            s.Font,
+		"Border":          s.Border,
+		"BorderRadiuses":  s.BorderRadiuses,
+		"BackgroundColor": s.BackgroundColor,
+	})
 }
 
 func (r Rule) String() string {
