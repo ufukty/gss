@@ -15,6 +15,10 @@ var (
 	regexBorderStyle     = regexp.MustCompile(`(solid|dashed|dotted)`)
 )
 
+func silent[T any](t T, _ error) T {
+	return t
+}
+
 func ParseBorder(s string) ast.Border {
 	b := ast.Border{
 		Color:     "#000000",
