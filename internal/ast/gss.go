@@ -87,6 +87,9 @@ func (s Display) Strings() []string {
 	ss := []string{}
 	ss = appendString(ss, "Outside", s.Outside)
 	ss = appendString(ss, "Inside", s.Inside)
+	if len(ss) == 0 {
+		return nil
+	}
 	return ss
 }
 
@@ -95,6 +98,9 @@ func (s Border) Strings() []string {
 	ss = appendString(ss, "Color", s.Color)
 	ss = appendString(ss, "Style", s.Style)
 	ss = appendString(ss, "Thickness", s.Thickness)
+	if len(ss) == 0 {
+		return nil
+	}
 	return ss
 }
 
@@ -104,6 +110,9 @@ func (s BorderRadiuses) Strings() []string {
 	ss = appendString(ss, "TopRight", s.TopRight)
 	ss = appendString(ss, "BottomRight", s.BottomRight)
 	ss = appendString(ss, "BottomLeft", s.BottomLeft)
+	if len(ss) == 0 {
+		return nil
+	}
 	return ss
 }
 
@@ -113,6 +122,9 @@ func (s Borders) Strings() []string {
 	ss = appendString(ss, "Right", s.Right)
 	ss = appendString(ss, "Bottom", s.Bottom)
 	ss = appendString(ss, "Left", s.Left)
+	if len(ss) == 0 {
+		return nil
+	}
 	return ss
 }
 
@@ -122,6 +134,9 @@ func (s Margin) Strings() []string {
 	ss = appendString(ss, "Right", s.Right)
 	ss = appendString(ss, "Bottom", s.Bottom)
 	ss = appendString(ss, "Left", s.Left)
+	if len(ss) == 0 {
+		return nil
+	}
 	return ss
 }
 
@@ -131,6 +146,9 @@ func (s Padding) Strings() []string {
 	ss = appendString(ss, "Right", s.Right)
 	ss = appendString(ss, "Bottom", s.Bottom)
 	ss = appendString(ss, "Left", s.Left)
+	if len(ss) == 0 {
+		return nil
+	}
 	return ss
 }
 
@@ -139,6 +157,9 @@ func (s Font) Strings() []string {
 	ss = appendString(ss, "Family", s.Family)
 	ss = appendString(ss, "Size", s.Size)
 	ss = appendString(ss, "Weight", s.Weight)
+	if len(ss) == 0 {
+		return nil
+	}
 	return ss
 }
 
@@ -147,6 +168,9 @@ func (s Text) Strings() []string {
 	ss = appendString(ss, "Color", s.Color)
 	ss = appendString(ss, "LineHeight", s.LineHeight)
 	ss = appendString(ss, "TextAlignment", s.TextAlignment)
+	if len(ss) == 0 {
+		return nil
+	}
 	return ss
 }
 
@@ -154,6 +178,9 @@ func (s Dimensions) Strings() []string {
 	ss := []string{}
 	ss = appendString(ss, "Height", s.Height)
 	ss = appendString(ss, "Width", s.Width)
+	if len(ss) == 0 {
+		return nil
+	}
 	return ss
 }
 
@@ -168,6 +195,9 @@ func (s Styles) Strings() []string {
 	ss = appendString(ss, "Border", s.Border)
 	ss = appendString(ss, "BorderRadiuses", s.BorderRadiuses)
 	ss = appendString(ss, "BackgroundColor", s.BackgroundColor)
+	if len(ss) == 0 {
+		return nil
+	}
 	return ss
 }
 
