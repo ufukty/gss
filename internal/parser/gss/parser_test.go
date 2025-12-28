@@ -4,23 +4,20 @@ import (
 	"fmt"
 	"os"
 	"testing"
-
-	"github.com/tdewolff/parse/v2"
-	"github.com/tdewolff/parse/v2/css"
 )
 
-func TestParser(t *testing.T) {
+func TestParse(t *testing.T) {
 	f, err := os.Open("testdata/styles.css")
 	if err != nil {
 		t.Fatalf("prep, open test file: %v", err)
 	}
-	p := css.NewParser(parse.NewInput(f), false)
-	for ; err == nil; err = p.Err() {
-		g, t, b := p.Next()
-		if g == css.DeclarationGrammar {
-			fmt.Println(g, "|", t, "|", string(b), "|", p.Values())
-		} else {
-			fmt.Println(g, "|", t, "|", string(b), "|", p.Values())
-		}
+	defer f.Close()
+	r, err := Parse(f)
+	if err != nil {
+		t.Errorf("act, parse: %v", err)
+	}
+
+	for _, r := range r.Rules {
+		fmt.Println(r)
 	}
 }
