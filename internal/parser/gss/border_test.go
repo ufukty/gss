@@ -47,7 +47,7 @@ func TestParseBorder_combinations(t *testing.T) {
 
 func TestParseBorders_positionalShorthands(t *testing.T) {
 	var (
-		black = color.NRGBA{0, 0, 0, 1}
+		black = color.NRGBA{0, 0, 0, 255}
 		solid = tokens.BorderStyleSolid
 		b1    = ast.Border{Color: black, Style: solid, Thickness: dimensional.New(1, dimensional.Px)}
 		b2    = ast.Border{Color: black, Style: solid, Thickness: dimensional.New(2, dimensional.Px)}
