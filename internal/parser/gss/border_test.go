@@ -28,7 +28,7 @@ func tokenize(in string) ([]css.Token, error) {
 
 func TestParseBorder_combinations(t *testing.T) {
 	var (
-		colors = []string{"", "red", "#f00", "#F00", "#f000", "#F000", "#ff0000", "#FF0000", "#ff000000", "#FF000000"}
+		colors = []string{"", "red", "#f00", "#F00", "#f00f", "#F00F", "#ff0000", "#FF0000", "#ff0000ff", "#FF0000FF"}
 		styles = []string{"", "solid", "dashed", "dotted"}
 		widths = []string{"", "0", "1px", "2pt", "3em", "4rem", "5vh", "6vw"}
 	)
