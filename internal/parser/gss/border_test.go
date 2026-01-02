@@ -2,13 +2,17 @@ package gss
 
 import (
 	"fmt"
+	"image/color"
 	"io"
 	"strings"
 	"testing"
 
 	"github.com/tdewolff/parse/v2"
 	"github.com/tdewolff/parse/v2/css"
+	"go.ufukty.com/gss/internal/ast"
+	"go.ufukty.com/gss/internal/dimensional"
 	"go.ufukty.com/gss/internal/sets"
+	"go.ufukty.com/gss/internal/tokens"
 )
 
 func tokenize(in string) ([]css.Token, error) {
@@ -42,11 +46,40 @@ func TestParseBorder_combinations(t *testing.T) {
 }
 
 func TestParseBorders_positionalShorthands(t *testing.T) {
-	tcs := map[string]string{
-		"T|LR|B":  "1px solid #000, 2px solid #000, 3px solid #000",
-		"T|R|B|L": "1px solid #000, 2px solid #000, 3px solid #000, 4px solid #000",
-		"TB|LR":   "1px solid #000, 2px solid #000",
-		"TRBL":    "1px solid #000",
+	var (
+		black = color.NRGBA{0, 0, 0, 1}
+		solid = tokens.BorderStyleSolid
+		b1    = ast.Border{Color: black, Style: solid, Thickness: dimensional.New(1, dimensional.Px)}
+		b2    = ast.Border{Color: black, Style: solid, Thickness: dimensional.New(2, dimensional.Px)}
+		b3    = ast.Border{Color: black, Style: solid, Thickness: dimensional.New(3, dimensional.Px)}
+		b4    = ast.Border{Color: black, Style: solid, Thickness: dimensional.New(4, dimensional.Px)}
+	)
+	type tc struct {
+		name     string
+		input    string
+		expected ast.Borders
+	}
+	tcs := []tc{
+		{
+			name:     "T|LR|B",
+			input:    "1px solid #000, 2px solid #000, 3px solid #000",
+			expected: ast.Borders{Top: b1, Right: b2, Bottom: b3, Left: b2},
+		},
+		{
+			name:     "T|R|B|L",
+			input:    "1px solid #000, 2px solid #000, 3px solid #000, 4px solid #000",
+			expected: ast.Borders{Top: b1, Right: b2, Bottom: b3, Left: b4},
+		},
+		{
+			name:     "TB|LR",
+			input:    "1px solid #000, 2px solid #000",
+			expected: ast.Borders{Top: b1, Right: b2, Bottom: b1, Left: b2},
+		},
+		{
+			name:     "TRBL",
+			input:    "1px solid #000",
+			expected: ast.Borders{Top: b1, Right: b1, Bottom: b1, Left: b1},
+		},
 	}
 
 	for _, tc := range tcs {
