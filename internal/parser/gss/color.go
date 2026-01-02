@@ -11,7 +11,8 @@ func ParseColor(s string) (any, error) {
 	if s[0] != '#' {
 		return nil, fmt.Errorf("expected leading # character")
 	}
-	strings.ToLower(s)
+	s = strings.ToLower(s)
+	s = s[1:] // hash
 	switch len(s) {
 	case 3:
 		s = strings.Repeat(s[0:1], 2) + strings.Repeat(s[1:2], 2) + strings.Repeat(s[2:3], 2) + "ff"
