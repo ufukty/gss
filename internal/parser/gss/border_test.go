@@ -83,7 +83,7 @@ func TestParseBorders_positionalShorthands(t *testing.T) {
 	}
 
 	for _, tc := range tcs {
-		t.Run(tc, func(t *testing.T) {
+		t.Run(tc.name, func(t *testing.T) {
 			ts, err := tokenize(fmt.Sprintf("border: %s", input))
 			if err != nil {
 				t.Fatalf("prep, unexpected error: %v", err)
