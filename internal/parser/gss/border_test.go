@@ -88,7 +88,10 @@ func TestParseBorders_positionalShorthands(t *testing.T) {
 			if err != nil {
 				t.Fatalf("prep, unexpected error: %v", err)
 			}
-			ParseBorders(ts)
+			got := ParseBorders(ts)
+			if tc.expected != got {
+				t.Errorf("assert, expected %v got %v", tc.expected, got)
+			}
 		})
 	}
 }
