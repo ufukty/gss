@@ -2,6 +2,10 @@ package gss
 
 import (
 	"fmt"
+	"slices"
+	"testing"
+
+	"github.com/tdewolff/parse/v2/css"
 )
 
 func Example_tokenize_borderStyle() {
@@ -84,4 +88,27 @@ func Example_compare() {
 		panic(fmt.Errorf("prep, tokenize: %v", err))
 	}
 	fmt.Println(compare(ts[0], inherit)) // Output: true
+}
+
+func TestSplit(t *testing.T) {
+	input := []css.Token{
+		{TokenType: css.WhitespaceToken},
+		{TokenType: css.IdentToken},
+		{TokenType: css.IdentToken},
+		{TokenType: css.IdentToken},
+		{TokenType: css.WhitespaceToken},
+		{TokenType: css.WhitespaceToken},
+		{TokenType: css.IdentToken},
+		{TokenType: css.WhitespaceToken},
+	}
+	ss := slices.Collect(split(input, css.WhitespaceToken))
+	if len(ss) != 2 {
+		t.Fatalf("assert, number of splits: expected 2, got %d", len(ss))
+	}
+	if len(ss[0]) != 3 {
+		t.Errorf("assert, length of first split: expected 3, got %d", len(ss[0]))
+	}
+	if len(ss[1]) != 1 {
+		t.Errorf("assert, length of first split: expected 1, got %d", len(ss[1]))
+	}
 }

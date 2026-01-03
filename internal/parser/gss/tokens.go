@@ -31,7 +31,7 @@ func split(ts []css.Token, sep css.TokenType) iter.Seq[[]css.Token] {
 		prev := 0
 		for cur, t := range ts {
 			if t.TokenType == sep {
-				if !yield(ts[prev:cur]) {
+				if cur > prev && !yield(ts[prev:cur]) {
 					return
 				}
 				prev = cur + 1
