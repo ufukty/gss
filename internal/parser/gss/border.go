@@ -1,7 +1,6 @@
 package gss
 
 import (
-	"iter"
 	"regexp"
 	"slices"
 	"strconv"
@@ -39,20 +38,6 @@ func ParseBorder(ts []css.Token) ast.Border {
 		}
 	}
 	return b
-}
-
-func split(ts []css.Token, sep css.TokenType) iter.Seq[[]css.Token] {
-	return func(yield func([]css.Token) bool) {
-		prev := 0
-		for cur, t := range ts {
-			if t.TokenType == sep {
-				if !yield(ts[prev:cur]) {
-					return
-				}
-				prev = cur + 1
-			}
-		}
-	}
 }
 
 func ParseBorders(ts []css.Token) ast.Borders {

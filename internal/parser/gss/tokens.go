@@ -2,6 +2,7 @@ package gss
 
 import (
 	"io"
+	"iter"
 	"slices"
 
 	"github.com/tdewolff/parse/v2"
@@ -23,4 +24,18 @@ func tokenize(in string) ([]css.Token, error) {
 
 func compare(a, b css.Token) bool {
 	return a.TokenType == b.TokenType && slices.Compare(a.Data, b.Data) == 0
+}
+
+func split(ts []css.Token, sep css.TokenType) iter.Seq[[]css.Token] {
+	return func(yield func([]css.Token) bool) {
+		prev := 0
+		for cur, t := range ts {
+			if t.TokenType == sep {
+				if !yield(ts[prev:cur]) {
+					return
+				}
+				prev = cur + 1
+			}
+		}
+	}
 }
