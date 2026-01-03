@@ -9,7 +9,15 @@ import (
 	"github.com/tdewolff/parse/v2/css"
 )
 
-var inherit = css.Token{TokenType: css.IdentToken, Data: ([]byte)("inherit")}
+var (
+	inherit     = css.Token{TokenType: css.IdentToken, Data: ([]byte)("inherit")}
+	initial     = css.Token{TokenType: css.IdentToken, Data: ([]byte)("initial")}
+	unset       = css.Token{TokenType: css.IdentToken, Data: ([]byte)("unset")}
+	revert      = css.Token{TokenType: css.IdentToken, Data: ([]byte)("revert")}
+	revertLayer = css.Token{TokenType: css.IdentToken, Data: ([]byte)("revert-layer")}
+)
+
+var globals = []css.Token{inherit, initial, unset, revert, revertLayer}
 
 func tokenize(in string) ([]css.Token, error) {
 	p := css.NewParser(parse.NewInputString(in), true)
@@ -38,4 +46,13 @@ func split(ts []css.Token, sep css.TokenType) iter.Seq[[]css.Token] {
 			}
 		}
 	}
+}
+
+func isGlobal(t css.Token) bool {
+	for i := range len(globals) {
+		if !compare(globals[i], t) {
+			return false
+		}
+	}
+	return true
 }
