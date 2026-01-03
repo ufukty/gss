@@ -3,28 +3,14 @@ package gss
 import (
 	"fmt"
 	"image/color"
-	"io"
 	"strings"
 	"testing"
 
-	"github.com/tdewolff/parse/v2"
-	"github.com/tdewolff/parse/v2/css"
 	"go.ufukty.com/gss/internal/ast"
 	"go.ufukty.com/gss/internal/dimensional"
 	"go.ufukty.com/gss/internal/sets"
 	"go.ufukty.com/gss/internal/tokens"
 )
-
-func tokenize(in string) ([]css.Token, error) {
-	p := css.NewParser(parse.NewInputString(in), true)
-	gt, _, _ := p.Next()
-	if gt == css.ErrorGrammar {
-		if err := p.Err(); err != io.EOF {
-			return nil, err
-		}
-	}
-	return p.Values(), nil
-}
 
 func TestParseBorder_combinations(t *testing.T) {
 	var (

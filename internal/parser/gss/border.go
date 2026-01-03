@@ -1,10 +1,12 @@
 package gss
 
 import (
+	"iter"
 	"regexp"
+	"slices"
 	"strconv"
-	"strings"
 
+	"github.com/tdewolff/parse/v2/css"
 	"go.ufukty.com/gss/internal/ast"
 	"go.ufukty.com/gss/internal/dimensional"
 )
@@ -19,29 +21,44 @@ func silent[T any](t T, _ error) T {
 	return t
 }
 
-func ParseBorder(s string) ast.Border {
+func ParseBorder(ts []css.Token) ast.Border {
 	b := ast.Border{
 		Color:     "#000000",
 		Style:     "solid",
 		Thickness: "none",
 	}
-	for seq := range strings.SplitSeq(s, " ") {
-		if ms := regexBorderThickness.FindStringSubmatch(seq); len(ms) > 0 {
+	for _, t := range ts {
+		if ms := regexBorderThickness.FindStringSubmatch(t); len(ms) > 0 {
 			b.Thickness = dimensional.New(silent(strconv.ParseFloat(ms[1], 64)), dimensional.Unit(ms[2]))
 		}
-		if m := regexBorderColor.FindString(seq); m != "" {
+		if m := regexBorderColor.FindString(t); m != "" {
 			b.Color = silent(ParseColor(m))
 		}
-		if m := regexBorderStyle.FindString(seq); m != "" {
+		if m := regexBorderStyle.FindString(t); m != "" {
 			b.Style = m
 		}
 	}
 	return b
 }
 
-func ParseBorders(s string) ast.Borders {
-	left, right, top, bottom := "", "", "", ""
-	switch ss := strings.Split(s, ","); len(ss) {
+func split(ts []css.Token, sep css.TokenType) iter.Seq[[]css.Token] {
+	return func(yield func([]css.Token) bool) {
+		prev := 0
+		for cur, t := range ts {
+			if t.TokenType == sep {
+				if !yield(ts[prev:cur]) {
+					return
+				}
+				prev = cur + 1
+			}
+		}
+	}
+}
+
+func ParseBorders(ts []css.Token) ast.Borders {
+	ss := slices.Collect(split(ts, css.CommaToken))
+	var left, right, top, bottom []css.Token
+	switch len(ss) {
 	case 1:
 		top, right, bottom, left = ss[0], ss[0], ss[0], ss[0]
 	case 2:
