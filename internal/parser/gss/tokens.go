@@ -50,9 +50,9 @@ func split(ts []css.Token, sep css.TokenType) iter.Seq[[]css.Token] {
 
 func isGlobal(t css.Token) bool {
 	for i := range len(globals) {
-		if !compare(globals[i], t) {
-			return false
+		if compare(globals[i], t) {
+			return true
 		}
 	}
-	return true
+	return false
 }

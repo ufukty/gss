@@ -90,6 +90,14 @@ func Example_compare() {
 	fmt.Println(compare(ts[0], inherit)) // Output: true
 }
 
+func Example_isGlobal() {
+	ts, err := tokenize("border: inherit")
+	if err != nil {
+		panic(fmt.Errorf("prep, tokenize: %v", err))
+	}
+	fmt.Println(isGlobal(ts[0])) // Output: true
+}
+
 func TestSplit(t *testing.T) {
 	input := []css.Token{
 		{TokenType: css.WhitespaceToken},
