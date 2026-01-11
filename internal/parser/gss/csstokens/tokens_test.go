@@ -1,4 +1,4 @@
-package gss
+package csstokens
 
 import (
 	"fmt"
@@ -15,7 +15,7 @@ func Example_tokenize_borderStyle() {
 		"inherit", "initial", "unset", "revert", "revert-layer",
 	}
 	for _, tc := range tcs {
-		ts, err := tokenize(fmt.Sprintf("border-style: %s", tc))
+		ts, err := Tokenize(fmt.Sprintf("border-style: %s", tc))
 		if err != nil {
 			panic(fmt.Errorf("prep, tokenize: %v", err))
 		}
@@ -49,7 +49,7 @@ func Example_tokenize_borderWidth() {
 		"inherit", "initial", "unset", "revert", "revert-layer",
 	}
 	for _, tc := range tcs {
-		ts, err := tokenize(fmt.Sprintf("border-width: %s", tc))
+		ts, err := Tokenize(fmt.Sprintf("border-width: %s", tc))
 		if err != nil {
 			panic(fmt.Errorf("prep, tokenize: %v", err))
 		}
@@ -83,17 +83,17 @@ func Example_tokenize_borderWidth() {
 }
 
 func Example_compare() {
-	ts, err := tokenize("border: inherit")
+	ts, err := Tokenize("border: inherit")
 	if err != nil {
-		panic(fmt.Errorf("prep, tokenize: %v", err))
+		panic(fmt.Errorf("prep, Tokenize: %v", err))
 	}
 	fmt.Println(compare(ts[0], inherit)) // Output: true
 }
 
 func Example_isGlobal() {
-	ts, err := tokenize("border: inherit")
+	ts, err := Tokenize("border: inherit")
 	if err != nil {
-		panic(fmt.Errorf("prep, tokenize: %v", err))
+		panic(fmt.Errorf("prep, Tokenize: %v", err))
 	}
 	fmt.Println(isGlobal(ts[0])) // Output: true
 }
@@ -109,7 +109,7 @@ func TestSplit(t *testing.T) {
 		{TokenType: css.IdentToken},
 		{TokenType: css.WhitespaceToken},
 	}
-	ss := slices.Collect(split(input, css.WhitespaceToken))
+	ss := slices.Collect(Split(input, css.WhitespaceToken))
 	if len(ss) != 2 {
 		t.Fatalf("assert, number of splits: expected 2, got %d", len(ss))
 	}

@@ -8,6 +8,7 @@ import (
 	"github.com/tdewolff/parse/v2/css"
 	"go.ufukty.com/gss/internal/ast"
 	"go.ufukty.com/gss/internal/dimensional"
+	"go.ufukty.com/gss/internal/parser/gss/csstokens"
 )
 
 var (
@@ -41,7 +42,7 @@ func ParseBorder(ts []css.Token) ast.Border {
 }
 
 func ParseBorders(ts []css.Token) ast.Borders {
-	ss := slices.Collect(split(ts, css.CommaToken))
+	ss := slices.Collect(csstokens.Split(ts, css.CommaToken))
 	var left, right, top, bottom []css.Token
 	switch len(ss) {
 	case 1:

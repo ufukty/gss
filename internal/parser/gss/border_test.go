@@ -8,6 +8,7 @@ import (
 
 	"go.ufukty.com/gss/internal/ast"
 	"go.ufukty.com/gss/internal/dimensional"
+	"go.ufukty.com/gss/internal/parser/gss/csstokens"
 	"go.ufukty.com/gss/internal/sets"
 	"go.ufukty.com/gss/internal/tokens"
 )
@@ -22,7 +23,7 @@ func TestParseBorder_combinations(t *testing.T) {
 	for combination := range sets.Product(colors, styles, widths) {
 		input := strings.Join(combination, " ")
 		t.Run(input, func(t *testing.T) {
-			ts, err := tokenize(fmt.Sprintf("border: %s", input))
+			ts, err := csstokens.Tokenize(fmt.Sprintf("border: %s", input))
 			if err != nil {
 				t.Fatalf("prep, unexpected error: %v", err)
 			}
@@ -70,7 +71,7 @@ func TestParseBorders_positionalShorthands(t *testing.T) {
 
 	for _, tc := range tcs {
 		t.Run(tc.name, func(t *testing.T) {
-			ts, err := tokenize(fmt.Sprintf("border: %s", tc.input))
+			ts, err := csstokens.Tokenize(fmt.Sprintf("border: %s", tc.input))
 			if err != nil {
 				t.Fatalf("prep, unexpected error: %v", err)
 			}
