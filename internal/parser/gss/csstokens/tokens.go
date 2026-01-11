@@ -35,6 +35,7 @@ func compare(a, b css.Token) bool {
 }
 
 func Split(ts []css.Token, sep css.TokenType) iter.Seq[[]css.Token] {
+	ts = append(ts, css.Token{TokenType: sep}) // for the last split
 	return func(yield func([]css.Token) bool) {
 		prev := 0
 		for cur, t := range ts {

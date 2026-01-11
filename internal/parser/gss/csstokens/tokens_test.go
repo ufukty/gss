@@ -98,25 +98,63 @@ func Example_isGlobal() {
 	fmt.Println(isGlobal(ts[0])) // Output: true
 }
 
+func compareSplits(t *testing.T, expected, got [][]css.Token) {
+	if len(expected) != len(got) {
+		t.Errorf("number of splits don't match: expected %d, got %d", len(expected), len(got))
+	}
+	for i := 0; i < min(len(expected), len(got)); i++ {
+		t.Run(fmt.Sprintf("split %d", i), func(t *testing.T) {
+			e, g := expected[i], got[i]
+			le, lg := len(e), len(g)
+			if le != lg {
+				t.Errorf("split lengths don't match: expected %d, got %d", le, lg)
+			}
+			for j := 0; j < min(le, lg); j++ {
+				if !compare(e[j], g[j]) {
+					t.Errorf("splits differ at the index %d; expected %s, got %s", j, e[j].String(), g[j].String())
+				}
+			}
+		})
+	}
+}
+
+func tokens(types ...css.TokenType) []css.Token {
+	ts := make([]css.Token, 0, len(types))
+	for _, t := range types {
+		ts = append(ts, css.Token{TokenType: t})
+	}
+	return ts
+}
+
 func TestSplit(t *testing.T) {
-	input := []css.Token{
-		{TokenType: css.WhitespaceToken},
-		{TokenType: css.IdentToken},
-		{TokenType: css.IdentToken},
-		{TokenType: css.IdentToken},
-		{TokenType: css.WhitespaceToken},
-		{TokenType: css.WhitespaceToken},
-		{TokenType: css.IdentToken},
-		{TokenType: css.WhitespaceToken},
-	}
-	ss := slices.Collect(Split(input, css.WhitespaceToken))
-	if len(ss) != 2 {
-		t.Fatalf("assert, number of splits: expected 2, got %d", len(ss))
-	}
-	if len(ss[0]) != 3 {
-		t.Errorf("assert, length of first split: expected 3, got %d", len(ss[0]))
-	}
-	if len(ss[1]) != 1 {
-		t.Errorf("assert, length of first split: expected 1, got %d", len(ss[1]))
-	}
+	var (
+		input = tokens(
+			css.WhitespaceToken,
+			css.IdentToken,
+			css.ColumnToken,
+			css.CommentToken,
+			css.WhitespaceToken,
+			css.WhitespaceToken,
+			css.IdentToken,
+			css.WhitespaceToken,
+			css.IdentToken,
+			css.LeftBracketToken,
+		)
+		expected = [][]css.Token{
+			tokens(
+				css.IdentToken,
+				css.ColumnToken,
+				css.CommentToken,
+			),
+			tokens(
+				css.IdentToken,
+			),
+			tokens(
+				css.IdentToken,
+				css.LeftBracketToken,
+			),
+		}
+	)
+	got := slices.Collect(Split(input, css.WhitespaceToken))
+	compareSplits(t, expected, got)
 }
