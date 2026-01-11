@@ -34,16 +34,39 @@ func compare(a, b css.Token) bool {
 	return a.TokenType == b.TokenType && slices.Compare(a.Data, b.Data) == 0
 }
 
-func Split(ts []css.Token, sep css.TokenType) iter.Seq[[]css.Token] {
+func IsBalanced(ts []css.Token) bool {
+	b := 0
+	for _, t := range ts {
+		switch t.TokenType {
+		case css.LeftParenthesisToken:
+			b++
+		case css.RightParenthesisToken:
+			b--
+		}
+	}
+	return b == 0
+}
+
+// Tokens MUST be balanced. Separators inside matching parentheses
+// are treated regularly when scoped.
+func Split(ts []css.Token, sep css.TokenType, scoped bool) iter.Seq[[]css.Token] {
 	ts = append(ts, css.Token{TokenType: sep}) // for the last split
 	return func(yield func([]css.Token) bool) {
 		prev := 0
+		baln := 0
 		for cur, t := range ts {
-			if t.TokenType == sep {
-				if cur > prev && !yield(ts[prev:cur]) {
-					return
+			switch t.TokenType {
+			case css.LeftParenthesisToken:
+				baln++
+			case css.RightParenthesisToken:
+				baln--
+			case sep:
+				if !scoped || baln == 0 {
+					if cur > prev && !yield(ts[prev:cur]) {
+						return
+					}
+					prev = cur + 1
 				}
-				prev = cur + 1
 			}
 		}
 	}

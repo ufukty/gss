@@ -98,6 +98,44 @@ func Example_isGlobal() {
 	fmt.Println(isGlobal(ts[0])) // Output: true
 }
 
+func tokens(types ...css.TokenType) []css.Token {
+	ts := make([]css.Token, 0, len(types))
+	for _, t := range types {
+		ts = append(ts, css.Token{TokenType: t})
+	}
+	return ts
+}
+
+func TestIsBalanced_positive(t *testing.T) {
+	tcs := map[string][]css.Token{
+		"no scope":                  slices.Repeat(tokens(css.WhitespaceToken), 3),
+		"consequtive scopes":        slices.Repeat(tokens(css.LeftParenthesisToken, css.RightParenthesisToken), 3),
+		"consequtive nested scopes": slices.Repeat(tokens(css.LeftParenthesisToken, css.LeftParenthesisToken, css.RightParenthesisToken, css.RightParenthesisToken), 3),
+	}
+	for tn, tc := range tcs {
+		t.Run(tn, func(t *testing.T) {
+			if !IsBalanced(tc) {
+				t.Error("unexpectedly false")
+			}
+		})
+	}
+}
+
+func TestIsBalanced_negative(t *testing.T) {
+	tcs := map[string][]css.Token{
+		"0,5 scope":               tokens(css.LeftParenthesisToken),
+		"1,5 scope":               tokens(css.LeftParenthesisToken, css.RightParenthesisToken, css.LeftParenthesisToken),
+		"uncomplete nested scope": tokens(css.LeftParenthesisToken, css.LeftParenthesisToken, css.RightParenthesisToken),
+	}
+	for tn, tc := range tcs {
+		t.Run(tn, func(t *testing.T) {
+			if IsBalanced(tc) {
+				t.Error("unexpectedly true")
+			}
+		})
+	}
+}
+
 func compareSplits(t *testing.T, expected, got [][]css.Token) {
 	if len(expected) != len(got) {
 		t.Errorf("number of splits don't match: expected %d, got %d", len(expected), len(got))
@@ -118,15 +156,7 @@ func compareSplits(t *testing.T, expected, got [][]css.Token) {
 	}
 }
 
-func tokens(types ...css.TokenType) []css.Token {
-	ts := make([]css.Token, 0, len(types))
-	for _, t := range types {
-		ts = append(ts, css.Token{TokenType: t})
-	}
-	return ts
-}
-
-func TestSplit(t *testing.T) {
+func TestSplit_unscoped(t *testing.T) {
 	var (
 		input = tokens(
 			css.WhitespaceToken,
@@ -155,6 +185,41 @@ func TestSplit(t *testing.T) {
 			),
 		}
 	)
-	got := slices.Collect(Split(input, css.WhitespaceToken))
+	got := slices.Collect(Split(input, css.WhitespaceToken, false))
+	compareSplits(t, expected, got)
+}
+
+func TestSplit_scoped(t *testing.T) {
+	var (
+		input = []css.Token{
+			{TokenType: css.WhitespaceToken},
+			{TokenType: css.IdentToken},
+			{TokenType: css.LeftParenthesisToken},
+			{TokenType: css.IdentToken},
+			{TokenType: css.WhitespaceToken},
+			{TokenType: css.IdentToken},
+			{TokenType: css.RightParenthesisToken},
+			{TokenType: css.IdentToken},
+			{TokenType: css.WhitespaceToken},
+			{TokenType: css.WhitespaceToken},
+			{TokenType: css.IdentToken},
+			{TokenType: css.WhitespaceToken},
+		}
+		expected = [][]css.Token{
+			{
+				{TokenType: css.IdentToken},
+				{TokenType: css.LeftParenthesisToken},
+				{TokenType: css.IdentToken},
+				{TokenType: css.WhitespaceToken}, // to preserve
+				{TokenType: css.IdentToken},
+				{TokenType: css.RightParenthesisToken},
+				{TokenType: css.IdentToken},
+			},
+			{
+				{TokenType: css.IdentToken},
+			},
+		}
+	)
+	got := slices.Collect(Split(input, css.WhitespaceToken, true))
 	compareSplits(t, expected, got)
 }
