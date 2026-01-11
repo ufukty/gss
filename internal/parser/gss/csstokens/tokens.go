@@ -42,6 +42,9 @@ func IsBalanced(ts []css.Token) bool {
 			b++
 		case css.RightParenthesisToken:
 			b--
+			if b < 0 {
+				return false
+			}
 		}
 	}
 	return b == 0

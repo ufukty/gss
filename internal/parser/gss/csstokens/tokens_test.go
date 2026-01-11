@@ -106,11 +106,17 @@ func tokens(types ...css.TokenType) []css.Token {
 	return ts
 }
 
+var (
+	left  = css.LeftParenthesisToken
+	right = css.RightParenthesisToken
+)
+
 func TestIsBalanced_positive(t *testing.T) {
 	tcs := map[string][]css.Token{
-		"no scope":                  slices.Repeat(tokens(css.WhitespaceToken), 3),
-		"consequtive scopes":        slices.Repeat(tokens(css.LeftParenthesisToken, css.RightParenthesisToken), 3),
-		"consequtive nested scopes": slices.Repeat(tokens(css.LeftParenthesisToken, css.LeftParenthesisToken, css.RightParenthesisToken, css.RightParenthesisToken), 3),
+		"no scope":       slices.Repeat(tokens(css.WhitespaceToken), 3),
+		"() () ()":       slices.Repeat(tokens(left, right), 3),
+		"(()()) (()())":  slices.Repeat(tokens(left, left, right, left, right, right), 2),
+		"(()) (()) (())": slices.Repeat(tokens(left, left, right, right), 3),
 	}
 	for tn, tc := range tcs {
 		t.Run(tn, func(t *testing.T) {
@@ -123,9 +129,10 @@ func TestIsBalanced_positive(t *testing.T) {
 
 func TestIsBalanced_negative(t *testing.T) {
 	tcs := map[string][]css.Token{
-		"0,5 scope":               tokens(css.LeftParenthesisToken),
-		"1,5 scope":               tokens(css.LeftParenthesisToken, css.RightParenthesisToken, css.LeftParenthesisToken),
-		"uncomplete nested scope": tokens(css.LeftParenthesisToken, css.LeftParenthesisToken, css.RightParenthesisToken),
+		"(":       tokens(left),
+		"( ) (":   tokens(left, right, left),
+		"( ( )":   tokens(left, left, right),
+		"( ) ) (": tokens(left, right, right, left),
 	}
 	for tn, tc := range tcs {
 		t.Run(tn, func(t *testing.T) {
