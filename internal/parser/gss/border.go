@@ -9,7 +9,6 @@ import (
 	"go.ufukty.com/gss/internal/parser/gss/csstokens"
 )
 
-// TODO: check input for [color]
 // TODO: check input for [style]
 // TODO: check input for [width]
 func ParseBorder(ts []css.Token) (*ast.Border, error) {
