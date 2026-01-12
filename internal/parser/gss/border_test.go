@@ -36,10 +36,10 @@ func TestParseBorders_positionalShorthands(t *testing.T) {
 	var (
 		black = color.NRGBA{0, 0, 0, 255}
 		solid = tokens.BorderStyleSolid
-		b1    = ast.Border{Color: black, Style: solid, Thickness: dimensional.New(1, dimensional.Px)}
-		b2    = ast.Border{Color: black, Style: solid, Thickness: dimensional.New(2, dimensional.Px)}
-		b3    = ast.Border{Color: black, Style: solid, Thickness: dimensional.New(3, dimensional.Px)}
-		b4    = ast.Border{Color: black, Style: solid, Thickness: dimensional.New(4, dimensional.Px)}
+		b1    = ast.Border{Color: black, Style: solid, Width: dimensional.New(1, dimensional.Px)}
+		b2    = ast.Border{Color: black, Style: solid, Width: dimensional.New(2, dimensional.Px)}
+		b3    = ast.Border{Color: black, Style: solid, Width: dimensional.New(3, dimensional.Px)}
+		b4    = ast.Border{Color: black, Style: solid, Width: dimensional.New(4, dimensional.Px)}
 	)
 	type tc struct {
 		name     string

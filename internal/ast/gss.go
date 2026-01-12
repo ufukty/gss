@@ -14,9 +14,9 @@ type (
 		Inside  string
 	}
 	Border struct {
-		Color     any // "inherit", "transparent", color.NRGBA
-		Style     any // "inherit", gss.BorderStyle
-		Thickness any // "none", dimensional.Dimension
+		Color any // "inherit", "transparent", color.NRGBA
+		Style any // "inherit", gss.BorderStyle
+		Width any // "none", dimensional.Dimension
 	}
 	BorderRadiuses struct {
 		TopLeft, TopRight, BottomRight, BottomLeft any // "none", "inherit", dimensional.Dimension
@@ -103,7 +103,7 @@ func (s Border) Strings() []string {
 	return collect(map[string]any{
 		"Color":     s.Color,
 		"Style":     s.Style,
-		"Thickness": s.Thickness,
+		"Thickness": s.Width,
 	})
 }
 

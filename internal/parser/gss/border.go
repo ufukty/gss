@@ -14,9 +14,9 @@ import (
 // TODO: check input for [width]
 func ParseBorder(ts []css.Token) (*ast.Border, error) {
 	b := ast.Border{
-		Color:     "#000000",
-		Style:     "solid",
-		Thickness: "none",
+		Color: "#000000",
+		Style: "solid",
+		Width: "none",
 	}
 	for ts := range csstokens.Split(ts, css.WhitespaceToken, true) {
 		if len(ts) > 1 {
