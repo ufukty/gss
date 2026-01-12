@@ -10,6 +10,11 @@ import (
 	"golang.org/x/image/colornames"
 )
 
+func has[K comparable, V any](m map[K]V, k K) bool {
+	_, ok := m[k]
+	return ok
+}
+
 func isHex(r rune) bool {
 	return ('0' <= r && r <= '9') || ('a' <= r && r <= 'f') || ('A' <= r && r <= 'F')
 }

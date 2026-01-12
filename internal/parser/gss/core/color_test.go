@@ -9,30 +9,6 @@ import (
 	"go.ufukty.com/gss/internal/parser/gss/csstokens"
 )
 
-func TestTrimSpaces(t *testing.T) {
-	input := []css.Token{
-		{TokenType: css.WhitespaceToken},
-		{TokenType: css.WhitespaceToken},
-		{TokenType: css.IdentToken},
-		{TokenType: css.IdentToken},
-		{TokenType: css.IdentToken},
-		{TokenType: css.IdentToken},
-		{TokenType: css.WhitespaceToken},
-		{TokenType: css.WhitespaceToken},
-		{TokenType: css.WhitespaceToken},
-	}
-	trimmed := trimSpaces(input)
-	got := len(trimmed)
-	if got != 4 {
-		t.Errorf("expected 4 got %d", got)
-	}
-	for _, tk := range trimmed {
-		if tk.TokenType == css.WhitespaceToken {
-			t.Errorf("unexpected whitespace token in trimmed array")
-		}
-	}
-}
-
 func TestIsColor_positive(t *testing.T) {
 	tcs := []string{
 		"#fff",
