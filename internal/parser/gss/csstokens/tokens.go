@@ -30,7 +30,7 @@ func Tokenize(in string) ([]css.Token, error) {
 	return p.Values(), nil
 }
 
-func compare(a, b css.Token) bool {
+func Compare(a, b css.Token) bool {
 	return a.TokenType == b.TokenType && slices.Compare(a.Data, b.Data) == 0
 }
 
@@ -75,9 +75,9 @@ func Split(ts []css.Token, sep css.TokenType, scoped bool) iter.Seq[[]css.Token]
 	}
 }
 
-func isGlobal(t css.Token) bool {
+func IsGlobal(t css.Token) bool {
 	for i := range len(globals) {
-		if compare(globals[i], t) {
+		if Compare(globals[i], t) {
 			return true
 		}
 	}

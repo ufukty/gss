@@ -87,7 +87,7 @@ func Example_compare() {
 	if err != nil {
 		panic(fmt.Errorf("prep, Tokenize: %v", err))
 	}
-	fmt.Println(compare(ts[0], inherit)) // Output: true
+	fmt.Println(Compare(ts[0], inherit)) // Output: true
 }
 
 func Example_isGlobal() {
@@ -95,7 +95,7 @@ func Example_isGlobal() {
 	if err != nil {
 		panic(fmt.Errorf("prep, Tokenize: %v", err))
 	}
-	fmt.Println(isGlobal(ts[0])) // Output: true
+	fmt.Println(IsGlobal(ts[0])) // Output: true
 }
 
 func tokens(types ...css.TokenType) []css.Token {
@@ -155,7 +155,7 @@ func compareSplits(t *testing.T, expected, got [][]css.Token) {
 				t.Errorf("split lengths don't match: expected %d, got %d", le, lg)
 			}
 			for j := 0; j < min(le, lg); j++ {
-				if !compare(e[j], g[j]) {
+				if !Compare(e[j], g[j]) {
 					t.Errorf("splits differ at the index %d; expected %s, got %s", j, e[j].String(), g[j].String())
 				}
 			}
