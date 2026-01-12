@@ -19,6 +19,15 @@ var (
 
 var globals = []css.Token{inherit, initial, unset, revert, revertLayer}
 
+func IsGlobal(t css.Token) bool {
+	for i := range len(globals) {
+		if Compare(globals[i], t) {
+			return true
+		}
+	}
+	return false
+}
+
 func Tokenize(in string) ([]css.Token, error) {
 	p := css.NewParser(parse.NewInputString(in), true)
 	gt, _, _ := p.Next()
@@ -73,13 +82,4 @@ func Split(ts []css.Token, sep css.TokenType, scoped bool) iter.Seq[[]css.Token]
 			}
 		}
 	}
-}
-
-func IsGlobal(t css.Token) bool {
-	for i := range len(globals) {
-		if Compare(globals[i], t) {
-			return true
-		}
-	}
-	return false
 }
