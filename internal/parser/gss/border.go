@@ -13,6 +13,9 @@ import (
 // TODO: check input for [style]
 // TODO: check input for [width]
 func ParseBorder(ts []css.Token) (*ast.Border, error) {
+	if !csstokens.IsBalanced(ts) {
+		return nil, fmt.Errorf("unbalanced parentheses")
+	}
 	b := ast.Border{
 		Color: "#000000",
 		Style: "solid",
@@ -25,6 +28,11 @@ func ParseBorder(ts []css.Token) (*ast.Border, error) {
 		t := ts[0]
 		switch {
 		case core.IsColor(t):
+			c, err := core.ParseColor(t)
+			if err != nil {
+				return nil, fmt.Errorf("color: %w", err)
+			}
+			b.Color = c
 		}
 	}
 	return &b, nil
