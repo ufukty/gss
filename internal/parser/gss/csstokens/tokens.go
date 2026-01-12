@@ -60,7 +60,7 @@ func IsBalanced(ts []css.Token) bool {
 }
 
 // Tokens MUST be balanced. Separators inside matching parentheses
-// are treated regularly when scoped.
+// are treated regularly when scoped. Skips empty splits.
 func Split(ts []css.Token, sep css.TokenType, scoped bool) iter.Seq[[]css.Token] {
 	ts = append(ts, css.Token{TokenType: sep}) // for the last split
 	return func(yield func([]css.Token) bool) {
