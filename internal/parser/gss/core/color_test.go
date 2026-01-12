@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/tdewolff/parse/v2/css"
+	"go.ufukty.com/gss/internal/parser/gss/csstokens"
 )
 
 func TestTrimSpaces(t *testing.T) {
@@ -47,7 +48,10 @@ func TestIsColor_positive(t *testing.T) {
 
 	for _, tc := range tcs {
 		t.Run(tc, func(t *testing.T) {
-			toks, _ := tokenize(fmt.Sprintf("border-color: %s", tc))
+			toks, err := csstokens.Tokenize(fmt.Sprintf("border-color: %s", tc))
+			if err != nil {
+				t.Errorf("prep, unexpected error: %v", err)
+			}
 			if !IsColor(toks[0]) {
 				t.Fatal("unexpectedly false")
 			}
