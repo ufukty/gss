@@ -31,7 +31,7 @@ func TestTrimSpaces(t *testing.T) {
 	}
 }
 
-func TestColor_positive(t *testing.T) {
+func TestIsColor_positive(t *testing.T) {
 	tcs := []string{
 		"#fff",
 		"#ffff",
