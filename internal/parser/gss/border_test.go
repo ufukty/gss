@@ -13,7 +13,7 @@ import (
 	"go.ufukty.com/gss/internal/tokens"
 )
 
-func TestParseBorder_combinations(t *testing.T) {
+func TestParseOneBorder_combinations(t *testing.T) {
 	var (
 		colors = []string{"", "red", "#f00", "#F00", "#f00f", "#F00F", "#ff0000", "#FF0000", "#ff0000ff", "#FF0000FF"}
 		styles = []string{"", "solid", "dashed", "dotted"}
@@ -27,12 +27,12 @@ func TestParseBorder_combinations(t *testing.T) {
 			if err != nil {
 				t.Fatalf("prep, unexpected error: %v", err)
 			}
-			ParseBorder(ts)
+			parseOneEdgeBorder(ts)
 		})
 	}
 }
 
-func TestParseBorders_positionalShorthands(t *testing.T) {
+func TestParseBorder_positionalShorthands(t *testing.T) {
 	var (
 		black = color.NRGBA{0, 0, 0, 255}
 		solid = tokens.BorderStyleSolid
@@ -75,11 +75,11 @@ func TestParseBorders_positionalShorthands(t *testing.T) {
 			if err != nil {
 				t.Fatalf("prep, unexpected error: %v", err)
 			}
-			got, err := ParseBorders(ts)
+			got, err := ParseBorder(ts)
 			if err != nil {
 				t.Errorf("act, unexpected error: %v", err)
 			}
-			if tc.expected != *got {
+			if tc.expected != got {
 				t.Errorf("assert, expected %v got %v", tc.expected, got)
 			}
 		})

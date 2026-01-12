@@ -11,54 +11,59 @@ import (
 
 // TODO: check input for [style]
 // TODO: check input for [width]
-func ParseBorder(ts []css.Token) (*ast.Border, error) {
+func parseOneEdgeBorder(ts []css.Token) (ast.Border, error) {
 	if !csstokens.IsBalanced(ts) {
-		return nil, fmt.Errorf("unbalanced parentheses")
+		return ast.Border{}, fmt.Errorf("unbalanced parentheses")
 	}
 	b := ast.Border{
-		Color: "#000000",
+		Color: "currentcolor",
 		Style: "solid",
 		Width: "none",
 	}
 	for ts := range csstokens.Split(ts, css.WhitespaceToken, true) {
 		if len(ts) > 1 {
-			return nil, fmt.Errorf("unsupported border property value length: %d", len(ts))
+			return ast.Border{}, fmt.Errorf("unsupported border property value length: %d", len(ts))
 		}
 		t := ts[0]
 		switch {
 		case core.IsColor(t):
 			c, err := core.ParseColor(t)
 			if err != nil {
-				return nil, fmt.Errorf("color: %w", err)
+				return ast.Border{}, fmt.Errorf("color: %w", err)
 			}
 			b.Color = c
 		}
 	}
-	return &b, nil
+	return b, nil
 }
 
-func ParseBorders(ts []css.Token) (*ast.Borders, error) {
-	if !csstokens.IsBalanced(ts) {
-		return nil, fmt.Errorf("unbalanced parentheses")
+// ParseBorderTop parses `border-top` property values
+func ParseBorderTop(ts []css.Token) (ast.Border, error) {
+	return parseOneEdgeBorder(ts)
+}
+
+// ParseBorderRight parses `border-right` property values
+func ParseBorderRight(ts []css.Token) (ast.Border, error) {
+	return parseOneEdgeBorder(ts)
+}
+
+// ParseBorderBottom parses `border-bottom` property values
+func ParseBorderBottom(ts []css.Token) (ast.Border, error) {
+	return parseOneEdgeBorder(ts)
+}
+
+// ParseBorderLeft parses `border-left` property values
+func ParseBorderLeft(ts []css.Token) (ast.Border, error) {
+	return parseOneEdgeBorder(ts)
+}
+
+// ParseBorder parses `border` property values
+func ParseBorder(ts []css.Token) (ast.Borders, error) {
+	ss, err := byCommas(ts, parseOneEdgeBorder)
+	if err != nil {
+		return ast.Borders{}, err
 	}
-	ss := make([]*ast.Border, 0, len(ts))
-	for ts := range csstokens.Split(ts, css.CommaToken, true) {
-		b, err := ParseBorder(ts)
-		if err != nil {
-			return nil, fmt.Errorf("comma separated values %d: %w", len(ss), err)
-		}
-		ss = append(ss, b)
-	}
-	bs := ast.Borders{}
-	switch len(ss) {
-	case 1:
-		bs.Top, bs.Right, bs.Bottom, bs.Left = *ss[0], *ss[0], *ss[0], *ss[0]
-	case 2:
-		bs.Top, bs.Bottom, bs.Left, bs.Right = *ss[0], *ss[0], *ss[1], *ss[1]
-	case 3:
-		bs.Top, bs.Left, bs.Right, bs.Bottom = *ss[0], *ss[1], *ss[1], *ss[2]
-	case 4:
-		bs.Top, bs.Right, bs.Bottom, bs.Left = *ss[0], *ss[1], *ss[2], *ss[3]
-	}
-	return &bs, nil
+	b := ast.Borders{}
+	b.Top, b.Right, b.Bottom, b.Left = directionalDemux(ss)
+	return b, nil
 }
