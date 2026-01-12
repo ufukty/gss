@@ -13,7 +13,7 @@ import (
 	"go.ufukty.com/gss/internal/tokens"
 )
 
-func TestParseOneBorder_combinations(t *testing.T) {
+func TestParseBorderForOneEdge_combinations(t *testing.T) {
 	var (
 		colors = []string{"", "red", "#f00", "#F00", "#f00f", "#F00F", "#ff0000", "#FF0000", "#ff0000ff", "#FF0000FF"}
 		styles = []string{"", "solid", "dashed", "dotted"}
@@ -27,7 +27,7 @@ func TestParseOneBorder_combinations(t *testing.T) {
 			if err != nil {
 				t.Fatalf("prep, unexpected error: %v", err)
 			}
-			parseOneEdgeBorder(ts)
+			ParseBorderForOneEdge(ts)
 		})
 	}
 }

@@ -9,9 +9,15 @@ import (
 	"go.ufukty.com/gss/internal/parser/gss/csstokens"
 )
 
+// ParseBorderForOneEdge parses values of properties:
+//   - border-top
+//   - border-right
+//   - border-bottom
+//   - border-left
+//
 // TODO: check input for [style]
 // TODO: check input for [width]
-func parseOneEdgeBorder(ts []css.Token) (ast.Border, error) {
+func ParseBorderForOneEdge(ts []css.Token) (ast.Border, error) {
 	if !csstokens.IsBalanced(ts) {
 		return ast.Border{}, fmt.Errorf("unbalanced parentheses")
 	}
@@ -32,34 +38,20 @@ func parseOneEdgeBorder(ts []css.Token) (ast.Border, error) {
 				return ast.Border{}, fmt.Errorf("color: %w", err)
 			}
 			b.Color = c
+		case core.IsBorderStyle(t):
+			bs, err := core.ParseBorderStyle(t)
+			if err != nil {
+				return ast.Border{}, fmt.Errorf("style: %w", err)
+			}
+			b.Style = bs
 		}
 	}
 	return b, nil
 }
 
-// ParseBorderTop parses `border-top` property values
-func ParseBorderTop(ts []css.Token) (ast.Border, error) {
-	return parseOneEdgeBorder(ts)
-}
-
-// ParseBorderRight parses `border-right` property values
-func ParseBorderRight(ts []css.Token) (ast.Border, error) {
-	return parseOneEdgeBorder(ts)
-}
-
-// ParseBorderBottom parses `border-bottom` property values
-func ParseBorderBottom(ts []css.Token) (ast.Border, error) {
-	return parseOneEdgeBorder(ts)
-}
-
-// ParseBorderLeft parses `border-left` property values
-func ParseBorderLeft(ts []css.Token) (ast.Border, error) {
-	return parseOneEdgeBorder(ts)
-}
-
 // ParseBorder parses `border` property values
 func ParseBorder(ts []css.Token) (ast.Borders, error) {
-	ss, err := byCommas(ts, parseOneEdgeBorder)
+	ss, err := byCommas(ts, ParseBorderForOneEdge)
 	if err != nil {
 		return ast.Borders{}, err
 	}
