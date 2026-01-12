@@ -87,7 +87,7 @@ func parseHexColor(bs []byte) (color.RGBA, error) {
 	return rgba, nil
 }
 
-// Parses the color to color.RGBA or string
+// Parses the color to [color.RGBA] or "currentcolor"
 func ParseColor(tok css.Token) (any, error) {
 	switch tok.TokenType {
 
