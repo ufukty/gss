@@ -1,4 +1,4 @@
-package is
+package core
 
 import (
 	"fmt"
@@ -47,7 +47,7 @@ func TestColor_positive(t *testing.T) {
 	for _, tc := range tcs {
 		t.Run(tc, func(t *testing.T) {
 			toks, _ := tokenize(fmt.Sprintf("border-color: %s", tc))
-			if !Color(toks[0]) {
+			if !IsColor(toks[0]) {
 				t.Fatal("unexpectedly false")
 			}
 		})

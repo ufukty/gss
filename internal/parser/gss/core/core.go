@@ -1,4 +1,4 @@
-package is
+package core
 
 import "github.com/tdewolff/parse/v2/css"
 

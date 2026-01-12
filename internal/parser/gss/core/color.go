@@ -1,4 +1,4 @@
-package is
+package core
 
 import (
 	"strings"
@@ -33,7 +33,7 @@ var eColorValues = map[string]any{
 	"currentcolor": nil,
 }
 
-func Color(tok css.Token) bool {
+func IsColor(tok css.Token) bool {
 	switch tok.TokenType {
 
 	case css.HashToken:

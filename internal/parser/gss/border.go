@@ -5,8 +5,8 @@ import (
 
 	"github.com/tdewolff/parse/v2/css"
 	"go.ufukty.com/gss/internal/ast"
+	"go.ufukty.com/gss/internal/parser/gss/core"
 	"go.ufukty.com/gss/internal/parser/gss/csstokens"
-	"go.ufukty.com/gss/internal/parser/gss/is"
 )
 
 // TODO: check input for [color]
@@ -24,7 +24,7 @@ func ParseBorder(ts []css.Token) (*ast.Border, error) {
 		}
 		t := ts[0]
 		switch {
-		case is.Color(t):
+		case core.IsColor(t):
 		}
 	}
 	return &b, nil
