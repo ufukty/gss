@@ -14,7 +14,7 @@ type (
 		Inside  string
 	}
 	Border struct {
-		Color any // "inherit", "transparent", color.NRGBA
+		Color any // "inherit", "transparent", color.RGBA
 		Style any // "inherit", gss.BorderStyle
 		Width any // "none", dimensional.Dimension
 	}
@@ -36,7 +36,7 @@ type (
 		Weight any // "inherit", int
 	}
 	Text struct {
-		Color         any // "inherit", "transparent", color.NRGBA
+		Color         any // "inherit", "transparent", color.RGBA
 		LineHeight    any // "inherit", dimension.Dimensional
 		TextAlignment any // "inherit", gss.TextAlignment
 	}
@@ -54,7 +54,7 @@ type (
 		Font            Font
 		Border          Borders
 		BorderRadiuses  BorderRadiuses
-		BackgroundColor any // "inherit", "transparent", color.NRGBA
+		BackgroundColor any // "inherit", "transparent", color.RGBA
 	}
 	Rule struct {
 		Selector string
