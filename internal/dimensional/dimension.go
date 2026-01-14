@@ -18,6 +18,7 @@ type Dimension struct {
 	Unit  Compound
 }
 
+// TODO: consider renaming to Equal
 func Compare(a, b Dimension) bool {
 	return a.Value == b.Value && compareCompounds(a.Unit, b.Unit)
 }

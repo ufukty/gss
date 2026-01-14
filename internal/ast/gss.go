@@ -5,44 +5,46 @@ import (
 	"slices"
 
 	"go.ufukty.com/gommons/pkg/tree"
+	"go.ufukty.com/gss/internal/dimensional"
 )
 
 // Gss
+// TODO: update [safeEq] with Gss node prop value types
 type (
 	Display struct {
 		Outside string
 		Inside  string
 	}
 	Border struct {
-		Color any // "inherit", "transparent", color.RGBA
+		Color any // "inherit", "transparent", [color.RGBA]
 		Style any // "inherit", gss.BorderStyle
-		Width any // "none", dimensional.Dimension
+		Width any // "none", [dimensional.Dimension]
 	}
 	BorderRadiuses struct {
-		TopLeft, TopRight, BottomRight, BottomLeft any // "none", "inherit", dimensional.Dimension
+		TopLeft, TopRight, BottomRight, BottomLeft any // "none", "inherit", [dimensional.Dimension]
 	}
 	Borders struct {
 		Top, Right, Bottom, Left Border
 	}
 	Margin struct {
-		Top, Right, Bottom, Left any // "inherit", dimensional.Dimension
+		Top, Right, Bottom, Left any // "inherit", [dimensional.Dimension]
 	}
 	Padding struct {
-		Top, Right, Bottom, Left any // "inherit", dimensional.Dimension
+		Top, Right, Bottom, Left any // "inherit", [dimensional.Dimension]
 	}
 	Font struct {
 		Family any // "inherit", []string
-		Size   any // "inherit", dimensional.Dimension
+		Size   any // "inherit", [dimensional.Dimension]
 		Weight any // "inherit", int
 	}
 	Text struct {
-		Color         any // "inherit", "transparent", color.RGBA
+		Color         any // "inherit", "transparent", [color.RGBA]
 		LineHeight    any // "inherit", dimension.Dimensional
-		TextAlignment any // "inherit", gss.TextAlignment
+		TextAlignment any // "inherit", [tokens.TextAlignment]
 	}
 	Dimensions struct {
-		Height any // "auto", "min-content", "max-content", dimensional.Dimension
-		Width  any // "auto", "min-content", "max-content", dimensional.Dimension
+		Height any // "auto", "min-content", "max-content", [dimensional.Dimension]
+		Width  any // "auto", "min-content", "max-content", [dimensional.Dimension]
 	}
 	// TODO: handle shorthand syntaxes during parsing
 	Styles struct {
@@ -54,7 +56,7 @@ type (
 		Font            Font
 		Border          Borders
 		BorderRadiuses  BorderRadiuses
-		BackgroundColor any // "inherit", "transparent", color.RGBA
+		BackgroundColor any // "inherit", "transparent", [color.RGBA]
 	}
 	Rule struct {
 		Selector string
@@ -182,4 +184,94 @@ func (s Styles) Strings() []string {
 
 func (r Rule) String() string {
 	return tree.List(r.Selector, r.Styles.Strings())
+}
+
+// Use the first output for equality when second is true.
+func try[T any](x, y any, eq func(x, y T) bool) (bool, bool) {
+	xT, xOk := x.(T)
+	yT, yOk := y.(T)
+	if xOk && yOk {
+		return eq(xT, yT), true
+	}
+	return false, xOk || yOk
+}
+
+// TODO: Try every possible incompatible operand type before
+// using the built-in equality operator.
+func safeEq(a, b any) bool {
+	if r, ok := try(a, b, dimensional.Compare); ok {
+		return r
+	}
+	if r, ok := try(a, b, slices.Equal[[]string]); ok {
+		return r
+	}
+	return a == b
+}
+
+func (s Display) IsEqual(y Display) bool {
+	return s.Outside == y.Outside &&
+		s.Inside == y.Inside
+}
+
+func (s Border) IsEqual(y Border) bool {
+	return s.Color == y.Color &&
+		s.Style == y.Style &&
+		safeEq(s.Width, y.Width)
+}
+
+func (s BorderRadiuses) IsEqual(y BorderRadiuses) bool {
+	return safeEq(s.TopLeft, y.TopLeft) &&
+		safeEq(s.TopRight, y.TopRight) &&
+		safeEq(s.BottomRight, y.BottomRight) &&
+		safeEq(s.BottomLeft, y.BottomLeft)
+}
+
+func (s Borders) IsEqual(y Borders) bool {
+	return s.Top.IsEqual(y.Top) &&
+		s.Right.IsEqual(y.Right) &&
+		s.Bottom.IsEqual(y.Bottom) &&
+		s.Left.IsEqual(y.Left)
+}
+
+func (s Margin) IsEqual(y Margin) bool {
+	return safeEq(s.Top, y.Top) &&
+		safeEq(s.Right, y.Right) &&
+		safeEq(s.Bottom, y.Bottom) &&
+		safeEq(s.Left, y.Left)
+}
+
+func (s Padding) IsEqual(y Padding) bool {
+	return safeEq(s.Top, y.Top) &&
+		safeEq(s.Right, y.Right) &&
+		safeEq(s.Bottom, y.Bottom) &&
+		safeEq(s.Left, y.Left)
+}
+
+func (s Font) IsEqual(y Font) bool {
+	return safeEq(s.Family, y.Family) &&
+		safeEq(s.Size, y.Size) &&
+		safeEq(s.Weight, y.Weight)
+}
+
+func (s Text) IsEqual(y Text) bool {
+	return s.Color == y.Color &&
+		safeEq(s.LineHeight, y.LineHeight) &&
+		s.TextAlignment == y.TextAlignment
+}
+
+func (s Dimensions) IsEqual(y Dimensions) bool {
+	return safeEq(s.Height, y.Height) &&
+		safeEq(s.Width, y.Width)
+}
+
+func (s Styles) IsEqual(y Styles) bool {
+	return s.Dimensions.IsEqual(y.Dimensions) &&
+		s.Margin.IsEqual(y.Margin) &&
+		s.Padding.IsEqual(y.Padding) &&
+		s.Display.IsEqual(y.Display) &&
+		s.Text.IsEqual(y.Text) &&
+		s.Font.IsEqual(y.Font) &&
+		s.Border.IsEqual(y.Border) &&
+		s.BorderRadiuses.IsEqual(y.BorderRadiuses) &&
+		s.BackgroundColor == y.BackgroundColor
 }
