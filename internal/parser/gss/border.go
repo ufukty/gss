@@ -44,6 +44,12 @@ func ParseBorderForOneEdge(ts []css.Token) (ast.Border, error) {
 				return ast.Border{}, fmt.Errorf("style: %w", err)
 			}
 			b.Style = bs
+		case core.IsBorderWidth(t):
+			bw, err := core.ParseBorderWidth(t)
+			if err != nil {
+				return ast.Border{}, fmt.Errorf("width: %w", err)
+			}
+			b.Width = bw
 		}
 	}
 	return b, nil
