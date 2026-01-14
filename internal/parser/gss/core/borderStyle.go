@@ -15,7 +15,7 @@ var borderStyles = map[tokens.BorderStyle]any{
 }
 
 func IsBorderStyle(tk css.Token) bool {
-	return tk.TokenType != css.IdentToken && (has(borderStyles, tokens.BorderStyle(tk.Data)) || csstokens.IsGlobal(tk))
+	return tk.TokenType == css.IdentToken && (has(borderStyles, tokens.BorderStyle(tk.Data)) || csstokens.IsGlobal(tk))
 }
 
 // returns [tokens.BorderStyle] or globals
