@@ -34,7 +34,7 @@ func TestParseBorderForOneEdge_combinations(t *testing.T) {
 
 func TestParseBorder_positionalShorthands(t *testing.T) {
 	var (
-		black = color.NRGBA{0, 0, 0, 255}
+		black = color.RGBA{0, 0, 0, 255}
 		solid = tokens.BorderStyleSolid
 		b1    = ast.Border{Color: black, Style: solid, Width: dimensional.New(1, dimensional.Px)}
 		b2    = ast.Border{Color: black, Style: solid, Width: dimensional.New(2, dimensional.Px)}
@@ -79,8 +79,8 @@ func TestParseBorder_positionalShorthands(t *testing.T) {
 			if err != nil {
 				t.Errorf("act, unexpected error: %v", err)
 			}
-			if tc.expected != got {
-				t.Errorf("assert, expected %v got %v", tc.expected, got)
+			if !tc.expected.IsEqual(got) {
+				t.Errorf("assert, expected %#v, got %#v", tc.expected, got)
 			}
 		})
 	}
