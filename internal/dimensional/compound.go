@@ -10,15 +10,7 @@ import (
 type Compound map[Unit]int // eg. px^2/em
 
 func compareCompounds(a, b Compound) bool {
-	if len(a) != len(b) {
-		return false
-	}
-	for unit := range a {
-		if a[unit] != b[unit] {
-			return false
-		}
-	}
-	return true
+	return maps.Equal(a, b)
 }
 
 func multiplyCompounds(a, b Compound) Compound {
