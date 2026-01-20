@@ -14,9 +14,6 @@ import (
 //   - border-right
 //   - border-bottom
 //   - border-left
-//
-// TODO: check input for [style]
-// TODO: check input for [width]
 func ParseBorderForOneEdge(ts []css.Token) (ast.Border, error) {
 	if !csstokens.IsBalanced(ts) {
 		return ast.Border{}, fmt.Errorf("unbalanced parentheses")
@@ -50,6 +47,8 @@ func ParseBorderForOneEdge(ts []css.Token) (ast.Border, error) {
 				return ast.Border{}, fmt.Errorf("width: %w", err)
 			}
 			b.Width = bw
+		default:
+			return ast.Border{}, fmt.Errorf("invalid border value: %q (type: %s)", string(t.Data), t.TokenType.String())
 		}
 	}
 	return b, nil
