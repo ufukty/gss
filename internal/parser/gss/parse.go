@@ -34,9 +34,17 @@ func writeDecl(dst *ast.Rule, prop string, values []css.Token) error {
 		dst.Styles.Dimensions.Height = serializeSelector(values)
 	case "justify-content":
 	case "margin":
-		dst.Styles.Margin.Right = "10px"
+		m, err := ParseMargin(values)
+		if err != nil {
+			return fmt.Errorf("parsing margin: %w", err)
+		}
+		dst.Styles.Margin = m
 	case "padding":
-		dst.Styles.Padding.Left = "10px"
+		p, err := ParsePadding(values)
+		if err != nil {
+			return fmt.Errorf("parsing padding: %w", err)
+		}
+		dst.Styles.Padding = p
 	case "position":
 	case "text-align":
 		dst.Styles.Text.TextAlignment = values
