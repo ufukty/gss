@@ -168,6 +168,7 @@ func (s Dimensions) Strings() []string {
 	})
 }
 
+// golistics: all
 func (s Styles) Strings() []string {
 	return collect(map[string]any{
 		"Dimensions":      s.Dimensions,
@@ -208,17 +209,20 @@ func safeEq(a, b any) bool {
 	return a == b
 }
 
+// golistics: all
 func (s Display) IsEqual(y Display) bool {
 	return s.Outside == y.Outside &&
 		s.Inside == y.Inside
 }
 
+// golistics: all
 func (s Border) IsEqual(y Border) bool {
 	return s.Color == y.Color &&
 		s.Style == y.Style &&
 		safeEq(s.Width, y.Width)
 }
 
+// golistics: all
 func (s BorderRadiuses) IsEqual(y BorderRadiuses) bool {
 	return safeEq(s.TopLeft, y.TopLeft) &&
 		safeEq(s.TopRight, y.TopRight) &&
@@ -226,6 +230,7 @@ func (s BorderRadiuses) IsEqual(y BorderRadiuses) bool {
 		safeEq(s.BottomLeft, y.BottomLeft)
 }
 
+// golistics: all
 func (s Borders) IsEqual(y Borders) bool {
 	return s.Top.IsEqual(y.Top) &&
 		s.Right.IsEqual(y.Right) &&
@@ -233,6 +238,7 @@ func (s Borders) IsEqual(y Borders) bool {
 		s.Left.IsEqual(y.Left)
 }
 
+// golistics: all
 func (s Margin) IsEqual(y Margin) bool {
 	return safeEq(s.Top, y.Top) &&
 		safeEq(s.Right, y.Right) &&
@@ -240,6 +246,7 @@ func (s Margin) IsEqual(y Margin) bool {
 		safeEq(s.Left, y.Left)
 }
 
+// golistics: all
 func (s Padding) IsEqual(y Padding) bool {
 	return safeEq(s.Top, y.Top) &&
 		safeEq(s.Right, y.Right) &&
@@ -247,23 +254,27 @@ func (s Padding) IsEqual(y Padding) bool {
 		safeEq(s.Left, y.Left)
 }
 
+// golistics: all
 func (s Font) IsEqual(y Font) bool {
 	return safeEq(s.Family, y.Family) &&
 		safeEq(s.Size, y.Size) &&
 		safeEq(s.Weight, y.Weight)
 }
 
+// golistics: all
 func (s Text) IsEqual(y Text) bool {
 	return s.Color == y.Color &&
 		safeEq(s.LineHeight, y.LineHeight) &&
 		s.TextAlignment == y.TextAlignment
 }
 
+// golistics: all
 func (s Dimensions) IsEqual(y Dimensions) bool {
 	return safeEq(s.Height, y.Height) &&
 		safeEq(s.Width, y.Width)
 }
 
+// golistics: all
 func (s Styles) IsEqual(y Styles) bool {
 	return s.Dimensions.IsEqual(y.Dimensions) &&
 		s.Margin.IsEqual(y.Margin) &&
